@@ -14,6 +14,5 @@ class ExamSchedule {
     static constraints = {
         startTime(nullable: true)
         endTime(nullable: true)
-		exam(nullable: true)
     }
 }

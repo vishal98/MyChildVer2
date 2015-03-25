@@ -7,14 +7,14 @@ class Teacher  extends User  {
      static belongsTo = Grade
      static hasMany = [grades:Grade,subject:Subject ]
 
-  Integer teacherCode
+     Long teacherId
 	 String teacherName
 	 String teacherPhoto
      String teacherEmailId
      String phoneNo
 
      static constraints = {
-    	
+          id generator: 'increment',name: 'teacherId'
           
     }
 }

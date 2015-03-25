@@ -1,6 +1,6 @@
 package ghumover2
 import grails.rest.Resource
-
+import javax.persistence.Transient;
 @Resource(formats=['json', 'xml'])
 class Guardian extends User
 {
@@ -13,9 +13,7 @@ class Guardian extends User
     String mobileNumber
     String emailId
     String officeNumber
-  static mappedBy = [children:'father']
 
-    static hasMany = [children:Student]
 
 
     static constraints = {
@@ -26,9 +24,14 @@ class Guardian extends User
         emailId(nullable: true)
         officeNumber(nullable: true)
     }
-    static mapping = {
 
 
+    void addToChildrens(Student child) {
+        new GuardianChildren(guardian:this, student:child , guardianType:"father").save()
+    }
 
+    @Transient
+    List<Student> getChildren() {
+        return  GuardianChildren.findAllByGuardian(this).student
     }
 }

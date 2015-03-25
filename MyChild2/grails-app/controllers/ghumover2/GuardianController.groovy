@@ -19,11 +19,43 @@ class GuardianController extends RestfulController
     {
          def id = params.id.toString()
 
-         def response = (id.isNumber()) ? Guardian.findById(id) : Guardian.findByUsername(id);
-         render response as JSON
+
+         JSON.use('ParentAccInfo')
+                {
+                  Guardian  response =   (id.isNumber()) ? Guardian.findById(id) : Guardian.findByUsername(id);
+                  render response as JSON
+
+                }
+
 
     }
 
+     def getAllChildren()
+     {
+         def response = [:]
+             try {
+                          def id = params.id
+                          def output = [:]
+                          Guardian  g =   (id.isNumber()) ? Guardian.findById(id) : Guardian.findByUsername(id);
+                          def children = g.getChildren()
+                          output['numberOfChildren'] = children.size()
+                       JSON.use('getChildren')
+                          {
+                               output['children'] = children
+                              render output as JSON
+                          }
+
+
+
+                 }
+            catch (Exception e)
+            {
+                response['status'] = "error"
+                response['message'] = e
+                render response as JSON
+
+            }
+     }
 
 
 }

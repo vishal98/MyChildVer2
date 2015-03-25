@@ -16,11 +16,24 @@ class TimeTableController {
     def getWeekTimetable()
     {
 
+                def gradeName = params.gradeId
+                def response = [:]
+                def section = params.section
+                def grade = Grade.findByNameAndSection(gradeName,section)
+                def timetable = TimeTable.findAllByGrade(grade)
+                def days = TimeTable.executeQuery("select distinct a.day from TimeTable a where a.grade = ? " , [grade])
+               JSON.use('getTimeTable')
+                       {
+                                    days.each {
+                                         response[it] = TimeTable.findAllByGradeAndDay(grade,it)
+                                    }
 
-             def grade = Grade.findByName(params.gradeId)
-             def response =  TimeTable.findAllByGrade(grade)
-             render response as JSON
-    }
+                                    render response as JSON
+                       }
+
+
+
+                 }
 
 
     def getDayTimeTable()
@@ -28,10 +41,12 @@ class TimeTableController {
 
                  def day = params.day
                  def section = params.section
-                 def grade = Grade.findByNameAndSection(params.gradeId,params.section)
-                 def result = TimeTable.findAllByGradeAndDay(grade,day)
-                 render result as JSON
-
+                 JSON.use('getTimeTable')
+                         {
+                             def grade = Grade.findByNameAndSection(params.gradeId, params.section)
+                             def result = TimeTable.findAllByGradeAndDay(grade, day)
+                             render result as JSON
+                         }
 
 
              }

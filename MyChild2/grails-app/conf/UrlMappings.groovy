@@ -82,7 +82,8 @@ class UrlMappings {
 				controller = "teacher"
 				action = "getMsg"
 		}
-			"/App/exam/$classid"{
+			
+			"/Parent/exam/$classid"{
 				controller = "parent"
 				action = "getExamDetails"
 		}
@@ -94,15 +95,22 @@ class UrlMappings {
 				controller = "parent"
 				action = "getSyllabus"
 		}
-			"/Teacher/grade/$grade/username/$username"{
-				controller = "teacher"
-				action = "getSubject"
-		}
-			
+			"/Parent/student"(resources:'student') {
+				"/father"(resources:'guardian')
+			}
+	
+			"/Parent/guardian"(resources: 'guardian')
+					{
+	
+					}
+
+
 		// NEW ADDED APIS
 
 
-		"/app/timetable/$gradeId"
+
+		// TIME TABLE
+		"/app/timetable/$gradeId/$section"
 				{
 			controller = "TimeTable"
 			action = "getWeekTimetable"
@@ -117,47 +125,48 @@ class UrlMappings {
 
 
 
-
+        // PARENT ACCOUNT DETAILS
         "/app/parent/accountInfo/$id"
 				{
 					controller = "Guardian"
 					action = "getAccountInfo"
 				}
+		"/app/parent/$id/getChildren"
+				{
+					controller = "Guardian"
+					action = "getAllChildren"
 
-		"/app/getHomework/$gradeId/$section"
+				}
+
+
+         //HOMEWORK
+
+		"/app/getHomework/$gradeId/$section/all/$dateAssigned"
 				{
 					controller = "Homework"
 					action = "getClassHomework"
 
 				}
-		"/app/getHomework/$gradeId/$section/$subject"
+		"/app/getHomework/$gradeId/$section/$subject/$dateAssigned"
 				{
 					controller = "Homework"
 					action = "getClassHomeworkBySubject"
 
 				}
 
-		"/app/teacher/homework"(resources:"Homework")
-
-
-		"/app/parent"(resources : "guardian")
-
-		"/app/student"(resources : "student")
-
-
-
-
 		"/app/teacher/homework/save"
-		{
-			controller = "Homework"
-			action = "saveHomework"
-		}
+				{
+					controller = "Homework"
+				    action = "saveHomework"
+				}
 
+
+		//"/app/parent"(resources : "guardian")
+
+		//"/app/student"(resources : "student")
 
 
 
 	}
-			 
-			
 	
 }

@@ -131,6 +131,15 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll']
 	
 ]
+cors.enabled=true
+cors.url.pattern = '/api/*'
+cors.headers=[
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Credentials': true,
+		'Access-Control-Allow-Headers': 'origin, authorization, accept, content-type, x-requested-with ,X-Auth-Token',
+		'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS',
+		'Access-Control-Max-Age': 3600
+]
 
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'
 				grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'ghumover2.UserRole'
@@ -186,3 +195,5 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'
 					'/**/images/**':                  ['permitAll'],
 					'/**/favicon.ico':                ['permitAll']
 				]
+				
+				

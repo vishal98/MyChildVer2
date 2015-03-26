@@ -70,9 +70,9 @@ class ParentController {
 			
 		}
 		
-		JSON.use('homework') {
+		//JSON.use('homework') {
 			render homeworkList as JSON
-		}
+	//	}
 	}
 	def getTodayHomeWork(){
 		def article=new Homework()

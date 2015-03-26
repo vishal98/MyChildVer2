@@ -132,7 +132,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	
 ]
 cors.enabled=true
-cors.url.pattern = '/api/*'
+cors.url.pattern = ['/api/*','/app/*','/Teacher/*','/Parent/*']
 cors.headers=[
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Credentials': true,

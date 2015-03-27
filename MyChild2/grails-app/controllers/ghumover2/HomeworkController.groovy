@@ -19,6 +19,35 @@ class HomeworkController extends RestfulController
 		super(Homework)
 	}
 
+	def getStudentHomeworkByDate()
+	{
+ 
+		try{
+ 
+ 
+ 
+			def student =  Student.findByStudentId(params.studentId)
+			Date date = formatter.parse(params.dateAssigned)
+			def grade   =    student.grade
+			def output  = [:]
+			output['StudentId'] = student.studentId
+			output['studentName'] = student.studentName
+ 
+			JSON.use('studentHomework')
+					{
+						def homeworks = Homework.findAll("from  Homework as h where ((h.grade = ? and h.gradeFlag = 'g') or h.student = ?) and h.dateCreated = ?  order by h.dateCreated desc ", [grade, student,date])
+						output['number_of_homeworks'] = homeworks.size()
+						output['homeworks'] = homeworks
+						render output as JSON
+					}
+ 
+		}
+		catch (Exception e)
+		{
+			render e as JSON
+		}
+ 
+	}
 
    def getClassHomework()
    {

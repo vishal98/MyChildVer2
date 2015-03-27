@@ -150,7 +150,14 @@ class UrlMappings {
 						action = "getStudentHomework"
 					}
 	
-	
+	      
+					"/app/getHomework/student/$studentId/$dateAssigned"
+					{
+			  
+					   controller = "Homework"
+					   action = "getStudentHomeworkByDate"
+					}
+			  
 	
 	
 	

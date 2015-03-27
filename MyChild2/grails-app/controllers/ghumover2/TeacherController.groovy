@@ -70,8 +70,10 @@ class TeacherController {
 
 	def getStudentList (){
 		def article=new Student()
-		int grade= Integer.parseInt(params.gradeId)
-
+		//int grade= Integer.parseInt(params.gradeId)
+ 
+		Long grade= Long.parseLong(params.gradeId)
+		
 		def trek=article.findAllWhere('grade.gradeId':grade)
 		//render trek as JSON
 

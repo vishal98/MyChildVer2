@@ -379,7 +379,7 @@ class BootStrap {
 
 		//Homeworks for students
 
-		   new Homework(grade: cl5A , subject: "english" , homework: "English homework", dueDate: "31-12-2016"  ,student: Student.findByStudentId(1) , message: "English Homework for Student , 5 A ", gradeFlag: '0').save(flush: true)
+		   new Homework(grade: cl5A , subject: "english" , homework: "Project ", dueDate: "31-12-2016"  ,student: Student.findByStudentId(1) , message: "Scient Project for Student , 5 A ", gradeFlag: '0').save(flush: true)
 			  // new Homework(homeworkId: 101 ,grade: cl5B , subject: "english" , homework: "English homework" ,  dueDate: "10-04-2015" ,section: "B", student: Student.findByStudentId(101) , message: "English Homework for Student ,  5 B  ", gradeFlag: '0').save(flush: true)
 			  //  new Homework(homeworkId: 102 ,grade: cl6A , subject: "history" , homework: "History homework" ,dueDate: "9-04-2015" ,section: "A", student: Student.findByStudentId(102), message: "History Homework for Student , 6 A  ", gradeFlag: '0').save(flush: true)
 			  // new Homework(homeworkId: 103 ,grade: cl6B , subject: "computerScience" , homework: "ComputerScience homework" , dueDate: "8-04-2015" ,section: "A", student: Student.findByStudentId(103) , message: "ComputerScience Homework for Student , 7 A ", gradeFlag: '0').save(flush: true)
@@ -389,7 +389,7 @@ class BootStrap {
 
 		  //Homeworks for whole batch
 
-				  new Homework(grade: cl5A , subject: "english" ,homework: "English homework", dueDate: "10-04-2015"  ,  message: "English Homework for whole 5 A Students ", gradeFlag: '1').save(flush: true)
+				  new Homework(grade: cl5A , subject: "english" ,homework: "Written work", dueDate: "10-04-2015"  ,  message: "English Homework for whole 5 A Students ", gradeFlag: '1').save(flush: true)
 				//  new Homework(homeworkId: 106 ,grade: cl5B , subject: "english" ,homework: "English homework", dueDate:  "9-04-2015" ,section: "B",  message: "English Homework for whole 5 B Students ", gradeFlag: '1').save(flush: true)
 				//  new Homework(homeworkId: 107 ,grade: cl6A , subject: "history" ,homework: "history homework", dueDate:  "8-04-2015" ,section: "A" ,  message: "History Homework for whole 6 A Students ", gradeFlag: '1').save(flush: true)
 				//  new Homework(homeworkId: 108 ,grade: cl7A , subject: "computerScience" ,homework: "computerScience homework", dueDate: "7-04-2015" ,section:"A",  message: "Computer Science Homework for whole 7 A Students ", gradeFlag: '1').save(flush: true)
@@ -603,10 +603,10 @@ class BootStrap {
 			Exam subject ->
 		
 			  
-		   return  ['examId':  subject.examId,
+		   return  ['examId':  subject.examId?subject.examId.toString():'',
 				   'examType': subject.examType,
 			   'schedule':subject.examSchedule,
-			   'examSyllabus':subject.examSyllabus
+			   'examSyllabus':subject.syllabus
 			   
 			   ]
 			   
@@ -796,9 +796,9 @@ class BootStrap {
 					present_guardian : s.present_guardian ,
 					grade : s.grade?.name ,
 					section : s.grade?.section ,
-					father: s?.getFather() ,
-					mother: s?.getMother() ,
-					local_guardian: s?.getLocalGuardian()
+					//father: s?.getFather() ,
+					//mother: s?.getMother() ,
+					//local_guardian: s?.getLocalGuardian()
 
 			]
 		}
@@ -870,12 +870,12 @@ class BootStrap {
 
 
 				return  [
-						 'homeworkId' : h.homeworkId ,
+						 'homeworkId' : h.homeworkId?h.homeworkId.toString():'' ,
 						 'subject'    : h.subject ,
-						 'dueDate'    : h.dueDate ,
-						 'dateCreated': h.dateCreated ,
+						 'dueDate'    : h.dueDate?h.dueDate.format("yyyy-MM-dd").toString():''  ,
+						 'dateCreated': h.dateCreated?h.dateCreated.format("yyyy-MM-dd").toString():'' ,
 						 'message'    : h.message,
-						 'homework'   : h.homework
+						 'homeworkType'   : h.homework
 						]
 			}
 		}

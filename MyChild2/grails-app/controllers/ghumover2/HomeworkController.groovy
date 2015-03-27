@@ -3,6 +3,7 @@ package ghumover2
 import grails.converters.JSON
 import grails.rest.RestfulController
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugins.rest.client.RestBuilder
 
 import java.sql.Array
 import java.text.SimpleDateFormat;
@@ -71,7 +72,7 @@ class HomeworkController extends RestfulController
    }
 
 	def saveHomework() {
-
+	
 		try {
 
 			def gradeFlag = params.gradeFlag
@@ -120,8 +121,8 @@ class HomeworkController extends RestfulController
 
 
 
-
 	  def getStudentHomework()
+	  
 			 {
 				  try{
 

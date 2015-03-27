@@ -29,13 +29,9 @@ class Homework
 		grade(nullable:true)
 		homeworkId(nullable: true)
 		grade(nullable: true)
-		subject(nullable: true)
-		dueDate(nullable: true)
-		homework(nullable: true)
-
-		student(nullable: true)
+	
 		message(nullable: true)
-		gradeFlag(nullable: true)
+		
 
 
 

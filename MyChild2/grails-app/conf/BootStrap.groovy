@@ -123,18 +123,18 @@ class BootStrap {
 
 		def father , mother , local_guardian , s1 , s2 , s3
 	   // FIRST STUDENT DETAILS
-		s1 =  new Student(studentId:100 , grade:cl5A  , registerNumber: "ST100" ,studentName: "Rohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+		s1 =  new Student(grade:cl5A  , registerNumber: "ST100" ,studentName: "Rohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
 		s1.setAsFather( new Guardian(name: "Ravi" , username: "ravi@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
 		s1.setAsMother( new Guardian(name:"Raani" , username: "raani@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
 		father = Guardian.findByUsername("ravi@test.com")
 		mother = Guardian.findByUsername("raani@test.com")
 
-		s2 =  new Student(studentId:101 ,grade: cl5A , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
+		s2 =  new Student(grade: cl5A , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
 		s2.setAsFather( father )
 		s2.setAsMother( mother )
 
-		s3 =  new Student(studentId:102 , grade: cl6A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+		s3 =  new Student(grade: cl6A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
 		s3.setAsFather( father )
 		s3.setAsMother( mother )
 
@@ -145,7 +145,7 @@ class BootStrap {
 
 	   // SECOND STUDENT DETAILS
 
-		s1 =  new Student(studentId:103 , grade:cl5A  , registerNumber: "ST103" ,studentName: "Midhun" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+		s1 =  new Student( grade:cl5A  , registerNumber: "ST103" ,studentName: "Midhun" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
 		s1.setAsFather( new Guardian(name: "Mahadev" , username: "mahadev@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
 		s1.setAsMother( new Guardian(name:"Malini" , username: "malini@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 		s1.setAsLocalGuardian((new Guardian(name:"Manish" , username: "manish@test.com" , password: "123" , educational_qualification: "MCA" , designation: "Software Engineer" , profession: "IT Professional" , emailId: "local_guard@test.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979" )).save())
@@ -154,12 +154,12 @@ class BootStrap {
 		local_guardian = Guardian.findByUsername("manish@test.com")
 
 
-		s2 =  new Student(studentId:104 ,grade: cl5A , registerNumber: "ST104" ,studentName: "Manoj" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+		s2 =  new Student(grade: cl5A , registerNumber: "ST104" ,studentName: "Manoj" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
 		s2.setAsFather( father )
 		s2.setAsMother( mother )
 		s2.setAsLocalGuardian( local_guardian )
 
-		s3 =  new Student(studentId:105 , grade: cl6A ,  registerNumber: "ST105" ,studentName: "Mohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian", present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
+		s3 =  new Student(grade: cl6A ,  registerNumber: "ST105" ,studentName: "Mohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian", present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
 		s3.setAsFather( father )
 		s3.setAsMother( mother )
 		s3.setAsLocalGuardian( local_guardian )
@@ -171,18 +171,18 @@ class BootStrap {
 
 		// third group STUDENT DETAILS
 
-		s1 =  new Student(studentId:106 , grade:cl5A  , registerNumber: "ST106" ,studentName: "Neha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+		s1 =  new Student( grade:cl5A  , registerNumber: "ST106" ,studentName: "Neha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
 		s1.setAsFather( new Guardian(name: "Nagesh" , username: "nagesh@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
 		s1.setAsMother( new Guardian(name:"Nanditha" , username: "nanditha@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
 		father = Guardian.findByUsername("nagesh@test.com")
 		mother = Guardian.findByUsername("nanditha@test.com")
 
-		s2 =  new Student(studentId:107 ,grade: cl5A , registerNumber: "ST107" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+		s2 =  new Student(grade: cl5A , registerNumber: "ST107" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
 		s2.setAsFather( father )
 		s2.setAsMother( mother )
 
-		s3 =  new Student(studentId:108 , grade: cl6A ,  registerNumber: "ST108" ,studentName: "Nikhitha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+		s3 =  new Student( grade: cl6A ,  registerNumber: "ST108" ,studentName: "Nikhitha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
 		s3.setAsFather( father )
 		s3.setAsMother( mother )
 
@@ -297,13 +297,13 @@ class BootStrap {
 
 		// Add some subjects and assing them to grades
   
-		new Subject(subjectId:100 ,subjectName:"English").save(flush:true)
-		new Subject(subjectId:101 ,subjectName:"Hindi").save(flush:true)
-		new Subject(subjectId:102 ,subjectName:"Physics").save(flush:true)
-		new Subject(subjectId:103 ,subjectName:"Chemistry").save(flush:true)
-		new Subject(subjectId:104 ,subjectName: "Mathematics" ).save(flush: true)
-		new Subject(subjectId:105 ,subjectName: "ComputerScience").save(flush: true)
-		new Subject(subjectId:106 ,subjectName: "History").save(flush: true)
+		new Subject(subjectName:"English").save(flush:true)
+		new Subject(subjectName:"Hindi").save(flush:true)
+		new Subject(subjectName:"Physics").save(flush:true)
+		new Subject(subjectName:"Chemistry").save(flush:true)
+		new Subject(subjectName: "Mathematics" ).save(flush: true)
+		new Subject(subjectName: "ComputerScience").save(flush: true)
+		new Subject(subjectName: "History").save(flush: true)
 
 
 		def english = Subject.get(1)
@@ -379,100 +379,100 @@ class BootStrap {
 
 		//Homeworks for students
 
-		   new Homework(homeworkId: 100 ,grade: cl5A , subject: "english" , homework: "English homework", dueDate: "15-04-2015" ,section: "A" ,student: Student.findByStudentId(100) , message: "English Homework for Student , 5 A ", gradeFlag: '0').save(flush: true)
-		   new Homework(homeworkId: 101 ,grade: cl5B , subject: "english" , homework: "English homework" ,  dueDate: "10-04-2015" ,section: "B", student: Student.findByStudentId(101) , message: "English Homework for Student ,  5 B  ", gradeFlag: '0').save(flush: true)
-		   new Homework(homeworkId: 102 ,grade: cl6A , subject: "history" , homework: "History homework" ,dueDate: "9-04-2015" ,section: "A", student: Student.findByStudentId(102), message: "History Homework for Student , 6 A  ", gradeFlag: '0').save(flush: true)
-		   new Homework(homeworkId: 103 ,grade: cl6B , subject: "computerScience" , homework: "ComputerScience homework" , dueDate: "8-04-2015" ,section: "A", student: Student.findByStudentId(103) , message: "ComputerScience Homework for Student , 7 A ", gradeFlag: '0').save(flush: true)
-		   new Homework(homeworkId: 104 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate: "7-04-2015" ,section: "A",student: Student.findByStudentId(104) , message: "Physics Homework for Student 10 A", gradeFlag: '0').save(flush: true)
+		   new Homework(grade: cl5A , subject: "english" , homework: "English homework", dueDate: "31-12-2016"  ,student: Student.findByStudentId(1) , message: "English Homework for Student , 5 A ", gradeFlag: '0').save(flush: true)
+			  // new Homework(homeworkId: 101 ,grade: cl5B , subject: "english" , homework: "English homework" ,  dueDate: "10-04-2015" ,section: "B", student: Student.findByStudentId(101) , message: "English Homework for Student ,  5 B  ", gradeFlag: '0').save(flush: true)
+			  //  new Homework(homeworkId: 102 ,grade: cl6A , subject: "history" , homework: "History homework" ,dueDate: "9-04-2015" ,section: "A", student: Student.findByStudentId(102), message: "History Homework for Student , 6 A  ", gradeFlag: '0').save(flush: true)
+			  // new Homework(homeworkId: 103 ,grade: cl6B , subject: "computerScience" , homework: "ComputerScience homework" , dueDate: "8-04-2015" ,section: "A", student: Student.findByStudentId(103) , message: "ComputerScience Homework for Student , 7 A ", gradeFlag: '0').save(flush: true)
+			  // new Homework(homeworkId: 104 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate: "7-04-2015" ,section: "A",student: Student.findByStudentId(104) , message: "Physics Homework for Student 10 A", gradeFlag: '0').save(flush: true)
 
 
 
-	  //Homeworks for whole batch
+		  //Homeworks for whole batch
 
-			  new Homework(homeworkId: 105 ,grade: cl5A , subject: "english" ,homework: "English homework", dueDate: new Date().parse('dd-MM-yyyy', "10-04-2015") ,section: "A" ,  message: "English Homework for whole 5 A Students ", gradeFlag: '1').save(flush: true)
-			  new Homework(homeworkId: 106 ,grade: cl5B , subject: "english" ,homework: "English homework", dueDate: new Date().parse('dd-MM-yyyy',  "9-04-2015") ,section: "B",  message: "English Homework for whole 5 B Students ", gradeFlag: '1').save(flush: true)
-			  new Homework(homeworkId: 107 ,grade: cl6A , subject: "history" ,homework: "history homework", dueDate: new Date().parse('dd-MM-yyyy',  "8-04-2015") ,section: "A" ,  message: "History Homework for whole 6 A Students ", gradeFlag: '1').save(flush: true)
-			  new Homework(homeworkId: 108 ,grade: cl7A , subject: "computerScience" ,homework: "computerScience homework", dueDate: new Date().parse('dd-MM-yyyy', "7-04-2015" ) ,section:"A",  message: "Computer Science Homework for whole 7 A Students ", gradeFlag: '1').save(flush: true)
-			  new Homework(homeworkId: 109 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate: new Date().parse('dd-MM-yyyy',  "6-04-2015" ),section: "A",  message: "Physics Homework for whole 10 A Students ", gradeFlag: '1').save(flush: true)
-			  new Homework(homeworkId: 110 ,grade: cl10B , subject: "physics" ,homework: "Physics homework", dueDate:  new Date().parse('dd-MM-yyyy', "5-04-2015") ,section: "B",  message: "Chemistry Homework for whole 10 B Students ", gradeFlag: '1').save(flush: true)
-
-
-
-		  //	End of homework entries
+				  new Homework(grade: cl5A , subject: "english" ,homework: "English homework", dueDate: "10-04-2015"  ,  message: "English Homework for whole 5 A Students ", gradeFlag: '1').save(flush: true)
+				//  new Homework(homeworkId: 106 ,grade: cl5B , subject: "english" ,homework: "English homework", dueDate:  "9-04-2015" ,section: "B",  message: "English Homework for whole 5 B Students ", gradeFlag: '1').save(flush: true)
+				//  new Homework(homeworkId: 107 ,grade: cl6A , subject: "history" ,homework: "history homework", dueDate:  "8-04-2015" ,section: "A" ,  message: "History Homework for whole 6 A Students ", gradeFlag: '1').save(flush: true)
+				//  new Homework(homeworkId: 108 ,grade: cl7A , subject: "computerScience" ,homework: "computerScience homework", dueDate: "7-04-2015" ,section:"A",  message: "Computer Science Homework for whole 7 A Students ", gradeFlag: '1').save(flush: true)
+				//  new Homework(homeworkId: 109 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate:  "6-04-2015",section: "A",  message: "Physics Homework for whole 10 A Students ", gradeFlag: '1').save(flush: true)
+				//  new Homework(homeworkId: 110 ,grade: cl10B , subject: "physics" ,homework: "Physics homework", dueDate:  "5-04-2015" ,section: "B",  message: "Chemistry Homework for whole 10 B Students ", gradeFlag: '1').save(flush: true)
 
 
-	  // Add exam entries
 
-			   new Exam(examId: 100 , examName: "English" , examType: "Class test").save(flush: true)
-			  new Exam(examId: 101 , examName: "Chemistry" , examType: "Class test").save(flush: true)
-			  new Exam(examId: 102 , examName: "Physics" , examType: "Model Exam").save(flush: true)
-			  new Exam(examId: 103 , examName: "Mathematics" , examType: "Model Exam").save(flush: true)
-			  new Exam(examId: 104 , examName: "Hindi" , examType: "ModelExam").save(flush: true)
-			  new Exam(examId: 105 , examName: "History", examType: "Mid Term Exam").save(flush: true)
-			  new Exam(examId: 106 , examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
-
-			  def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
-			  exam1 = Exam.get(1)
-			  exam2 = Exam.get(2)
-			  exam3 = Exam.get(3)
-			  exam4 = Exam.get(4)
-			  exam5 = Exam.get(5)
-			  exam6 = Exam.get(6)
-			  exam7 = Exam.get(7)
+			  //	End of homework entries
 
 
-			  new ExamSchedule(exam: exam1  , subject: english ,teacher :sibi).save(flush: true)
-			  new ExamSchedule(exam: exam2  , subject: chemistry ,teacher :mathew).save(flush: true)
-			  new ExamSchedule(exam: exam3 , subject: physics ,teacher :sathees).save(flush: true)
-			  new ExamSchedule(exam: exam4, subject: maths ,teacher : sibi).save(flush: true)
-			  new ExamSchedule(exam: exam5, subject: hindi ,teacher :mathew).save(flush: true)
-			  new ExamSchedule(exam: exam6 , subject: history ,teacher :sathees).save(flush: true)
-			  new ExamSchedule(exam: exam7 , subject: computerScience ,teacher :sibi).save(flush: true)
+		   // Add exam entries
 
-			  new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
-			  new ExamSyllabus(exam: exam2 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
-			  new ExamSyllabus(exam: exam3 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
+					   new Exam(examId: 100 , examName: "English" , examType: "Class test").save(flush: true)
+					  new Exam(examId: 101 , examName: "Chemistry" , examType: "Class test").save(flush: true)
+					  new Exam(examId: 102 , examName: "Physics" , examType: "Model Exam").save(flush: true)
+					  new Exam(examId: 103 , examName: "Mathematics" , examType: "Model Exam").save(flush: true)
+					  new Exam(examId: 104 , examName: "Hindi" , examType: "ModelExam").save(flush: true)
+					  new Exam(examId: 105 , examName: "History", examType: "Mid Term Exam").save(flush: true)
+					  new Exam(examId: 106 , examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
+
+					  def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
+					  exam1 = Exam.get(1)
+					  exam2 = Exam.get(2)
+					  exam3 = Exam.get(3)
+					  exam4 = Exam.get(4)
+					  exam5 = Exam.get(5)
+					  exam6 = Exam.get(6)
+					  exam7 = Exam.get(7)
 
 
-		[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B].each { cls ->
+					  new ExamSchedule(exam: exam1  , subject: english ,teacher :sibi).save(flush: true)
+					  new ExamSchedule(exam: exam2  , subject: chemistry ,teacher :mathew).save(flush: true)
+					  new ExamSchedule(exam: exam3 , subject: physics ,teacher :sathees).save(flush: true)
+					  new ExamSchedule(exam: exam4, subject: maths ,teacher : sibi).save(flush: true)
+					  new ExamSchedule(exam: exam5, subject: hindi ,teacher :mathew).save(flush: true)
+					  new ExamSchedule(exam: exam6 , subject: history ,teacher :sathees).save(flush: true)
+					  new ExamSchedule(exam: exam7 , subject: computerScience ,teacher :sibi).save(flush: true)
 
-			new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: english).save(flush: true)
-			new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: maths).save(flush: true)
-			new TimeTable(grade: cls, day: "Monday", teacher: sathees, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: history).save(flush: true)
-			new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: physics).save(flush: true)
+					  new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
+					  new ExamSyllabus(exam: exam2 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
+					  new ExamSyllabus(exam: exam3 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
 
-			new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: physics).save(flush: true)
-			new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
-			new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: history).save(flush: true)
-			new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
 
-			new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: maths).save(flush: true)
-			new TimeTable(grade: cls, day: "Wednesday", teacher: sathees, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: physics).save(flush: true)
+				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B].each { cls ->
 
-			new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: history).save(flush: true)
-			new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: maths).save(flush: true)
-			new TimeTable(grade: cls, day: "Thursday", teacher: sathees, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: physics).save(flush: true)
-			new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: maths).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: english).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: maths).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: sathees, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: history).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: physics).save(flush: true)
 
-			new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: maths).save(flush: true)
-			new TimeTable(grade: cls, day: "Friday", teacher: sathees, subject: hindi).save(flush: true)
-			new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: history).save(flush: true)
-			new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: computerScience).save(flush: true)
-			new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: computerScience).save(flush: true)
-			
+					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: physics).save(flush: true)
+					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
+					new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: history).save(flush: true)
+					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
 
-		}
+					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: maths).save(flush: true)
+					new TimeTable(grade: cls, day: "Wednesday", teacher: sathees, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: physics).save(flush: true)
+
+					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: history).save(flush: true)
+					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: maths).save(flush: true)
+					new TimeTable(grade: cls, day: "Thursday", teacher: sathees, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: physics).save(flush: true)
+					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: maths).save(flush: true)
+
+					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: maths).save(flush: true)
+					new TimeTable(grade: cls, day: "Friday", teacher: sathees, subject: hindi).save(flush: true)
+					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: history).save(flush: true)
+					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: computerScience).save(flush: true)
+					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: computerScience).save(flush: true)
+
+
+				}
 
 
 
@@ -714,7 +714,7 @@ class BootStrap {
 
 
 
-				return                  [ 'id':s.id,
+				return                  [
 										  'studentId': s.studentId,
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
@@ -744,6 +744,41 @@ class BootStrap {
 		}
 
 
+		JSON.createNamedConfig('studentDetail') {
+			it.registerObjectMarshaller( Student ) { Student s ->
+
+
+
+				return                  [
+										  'studentId': s.studentId,
+										  'registerNumber': s.registerNumber,
+										  'studentName' : s.studentName ,
+										  'grade' : s.grade?.name,
+										  'section' : s.grade?.section,
+										  'gender' : s.gender,
+										  'present_address' : s.present_address ,
+										  'no_of_siblings' : s.no_of_siblings ,
+										  'dob' : s.dob,
+										  'age' : s.getAge() ,
+										  'present_guardian' : s.present_guardian,
+										   'father' :   [
+														   'id' : s.getFather()?.id,
+														   'name' : s.getFather()?.name ,
+														],
+										  'mother' :   [
+												  'id' : s.getMother()?.id,
+												  'name' : s.getMother()?.name ,
+										  ],
+										  'local_guardian' :   [
+												  'id' : s.getLocalGuardian()?.id,
+												  'name' : s.getLocalGuardian()?.name ,
+										  ]
+
+									  ]
+			}
+		}
+
+
 
 
 
@@ -761,9 +796,9 @@ class BootStrap {
 					present_guardian : s.present_guardian ,
 					grade : s.grade?.name ,
 					section : s.grade?.section ,
-					//father: s?.getFather() ,
-					//mother: s?.getMother() ,
-					//local_guardian: s?.getLocalGuardian()
+					father: s?.getFather() ,
+					mother: s?.getMother() ,
+					local_guardian: s?.getLocalGuardian()
 
 			]
 		}
@@ -829,7 +864,21 @@ class BootStrap {
 		}
 
 
+		JSON.createNamedConfig('studentHomework') {
+			it.registerObjectMarshaller( Homework ) { Homework h ->
 
+
+
+				return  [
+						 'homeworkId' : h.homeworkId ,
+						 'subject'    : h.subject ,
+						 'dueDate'    : h.dueDate ,
+						 'dateCreated': h.dateCreated ,
+						 'message'    : h.message,
+						 'homework'   : h.homework
+						]
+			}
+		}
 
 
 

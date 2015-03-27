@@ -2,16 +2,17 @@ package ghumover2
 
 import org.grails.databinding.BindingFormat
 
-class Homework 
+import java.text.SimpleDateFormat
+
+class Homework
 {
-	Integer homeworkId
+	Long homeworkId
 	Grade grade
 	String subject
-	@BindingFormat('dd-MM-yyyy')
+	@BindingFormat("dd-MM-yyyy")
 	Date dueDate
 	String homework
-	String section
-	@BindingFormat('dd-MM-yyyy')
+	@BindingFormat("dd-MM-yyyy")
 	Date dateCreated
 	Student student
 	String message
@@ -31,7 +32,7 @@ class Homework
 		subject(nullable: true)
 		dueDate(nullable: true)
 		homework(nullable: true)
-		section(nullable: true)
+
 		student(nullable: true)
 		message(nullable: true)
 		gradeFlag(nullable: true)
@@ -39,6 +40,14 @@ class Homework
 
 
 		}
-	
-	
+
+	static mapping = {
+						id generator: 'increment',name: 'homeworkId'
+						dateCreated  sqlType: "DATE"
+						dueDate sqlType: "DATE"
+					   }
+
+
+
+
 }

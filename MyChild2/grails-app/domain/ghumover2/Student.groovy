@@ -16,15 +16,16 @@ class Student  {
 	Date dob
 	String studentPhoto
 	String present_guardian
-    static belongsTo = [grade : Grade]
+	static belongsTo = [grade : Grade]
 
 	static hasMany = [siblings:Sibling]
 
+	static mapping = { id generator: 'increment',name: 'studentId' }
 
 
 
 	static constraints = {
-		id generator: 'increment',name: 'studentId'
+
 		gender(nullable: true)
 		registerNumber(nullable:true)
 		grade(nullable:true)
@@ -32,7 +33,7 @@ class Student  {
 		no_of_siblings(nullable :true)
 		dob(nullable: true)
 		studentPhoto(nullable: true)
-	 	present_guardian(nullable: true)
+		 present_guardian(nullable: true)
 	}
 
 	void setAsFather(Guardian father)

@@ -14,13 +14,13 @@ class UrlMappings {
 			"/detail/$name/event/$event?" {
 				controller = "ghumo"
 				action = "showEvents"
-			
+	
 			}
 				"/user/name/$name/email/$email/message/$msg"{
 					controller = "ghumo"
 					action = "addMessage"
 			}
-				
+	
 				"/blogList/$msg?"{
 					controller = "blog"
 					action = "getBlogs"
@@ -38,13 +38,13 @@ class UrlMappings {
 					controller = "teacher"
 					action = "getSubject"
 			}
-	
+			*/
 			"/Teacher/studentList/$gradeId"{
 					controller = "teacher"
 					action = "getStudentList"
 			}
-				
-		*/		"/Teacher/sendmessage/"{
+	
+				"/Teacher/sendmessage/"{
 					controller = "teacher"
 					action = "sendMessage"
 			}
@@ -60,22 +60,22 @@ class UrlMappings {
 					controller = "parent"
 					action = "getTodayHomeWork"
 			}
-				
+	
 				"/Parent/username/$username"{
 					controller = "parent"
 					action = "getParentDetails"
 			}
-				
+	
 				"/activity/$activityCode"{
 					controller = "ghumo"
 					action = "getActivityDetail"
 			}
-				
+	
 				"/Teacher/id/$userId"{
 					controller = "teacher"
 					action = "getTeacherDetails"
 			}
-				
+	
 				"/Parent/studentId/$stdid/teacher/$classid"{
 					controller = "parent"
 					action = "getHomeWork"
@@ -84,7 +84,7 @@ class UrlMappings {
 					controller = "teacher"
 					action = "getMsg"
 			}
-				
+	
 				"/Parent/exam/$classid"{
 					controller = "parent"
 					action = "getExamDetails"
@@ -100,10 +100,10 @@ class UrlMappings {
 				"/Parent/student"(resources:'student') {
 					"/father"(resources:'guardian')
 				}
-		
+	
 				"/Parent/guardian"(resources: 'guardian')
 						{
-		
+	
 						}
 	
 	
@@ -143,44 +143,28 @@ class UrlMappings {
 	
 			 //HOMEWORK
 	
-			"/app/getHomework/$gradeId/$section/all/$dateAssigned"
+			"/app/getHomework/student/$studentId"
 					{
-						controller = "Homework"
-						action = "getClassHomework"
 	
-					}
-			"/app/getHomework/$gradeId/$section/$subject/$dateAssigned"
-					{
-						controller = "Homework"
-						action = "getClassHomeworkBySubject"
-	
-					 }
-	
-			"/app/getHomework/$studentId/$dateAssigned"
-					{
 						controller = "Homework"
 						action = "getStudentHomework"
-	
-					}
-	
-			"/app/getHomework/$grad"
-	
-	
-	
-			"/app/teacher/homework/save"
-					{
-						controller = "Homework"
-						action = "saveHomework"
 					}
 	
 	
-			//"/app/parent"(resources : "guardian")
 	
-			//"/app/student"(resources : "student")
+	
+	
+	
+	
+	
+			"/app/teacher/homework/save"(controller: "Homework", action: "saveHomework" ,parseRequest: true)
+	
+	
+	
 	
 	
 	
 		}
-		
+	
 	}
 	

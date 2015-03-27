@@ -4,17 +4,17 @@ import grails.rest.Resource
 @Resource
 class Teacher  extends User  {
 
-     static belongsTo = Grade
-     static hasMany = [grades:Grade,subject:Subject ]
+	 static belongsTo = Grade
+	 static hasMany = [grades:Grade,subject:Subject ]
 
-     Long teacherId
+	 Long teacherId
 	 String teacherName
 	 String teacherPhoto
-     String teacherEmailId
-     String phoneNo
+	 String teacherEmailId
+	 String phoneNo
 
-     static constraints = {
-          id generator: 'increment',name: 'teacherId'
-          
-    }
+	 static constraints = {
+		  id generator: 'increment',name: 'teacherId'
+		  
+	}
 }

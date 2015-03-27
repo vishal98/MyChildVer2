@@ -3,16 +3,18 @@ import grails.rest.Resource
 
 @Resource
 class Subject {
-    
+	
 	
 	
 	static hasMany = [grade:Grade,teachers:Teacher]
-    Integer subjectId
+	Long subjectId
 	String subjectName
-	//int grade
-	//String section
 	static belongsTo = [Grade,Teacher]
-    static constraints = {
+	static mapping = {
 		id generator: 'increment',name: 'subjectId'
-    }
+	}
+	static constraints = {
+
+	}
+
 }

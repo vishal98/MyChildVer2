@@ -7,7 +7,7 @@ class Exam {
     String examType
 	Grade grade
 	ExamSchedule examSchedule
-	static hasMany = [syllabus:ExamSyllabus ]
+	
 	
      
     static constraints = {

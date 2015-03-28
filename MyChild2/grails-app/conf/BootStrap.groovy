@@ -329,6 +329,7 @@ class BootStrap {
 					  new Exam(examId: 104 , examName: "Hindi" , examType: "ModelExam").save(flush: true)
 					  new Exam(examId: 105 , examName: "History", examType: "Mid Term Exam").save(flush: true)
 					  new Exam(examId: 106 , examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
+					  
 
 					  def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
 					  exam1 = Exam.get(1)
@@ -338,19 +339,48 @@ class BootStrap {
 					  exam5 = Exam.get(5)
 					  exam6 = Exam.get(6)
 					  exam7 = Exam.get(7)
-
-
-					  new ExamSchedule(exam: exam1  , subject: english ,teacher :sibi).save(flush: true)
-					  new ExamSchedule(exam: exam2  , subject: chemistry ,teacher :mathew).save(flush: true)
-					  new ExamSchedule(exam: exam3 , subject: physics ,teacher :sathees).save(flush: true)
-					  new ExamSchedule(exam: exam4, subject: maths ,teacher : sibi).save(flush: true)
-					  new ExamSchedule(exam: exam5, subject: hindi ,teacher :mathew).save(flush: true)
-					  new ExamSchedule(exam: exam6 , subject: history ,teacher :sathees).save(flush: true)
-					  new ExamSchedule(exam: exam7 , subject: computerScience ,teacher :sibi).save(flush: true)
-
+					 
+					   
+                     
 					  new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
-					  new ExamSyllabus(exam: exam2 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
-					  new ExamSyllabus(exam: exam3 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
+					  new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
+					  new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
+					  
+					  def examSyllabus1 , examSyllabus2 ,examSyllabus3 
+					  examSyllabus1 = ExamSyllabus.get(1)
+					  examSyllabus2 = ExamSyllabus.get(2)
+					  examSyllabus3 = ExamSyllabus.get(3)
+					  
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi).save(flush: true)
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew).save(flush: true)
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees).save(flush: true)
+					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi).save(flush: true)
+					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew).save(flush: true)
+					  new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :sathees).save(flush: true)
+					  new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi).save(flush: true)
+					 
+					  def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
+					   
+					  examSchedule1 = ExamSchedule.get(1)
+					  examSchedule2 = ExamSchedule.get(2)
+					  examSchedule3 = ExamSchedule.get(3)
+					  examSchedule4 = ExamSchedule.get(4)
+					  examSchedule5 = ExamSchedule.get(5)
+					  examSchedule6 = ExamSchedule.get(6)
+					  examSchedule7 = ExamSchedule.get(7)
+				
+					
+					  
+					  
+  if(examSchedule1!=null){
+					  exam1.addToExamSchedule(examSchedule1)
+					  .addToExamSchedule(examSchedule2)
+					 .addToExamSchedule(examSchedule3).save(flush: true)
+  }
+					  
+					
+					
+					 
 
 
 				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B].each { cls ->
@@ -568,7 +598,7 @@ class BootStrap {
 		   return  ['examId':  subject.examId?subject.examId.toString():'',
 				   'examType': subject.examType,
 			   'schedule':subject.examSchedule,
-			   'examSyllabus':subject.syllabus
+			   
 			   
 			   ]
 			   
@@ -578,6 +608,7 @@ class BootStrap {
 			ExamSchedule exSchedule ->
 		
 		   return  ['examSchedule':['subjectName':  exSchedule.subject.subjectName,
+			    'subjectSyllabus':exSchedule.subjectSyllabus,
 			   'teacherName':exSchedule.teacher.teacherName,
 				   'examStartTime':exSchedule.startTime? exSchedule.startTime.format("yyyy-MM-dd hh:mm:ss a"):'date not',
 			  
@@ -652,7 +683,7 @@ class BootStrap {
 
 
 
-				return  ['accountInfo':['username': g.username,
+				return  ['accountInfo':['username': g.username.toString(),
 										'name': g.name,
 										'educational_qualification' : g.educational_qualification ,
 										'profession' : g.profession,
@@ -677,7 +708,7 @@ class BootStrap {
 
 
 				return                  [
-										  'studentId': s.studentId,
+										  'studentId': s.studentId.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
 										  'grade' : s.grade?.name,
@@ -712,7 +743,7 @@ class BootStrap {
 
 
 				return                  [
-										  'studentId': s.studentId,
+										  'studentId': s.studentId.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
 										  'grade' : s.grade?.name,
@@ -724,7 +755,7 @@ class BootStrap {
 										  'age' : s.getAge() ,
 										  'present_guardian' : s.present_guardian,
 										   'father' :   [
-														   'id' : s.getFather()?.id,
+														   'id' : s.getFather()?.id.toString(),
 														   'name' : s.getFather()?.name ,
 														],
 										  'mother' :   [
@@ -747,7 +778,7 @@ class BootStrap {
 		JSON.registerObjectMarshaller( Student ) { Student s ->
 			return [
 
-					studentId : s.studentId ,
+					studentId : s.studentId.toString() ,
 					registerNumber : s.registerNumber,
 					studentName : s.studentName ,
 					gender : s.gender ,

@@ -3,7 +3,6 @@ package ghumover2
 import grails.converters.JSON
 import grails.rest.RestfulController
 import grails.plugin.springsecurity.annotation.Secured
-import grails.plugins.rest.client.RestBuilder
 
 import java.sql.Array
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ class HomeworkController extends RestfulController
  
  
  
-			def student =  Student.findByStudentId(params.studentId)
+			def student =  Student.findByStudentId(Long.parseLong(params.studentId))
 			Date date = formatter.parse(params.dateAssigned)
 			def grade   =    student.grade
 			def output  = [:]
@@ -52,7 +51,7 @@ class HomeworkController extends RestfulController
 
    def getClassHomework()
    {
-			def gradeName = params.gradeId
+			def gradeName = Integer.parseInt(params.gradeId)
 			def section = params.section
 			def grade = Grade.findByNameAndSection(gradeName,section)
 			def response = Homework.findAllByGradeAndDateCreated(grade,params.dateAssigned)
@@ -62,7 +61,7 @@ class HomeworkController extends RestfulController
 
    def getClassHomeworkBySubject()
    {
-	   def gradeName = params.gradeId
+	   def gradeName = Integer.parseInt(params.gradeId)
 	   def section = params.section
 
 	   def subject = params.subject
@@ -72,12 +71,12 @@ class HomeworkController extends RestfulController
    }
 
 	def saveHomework() {
-	
+
 		try {
 
 			def gradeFlag = params.gradeFlag
 
-			def grade = Grade.findByNameAndSection(params.grade, params.section)
+			def grade = Grade.findByNameAndSection(Integer.parseInt(params.grade), params.section)
 			def subject = params.subject
 			Date date = formatter.parse(params.dueDate);
 			Student tempStudent
@@ -121,14 +120,14 @@ class HomeworkController extends RestfulController
 
 
 
+
 	  def getStudentHomework()
-	  
 			 {
 				  try{
 
 
 
-					  def student =  Student.findByStudentId(params.studentId)
+					  def student =  Student.findByStudentId(Long.parseLong(params.studentId))
 					  def grade   =    student.grade
 					  def output  = [:]
 					  output['StudentId'] = student.studentId

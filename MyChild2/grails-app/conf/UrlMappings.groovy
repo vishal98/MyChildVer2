@@ -150,7 +150,7 @@ class UrlMappings {
 						action = "getStudentHomework"
 					}
 	
-		  
+	      
 					"/app/getHomework/student/$studentId/$dateAssigned"
 					{
 			  
@@ -174,22 +174,22 @@ class UrlMappings {
 
 			//apis for conversations
 
-				 "/app/conversations/get/$userId"
+                 "/app/conversations/get/$userId"
 						 {
 							 controller = "conversation"
 							 action = "getUserConversations"
 						 }
-				 "/app/conversations/get"
+			     "/app/conversations/get"
 						 {
 							 controller = "conversation"
 							 action = "getCurUserConversations"
 
 						 }
 
-				"/app/conversations/getFrom/$userId"
+                "/app/conversations/getFrom/$userId"
 						{
-								controller = "conversation"
-								action = "getConversationFromUser"
+                                controller = "conversation"
+							    action = "getConversationFromUser"
 
 						}
 
@@ -200,10 +200,17 @@ class UrlMappings {
 
 					}
 
+             "/app/conversations/new"(controller: "conversation", action: "saveMessage" ,parseRequest: true)
 
 
 
 
+                 //Subject
+
+			"/app/subject/$grade/$section"{
+				controller = "teacher"
+				action = "getSubject"
+			}
 
 
 	

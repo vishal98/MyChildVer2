@@ -7,6 +7,8 @@ import grails.plugin.springsecurity.annotation.Secured
 
 @Secured(['ROLE_TEACHER'])
 class TeacherController {
+	def springSecurityService
+    User user
 	def getGrade (){
 		def article=new Grade()
 		def articleList=article.list()
@@ -44,36 +46,42 @@ class TeacherController {
 
 
 	def getSubject (){
-		
-		Long gradeId= Long.parseLong(params.grade)
-		String teacherName= params.username	
-		def sub = Subject.createCriteria().list {
-		//def result = sub.get{
-			//eq ('username', teacherId)
-		//}
-				
-				teachers{
-				
-					eq ('username',teacherName)
-					
-				}
-				grade{
-					eq ('gradeId',gradeId)
-					
-					}
-				
-			
-		}
-		
-		JSON.use('teacherSub') { render sub as JSON }
+
+		def output = [:]
+		def subjects = [:]
+		user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+		Teacher t = Teacher.findByUsername(user.username)
+		Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
+
+
+		output['teacherId'] = user.id
+		output['username'] = user.username
+		output['grade'] = grade.name
+		output['section'] = grade.section
+		output['subjects'] = grade.subject.toList()
+		render output as JSON
+
+
+		def output = [:]
+		def subjects = [:]
+		user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+		Teacher t = Teacher.findByUsername(user.username)
+		Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
+
+
+		output['teacherId'] = user.id.toString()
+		output['username'] = user.username
+		output['grade'] = grade.name
+		output['section'] = grade.section
+		output['subjects'] = grade.subject.toList()
+		render output as JSON
+
 	}
 
 	def getStudentList (){
 		def article=new Student()
-		//int grade= Integer.parseInt(params.gradeId)
- 
 		Long grade= Long.parseLong(params.gradeId)
-		
+
 		def trek=article.findAllWhere('grade.gradeId':grade)
 		//render trek as JSON
 

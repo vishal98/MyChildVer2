@@ -6,12 +6,15 @@ class Exam {
     String examName
     String examType
 	Grade grade
-	ExamSchedule examSchedule
+	
+	
+	static hasMany = [examSubjectSchedule:ExamSchedule ]
 	
 	
      
     static constraints = {
-		examSchedule(nullable:true)
+		
+		grade(nullable:true)
 		examType(nullable:true)
     }
 }

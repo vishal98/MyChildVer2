@@ -320,7 +320,8 @@ class BootStrap {
 			  //	End of homework entries
 
 
-		   // Add exam entries
+		   // Add exam entries Date startTime
+   
 
 					   new Exam(examId: 100 , examName: "English" , examType: "Class test").save(flush: true)
 					  new Exam(examId: 101 , examName: "Chemistry" , examType: "Class test").save(flush: true)
@@ -351,13 +352,13 @@ class BootStrap {
 					  examSyllabus2 = ExamSyllabus.get(2)
 					  examSyllabus3 = ExamSyllabus.get(3)
 					  
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi).save(flush: true)
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew).save(flush: true)
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees).save(flush: true)
-					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi).save(flush: true)
-					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew).save(flush: true)
-					  new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :sathees).save(flush: true)
-					  new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi).save(flush: true)
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :sathees,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
+					  new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
 					 
 					  def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
 					   
@@ -369,14 +370,15 @@ class BootStrap {
 					  examSchedule6 = ExamSchedule.get(6)
 					  examSchedule7 = ExamSchedule.get(7)
 				
-					
+					  cl5A.addToExams(exam1).save(flush: true)
 					  
 					  
-  if(examSchedule1!=null){
-					  exam1.addToExamSchedule(examSchedule1)
-					  .addToExamSchedule(examSchedule2)
-					 .addToExamSchedule(examSchedule3).save(flush: true)
-  }
+					  
+ 
+					  exam1.addToExamSubjectSchedule(examSchedule1)
+					  .addToExamSubjectSchedule(examSchedule2)
+					 .addToExamSubjectSchedule(examSchedule3).save(flush: true)
+  
 					  
 					
 					
@@ -597,7 +599,7 @@ class BootStrap {
 			  
 		   return  ['examId':  subject.examId?subject.examId.toString():'',
 				   'examType': subject.examType,
-			   'schedule':subject.examSchedule,
+			   'schedule':subject.examSubjectSchedule,
 			   
 			   
 			   ]
@@ -691,7 +693,7 @@ class BootStrap {
 										'mobileNumber' : g.mobileNumber ,
 										'emailId' : g.emailId,
 										'officeNumber' : g.officeNumber,
-										'numberOfChildren' : g.getChildren()?.size(),
+										'numberOfChildren' : g.getChildren()?.size().toString(),
 
 											]
 
@@ -711,11 +713,11 @@ class BootStrap {
 										  'studentId': s.studentId.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
-										  'grade' : s.grade?.name,
+										  'grade' : s.grade?.name.toString(),
 										  'section' : s.grade?.section,
 										  'gender' : s.gender,
 										  'present_address' : s.present_address ,
-										  'no_of_siblings' : s.no_of_siblings ,
+										  'no_of_siblings' : s.no_of_siblings.toString() ,
 										  'dob' : s.dob,
 										  'age' : s.getAge() ,
 										  'present_guardian' : s.present_guardian
@@ -746,11 +748,11 @@ class BootStrap {
 										  'studentId': s.studentId.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
-										  'grade' : s.grade?.name,
+										  'grade' : s.grade?.name.toString(),
 										  'section' : s.grade?.section,
 										  'gender' : s.gender,
 										  'present_address' : s.present_address ,
-										  'no_of_siblings' : s.no_of_siblings ,
+										  'no_of_siblings' : s.no_of_siblings.toString() ,
 										  'dob' : s.dob,
 										  'age' : s.getAge() ,
 										  'present_guardian' : s.present_guardian,
@@ -783,11 +785,11 @@ class BootStrap {
 					studentName : s.studentName ,
 					gender : s.gender ,
 					present_address : s.present_address ,
-					no_of_siblings : s.no_of_siblings ,
+					no_of_siblings : s.no_of_siblings.toString() ,
 					dob : s.dob ,
 					studentPhoto : s.studentPhoto ,
 					present_guardian : s.present_guardian ,
-					grade : s.grade?.name ,
+					grade : s.grade?.name.toString() ,
 					section : s.grade?.section ,
 					//father: s?.getFather() ,
 					//mother: s?.getMother() ,

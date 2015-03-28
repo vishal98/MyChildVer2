@@ -610,7 +610,7 @@ class BootStrap {
 			ExamSchedule exSchedule ->
 		
 		   return  ['examSchedule':['subjectName':  exSchedule.subject.subjectName,
-			    'subjectSyllabus':exSchedule.subjectSyllabus,
+			    'subjectSyllabus':exSchedule.subjectSyllabus.syllabus,
 			   'teacherName':exSchedule.teacher.teacherName,
 				   'examStartTime':exSchedule.startTime? exSchedule.startTime.format("yyyy-MM-dd hh:mm:ss a"):'date not',
 			  
@@ -850,7 +850,7 @@ class BootStrap {
 				return  [
 							 subject: t.subject?.subjectName,
 							 teacher: t.teacher?.teacherName ,
-							 teacherId: t.teacher?.teacherId,
+							 teacherId: t.teacher?.teacherId.toString(),
 							 teacherPhoto: t.teacher?.teacherPhoto,
 							 startTime : t.startTime ,
 							 endTime : t.endTime

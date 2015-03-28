@@ -47,19 +47,7 @@ class TeacherController {
 
 	def getSubject (){
 
-		def output = [:]
-		def subjects = [:]
-		user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
-		Teacher t = Teacher.findByUsername(user.username)
-		Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
 
-
-		output['teacherId'] = user.id
-		output['username'] = user.username
-		output['grade'] = grade.name
-		output['section'] = grade.section
-		output['subjects'] = grade.subject.toList()
-		render output as JSON
 
 
 		def output = [:]

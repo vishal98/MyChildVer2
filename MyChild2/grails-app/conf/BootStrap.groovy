@@ -1,5 +1,4 @@
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -193,86 +192,6 @@ class BootStrap {
 
 
 
-/*
-		def father , mother , local_guardian , s1 , s2 , s3
-		father = new Guardian(name: "Ravi" , username: "ravi@test.com" , password: "123" ).save(flush: true)
-		mother = new Guardian(name:"Raani" , username: "raani@test.com" , password: "123" ).save(flush: true)
-		father = Guardian.findByUsername("ravi@test.com")
-		mother = Guardian.findByUsername("raani@test.com")
-		s1 =  new Student(studentId:100 , registerNumber: "ST100" ,studentName: "Rohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" ).save()
-		s2 =  new Student(studentId:101 , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" ).save()
-		s3 =  new Student(studentId:102 , registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" ).save()
-		s1.father = father
-		s1.mother = mother
-		s2.father = father
-		s2.mother = mother
-		s3.father = father
-		s3.mother = mother
-		mother.addToChildren(s1)
-				.addToChildren(s2)
-				.addToChildren(s3)
-				.save(flush: true)
-		father.addToChildren(s1)
-				.addToChildren(s2)
-				.addToChildren(s3)
-				.save(flush: true)
-		new UserRole(user:father , role:roleParent).save(flush: true)
-		new UserRole(user:mother , role:roleParent).save(flush: true)
-
-		father = Guardian.findByEmailId("ravi@test.com")
-
-
-					  new UserRole(user:father , role:roleParent).save(flush: true)
-					  new UserRole(user:mother , role:roleParent).save(flush: true)
-
-
-
-
-	   father = new Guardian(name: "Mahadev" , username: "mahadev@test.com" , password: "123" ).save()
-	   mother = new Guardian(name:"Malini" , username: "malini@test.com" , password: "123" ).save()
-	   local_guardian =  new Guardian(name:"Manish" , username: "manish@test.com" , password: "123" ).save()
-	   s1 =  new Student(studentId:103 , registerNumber: "ST103" ,studentName: "Manoj" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local guardian" ,father:father , mother : mother ,local_guardian:local_guardian).save(flush: true)
-	   s2 =  new Student(studentId:104 , registerNumber: "ST104" ,studentName: "Midhun" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , father: father , mother:mother,local_guardian:local_guardian  ).save()
-	   s3 =  new Student(studentId:105 , registerNumber: "ST105" ,studentName: "Mohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" ,father:father ,mother:mother,local_guardian:local_guardian ).save()
-	   father.addToChildren(s2)
-			   .addToChildren(s3)
-			   .save(flush: true)
-	   mother.addToChildren(s2)
-			   .addToChildren(s3)
-			   .save(flush: true)
-	   local_guardian.addToChildren(s2)
-					 .addToChildren(s3)
-					 .save(flush: true)
-
-					 new UserRole(user:father , role:roleParent).save(flush: true)
-					 new UserRole(user:mother , role:roleParent).save(flush: true)
-
-
-
-	   father = new Guardian(name: "Nagesh" , username: "nagesh@test.com" , password: "123" ).save()
-	   mother = new Guardian(name:"Nanditha" , username: "nanditha@test.com" , password: "123" ).save()
-	   s1 =  new Student(studentId:106 , registerNumber: "ST106" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" ,father:father , mother : mother).save(flush: true)
-	   s2 =  new Student(studentId:107 , registerNumber: "ST107" ,studentName: "Neha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , father: father , mother:mother  ).save()
-	   s3 =  new Student(studentId:108 , registerNumber: "ST108" ,studentName: "Nikhitha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" ,father:father ,mother:mother ).save()
-	   father.addToChildren(s2)
-			   .addToChildren(s3)
-			   .save(flush: true)
-	   mother.addToChildren(s2)
-			   .addToChildren(s3)
-			   .save(flush: true)
-
-
-		// Add  teachers to class 5A and also set one of the teacher as classteacher
-		roleParent = Role.findByAuthority('ROLE_PARENT')
-		roleTeacher = Role.findByAuthority('ROLE_TEACHER')
-
-		new UserRole(user:father , role:roleParent).save(flush: true)
-		new UserRole(user:mother , role:roleParent).save(flush: true)
-*/
-	//	def mathew = Teacher.findByTeacherCode(100)
-//def sibi = Teacher.findByTeacherCode(101)
-//def sathees = Teacher.findByTeacherCode(102)
-
 		def mathew = Teacher.findByTeacherId(100)
 		def sibi = Teacher.findByTeacherId(101)
 		def sathees = Teacher.findByTeacherId(102)
@@ -340,29 +259,29 @@ class BootStrap {
 		.addToSubject(computerScience).save(flush: true)
 
 
-		/*new GradeSubject(grade:5 ,subject:english).save(flush:true)
-		new GradeSubject(grade:5 ,subject:maths).save(flush:true)
-		new GradeSubject(grade:5 ,subject:hindi).save(flush:true)
-		new GradeSubject(grade:5 ,subject:history).save(flush:true)
+		//new GradeSubject(grade:5 ,subject:english).save(flush:true)
+		//new GradeSubject(grade:5 ,subject:maths).save(flush:true)
+		//new GradeSubject(grade:5 ,subject:hindi).save(flush:true)
+		//new GradeSubject(grade:5 ,subject:history).save(flush:true)
 
-		new GradeSubject(grade:6 , subject:english).save(flush:true)
-		new GradeSubject(grade:6 , subject:hindi).save(flush:true)
-		new GradeSubject(grade:6 , subject:computerScience).save(flush:true)
-		new GradeSubject(grade:6 , subject:history).save(flush:true)
+		//new GradeSubject(grade:6 , subject:english).save(flush:true)
+		//new GradeSubject(grade:6 , subject:hindi).save(flush:true)
+		//new GradeSubject(grade:6 , subject:computerScience).save(flush:true)
+		//new GradeSubject(grade:6 , subject:history).save(flush:true)
 
-		new GradeSubject(grade:7 , subject:english).save(flush:true)
-		new GradeSubject(grade:7 , subject:hindi).save(flush:true)
-		new GradeSubject(grade:7 , subject:computerScience).save(flush:true)
-		new GradeSubject(grade:7 , subject:history).save(flush:true)
+		//new GradeSubject(grade:7 , subject:english).save(flush:true)
+		//new GradeSubject(grade:7 , subject:hindi).save(flush:true)
+		//new GradeSubject(grade:7 , subject:computerScience).save(flush:true)
+		//new GradeSubject(grade:7 , subject:history).save(flush:true)
 
 
 
-		new GradeSubject(grade:10 ,subject:physics).save(flush:true)
-		new GradeSubject(grade:10 , subject:chemistry).save(flush:true);
-		new GradeSubject(grade:10 , subject: history ).save(flush: true)
-		new GradeSubject(grade:10 , subject: english ).save(flush: true)
-		new GradeSubject(grade:10 , subject: computerScience ).save(flush: true)
-		new GradeSubject(grade:10 , subject: maths ).save(flush: true)*/
+		//new GradeSubject(grade:10 ,subject:physics).save(flush:true)
+		//new GradeSubject(grade:10 , subject:chemistry).save(flush:true);
+		//new GradeSubject(grade:10 , subject: history ).save(flush: true)
+		//new GradeSubject(grade:10 , subject: english ).save(flush: true)
+		//new GradeSubject(grade:10 , subject: computerScience ).save(flush: true)
+		//new GradeSubject(grade:10 , subject: maths ).save(flush: true)
 
 
 		new  Message ( value:"homeWork" ,type:"msg",code:"hw").save(flush:true)
@@ -473,6 +392,49 @@ class BootStrap {
 
 
 				}
+
+
+
+
+		User ravi , rani , manish , malini , mahadev
+		ravi = User.findByUsername("ravi@test.com")
+		rani = User.findByUsername("raani@test.com")
+		malini = User.findByUsername("malini@test.com")
+		mahadev = User.findByUsername("mahadev@test.com")
+
+
+		Conversation testconv = new Conversation(fromId:ravi.username , toId: rani.username , title: "Test Conversation between ravi and raani" , inTrash: false,isRead: false,toDate: new Date(),fromDate: new Date())
+		testconv.addToMessages(new Message(fromId: "ravi" , toId: "rani" , messageText: "Haai raani" , messageTime:new Date() ))
+				.addToMessages(new Message(fromId: "raani" , toId: "ravi" , messageText: "Haai raviii" , messageTime: new Date()))
+				.save()
+		ravi.addToConversations(testconv)
+		rani.addToConversations(testconv)
+		ravi.save()
+		rani.save()
+		testconv = new Conversation(fromId:ravi.username , toId: rani.username , title: "Test Conversation between ravi and raani" , inTrash: false,isRead: false,toDate: new Date(),fromDate: new Date())
+		testconv.addToMessages(new Message(fromId: "ravi" , toId: "rani" , messageText: "Again Haai raani" , messageTime:new Date() ))
+				.addToMessages(new Message(fromId: "raani" , toId: "ravi" , messageText: "Again Haai raviii" , messageTime: new Date()))
+				.save()
+		ravi.addToConversations(testconv)
+		rani.addToConversations(testconv)
+		ravi.save()
+		rani.save()
+
+
+		testconv = new Conversation(fromId: mahadev.username , toId: malini.username , title: "Message from Mahadev to Malini" , inTrash: false , isRead: false , toDate: new Date() , fromDate: new Date() )
+				.addToMessages(new Message(fromId: "Mahadev" , toId: "Malini" ,messageTime: new Date() , messageText: "Haai malini"))
+				.addToMessages(new Message(fromId: "Malini" , toId: "Mahadev" , messageText: "Hello mahadev" , messageTime: new Date()))
+				.save()
+		malini.addToConversations(testconv).save()
+		mahadev.addToConversations(testconv).save()
+
+		
+
+
+
+
+
+
 
 
 
@@ -882,6 +844,42 @@ class BootStrap {
 
 
 
+
+
+		JSON.registerObjectMarshaller( Conversation  )
+				{   cnv ->
+
+
+
+					 return [
+								 "threadId": cnv.threadId,
+								 "numberOfMessages" : cnv.messages.size(),
+								 "fromDate": cnv.fromDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+								 "fromId": cnv.fromId ,
+								 "toId": cnv.toId,
+								 "inTrash": cnv.inTrash,
+								 "isRead": cnv.isRead,
+								 "title": cnv.title,
+								 "toDate": cnv.toDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+								 "messages" : cnv.messages
+
+
+
+							]
+
+				}
+		JSON.createNamedConfig('msgList')
+				{
+					it.registerObjectMarshaller( Message ) { Message m ->
+						return [
+								  'messageId' : m.messageId,
+								  'fromId' : m.fromId,
+								  'toId' : m.toId ,
+								  'messageText' : m.messageText,
+								  'messageTime' : m.messageTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a')
+
+							   ]}
+				}
 
 
 

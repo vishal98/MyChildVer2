@@ -150,7 +150,7 @@ class UrlMappings {
 						action = "getStudentHomework"
 					}
 	
-	      
+		  
 					"/app/getHomework/student/$studentId/$dateAssigned"
 					{
 			  
@@ -166,7 +166,46 @@ class UrlMappings {
 	
 			"/app/teacher/homework/save"(controller: "Homework", action: "saveHomework" ,parseRequest: true)
 	
-	
+
+
+
+
+
+
+			//apis for conversations
+
+				 "/app/conversations/get/$userId"
+						 {
+							 controller = "conversation"
+							 action = "getUserConversations"
+						 }
+				 "/app/conversations/get"
+						 {
+							 controller = "conversation"
+							 action = "getCurUserConversations"
+
+						 }
+
+				"/app/conversations/getFrom/$userId"
+						{
+								controller = "conversation"
+								action = "getConversationFromUser"
+
+						}
+
+			"/app/conversations/getFromTo/$fromId/$toId"
+					{
+						controller = "conversation"
+						action = "getConversationFromAndTo"
+
+					}
+
+
+
+
+
+
+
 	
 	
 	

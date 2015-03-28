@@ -1,19 +1,30 @@
 package ghumover2
 
+import org.grails.databinding.BindingFormat
+
 import java.sql.Timestamp
 
 class Message {
 
-    
-	String code;
-	String value;
-	String type;
-	Timestamp creationDate
-	Timestamp updatedDate
-	
-	static constraints = {
-		
-		creationDate(nullable:true)
-		updatedDate(nullable:true)
+
+	static belongsTo = [threadId: Conversation]
+
+	Long messageId
+    String messageText
+	@BindingFormat("dd-MM-yyyy")
+	Date messageTime
+	String fromId
+	String toId
+
+
+	static mapping = {
+		id generator: 'increment',name: 'messageId'
+
 	}
+
+
+
+
+
+
 }

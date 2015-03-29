@@ -8,7 +8,7 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured(['ROLE_TEACHER'])
 class TeacherController {
 	def springSecurityService
-    User user
+	User user
 	def getGrade (){
 		def article=new Grade()
 		def articleList=article.list()
@@ -49,12 +49,12 @@ class TeacherController {
 
 
 
-
 		def output = [:]
 		def subjects = [:]
 		user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
 		Teacher t = Teacher.findByUsername(user.username)
 		Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
+
 
 
 		output['teacherId'] = user.id.toString()
@@ -79,6 +79,20 @@ class TeacherController {
 
 
 	}
+
+	def getStudentListByGradeSection()
+	{
+		def article=new Student()
+		int grade=  Integer.parseInt(params.grade)
+		String section = params.section
+		def trek=Student.findAll("from Student as s where s.grade.name = ? and s.grade.section = ? ",[grade,section])
+		//render trek as JSON
+
+
+		JSON.use('student') { render trek as JSON }
+
+	}
+
 
 	def sendMessage(){
 		/*	//JSON Object is not bound to params it is bound to rehquest in POST/PUT

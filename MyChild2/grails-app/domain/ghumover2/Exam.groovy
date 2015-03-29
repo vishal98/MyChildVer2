@@ -2,19 +2,30 @@ package ghumover2
 
 class Exam {
 
-    String examId
-    String examName
-    String examType
+	Long examId
+	String examName
+	String examType
+
 	Grade grade
-	
-	
+
+
 	static hasMany = [examSubjectSchedule:ExamSchedule ]
-	
-	
-     
-    static constraints = {
-		
+
+
+	static mapping = {
+		id generator: 'increment',name: 'examId'
+	}
+
+
+	static constraints = {
+
 		grade(nullable:true)
-		examType(nullable:true)
-    }
+	
+
+	}
+	
+	
+	
+	
+	
 }

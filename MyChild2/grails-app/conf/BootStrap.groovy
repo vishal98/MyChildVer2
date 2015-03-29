@@ -1,4 +1,4 @@
-
+import java.text.SimpleDateFormat
 import java.util.Date;
 
 
@@ -259,29 +259,7 @@ class BootStrap {
 		.addToSubject(computerScience).save(flush: true)
 
 
-		//new GradeSubject(grade:5 ,subject:english).save(flush:true)
-		//new GradeSubject(grade:5 ,subject:maths).save(flush:true)
-		//new GradeSubject(grade:5 ,subject:hindi).save(flush:true)
-		//new GradeSubject(grade:5 ,subject:history).save(flush:true)
 
-		//new GradeSubject(grade:6 , subject:english).save(flush:true)
-		//new GradeSubject(grade:6 , subject:hindi).save(flush:true)
-		//new GradeSubject(grade:6 , subject:computerScience).save(flush:true)
-		//new GradeSubject(grade:6 , subject:history).save(flush:true)
-
-		//new GradeSubject(grade:7 , subject:english).save(flush:true)
-		//new GradeSubject(grade:7 , subject:hindi).save(flush:true)
-		//new GradeSubject(grade:7 , subject:computerScience).save(flush:true)
-		//new GradeSubject(grade:7 , subject:history).save(flush:true)
-
-
-
-		//new GradeSubject(grade:10 ,subject:physics).save(flush:true)
-		//new GradeSubject(grade:10 , subject:chemistry).save(flush:true);
-		//new GradeSubject(grade:10 , subject: history ).save(flush: true)
-		//new GradeSubject(grade:10 , subject: english ).save(flush: true)
-		//new GradeSubject(grade:10 , subject: computerScience ).save(flush: true)
-		//new GradeSubject(grade:10 , subject: maths ).save(flush: true)
 
 
 		new  Message ( value:"homeWork" ,type:"msg",code:"hw").save(flush:true)
@@ -290,100 +268,76 @@ class BootStrap {
 
 
 
-		//Add entries for home work
-
-
-
-
 
 		//Homeworks for students
 
-		   new Homework(grade: cl5A , subject: "english" , homework: "Project ", dueDate: "31-12-2016"  ,student: Student.findByStudentId(1) , message: "Scient Project for Student , 5 A ", gradeFlag: '0').save(flush: true)
-			  // new Homework(homeworkId: 101 ,grade: cl5B , subject: "english" , homework: "English homework" ,  dueDate: "10-04-2015" ,section: "B", student: Student.findByStudentId(101) , message: "English Homework for Student ,  5 B  ", gradeFlag: '0').save(flush: true)
-			  //  new Homework(homeworkId: 102 ,grade: cl6A , subject: "history" , homework: "History homework" ,dueDate: "9-04-2015" ,section: "A", student: Student.findByStudentId(102), message: "History Homework for Student , 6 A  ", gradeFlag: '0').save(flush: true)
-			  // new Homework(homeworkId: 103 ,grade: cl6B , subject: "computerScience" , homework: "ComputerScience homework" , dueDate: "8-04-2015" ,section: "A", student: Student.findByStudentId(103) , message: "ComputerScience Homework for Student , 7 A ", gradeFlag: '0').save(flush: true)
-			  // new Homework(homeworkId: 104 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate: "7-04-2015" ,section: "A",student: Student.findByStudentId(104) , message: "Physics Homework for Student 10 A", gradeFlag: '0').save(flush: true)
+		   new Homework(grade: cl5A , subject: "english" , homework: "English homework", dueDate: "31-12-2016"  ,student: Student.findByStudentId(1) , message: "English Homework for Student , 5 A ", gradeFlag: '0').save(flush: true)
 
 
 
-		  //Homeworks for whole batch
-
-				  new Homework(grade: cl5A , subject: "english" ,homework: "Written work", dueDate: "10-04-2015"  ,  message: "English Homework for whole 5 A Students ", gradeFlag: '1').save(flush: true)
-				//  new Homework(homeworkId: 106 ,grade: cl5B , subject: "english" ,homework: "English homework", dueDate:  "9-04-2015" ,section: "B",  message: "English Homework for whole 5 B Students ", gradeFlag: '1').save(flush: true)
-				//  new Homework(homeworkId: 107 ,grade: cl6A , subject: "history" ,homework: "history homework", dueDate:  "8-04-2015" ,section: "A" ,  message: "History Homework for whole 6 A Students ", gradeFlag: '1').save(flush: true)
-				//  new Homework(homeworkId: 108 ,grade: cl7A , subject: "computerScience" ,homework: "computerScience homework", dueDate: "7-04-2015" ,section:"A",  message: "Computer Science Homework for whole 7 A Students ", gradeFlag: '1').save(flush: true)
-				//  new Homework(homeworkId: 109 ,grade: cl10A , subject: "physics" ,homework: "Physics homework", dueDate:  "6-04-2015",section: "A",  message: "Physics Homework for whole 10 A Students ", gradeFlag: '1').save(flush: true)
-				//  new Homework(homeworkId: 110 ,grade: cl10B , subject: "physics" ,homework: "Physics homework", dueDate:  "5-04-2015" ,section: "B",  message: "Chemistry Homework for whole 10 B Students ", gradeFlag: '1').save(flush: true)
+		// Add exam entries Date startTime
 
 
+		new Exam(examName: "English" , examType: "Class test").save(flush: true)
+		new Exam(examName: "Chemistry" , examType: "Class test").save(flush: true)
+		new Exam(examName: "Physics" , examType: "Model Exam").save(flush: true)
+		new Exam(examName: "Mathematics" , examType: "Model Exam").save(flush: true)
+		new Exam(examName: "Hindi" , examType: "ModelExam").save(flush: true)
+		new Exam(examName: "History", examType: "Mid Term Exam").save(flush: true)
+		new Exam(examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
 
-			  //	End of homework entries
 
+		def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
+		exam1 = Exam.get(1)
+		exam2 = Exam.get(2)
+		exam3 = Exam.get(3)
+		exam4 = Exam.get(4)
+		exam5 = Exam.get(5)
+		exam6 = Exam.get(6)
+		exam7 = Exam.get(7)
+
+
+
+		new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
+
+		def examSyllabus1 , examSyllabus2 ,examSyllabus3
+		examSyllabus1 = ExamSyllabus.get(1)
+		examSyllabus2 = ExamSyllabus.get(2)
+		examSyllabus3 = ExamSyllabus.get(3)
+
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm"); new Date(2014, 02, 11, 04, 30)
+
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30" , date: "11-02-2014 05:30" ).save(flush: true)
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :sathees,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
+
+		def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
+
+		examSchedule1 = ExamSchedule.get(1)
+		examSchedule2 = ExamSchedule.get(2)
+		examSchedule3 = ExamSchedule.get(3)
+		examSchedule4 = ExamSchedule.get(4)
+		examSchedule5 = ExamSchedule.get(5)
+		examSchedule6 = ExamSchedule.get(6)
+		examSchedule7 = ExamSchedule.get(7)
+
+		cl5A.addToExams(exam1).save(flush: true)
+
+
+
+
+		exam1.addToExamSubjectSchedule(examSchedule1)
+				.addToExamSubjectSchedule(examSchedule2)
+				.addToExamSubjectSchedule(examSchedule3).save(flush: true)
 
 		   // Add exam entries Date startTime
    
-
-					   new Exam(examId: 100 , examName: "English" , examType: "Class test").save(flush: true)
-					  new Exam(examId: 101 , examName: "Chemistry" , examType: "Class test").save(flush: true)
-					  new Exam(examId: 102 , examName: "Physics" , examType: "Model Exam").save(flush: true)
-					  new Exam(examId: 103 , examName: "Mathematics" , examType: "Model Exam").save(flush: true)
-					  new Exam(examId: 104 , examName: "Hindi" , examType: "ModelExam").save(flush: true)
-					  new Exam(examId: 105 , examName: "History", examType: "Mid Term Exam").save(flush: true)
-					  new Exam(examId: 106 , examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
-					  
-
-					  def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
-					  exam1 = Exam.get(1)
-					  exam2 = Exam.get(2)
-					  exam3 = Exam.get(3)
-					  exam4 = Exam.get(4)
-					  exam5 = Exam.get(5)
-					  exam6 = Exam.get(6)
-					  exam7 = Exam.get(7)
-					 
-					   
-                     
-					  new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
-					  new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
-					  new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
-					  
-					  def examSyllabus1 , examSyllabus2 ,examSyllabus3 
-					  examSyllabus1 = ExamSyllabus.get(1)
-					  examSyllabus2 = ExamSyllabus.get(2)
-					  examSyllabus3 = ExamSyllabus.get(3)
-					  
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam2, ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :sathees,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					  new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: new Date(2014, 02, 11, 04, 30),endTime: new Date(2014, 02, 11, 04, 30)).save(flush: true)
-					 
-					  def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
-					   
-					  examSchedule1 = ExamSchedule.get(1)
-					  examSchedule2 = ExamSchedule.get(2)
-					  examSchedule3 = ExamSchedule.get(3)
-					  examSchedule4 = ExamSchedule.get(4)
-					  examSchedule5 = ExamSchedule.get(5)
-					  examSchedule6 = ExamSchedule.get(6)
-					  examSchedule7 = ExamSchedule.get(7)
-				
-					  cl5A.addToExams(exam1).save(flush: true)
-					  
-					  
-					  
- 
-					  exam1.addToExamSubjectSchedule(examSchedule1)
-					  .addToExamSubjectSchedule(examSchedule2)
-					 .addToExamSubjectSchedule(examSchedule3).save(flush: true)
-  
-					  
-					
-					
-					 
-
 
 				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B].each { cls ->
 
@@ -460,9 +414,6 @@ class BootStrap {
 		malini.addToConversations(testconv).save()
 		mahadev.addToConversations(testconv).save()
 
-		
-
-
 
 
 
@@ -476,7 +427,7 @@ class BootStrap {
 			it.registerObjectMarshaller( Grade ) { Grade grade ->
 
 				def output = [:]
-				output['grade'] = grade.name
+				output['grade'] = grade.name.toString()
 				output['section'] = grade.section
 
 				return output
@@ -486,10 +437,10 @@ class BootStrap {
 		JSON.registerObjectMarshaller( Grade ) { Grade grade ->
 			
 							[
-							gradeName : grade.name,
+							gradeName : grade.name.toString(),
 							section : grade.section,
 							 student : grade.students.collect{ Student std ->
-			[studentId: std.studentId, studentName: std.studentName
+			[studentId: std.studentId.toString(), studentName: std.studentName
 				]
 							}]
 						}
@@ -523,7 +474,7 @@ class BootStrap {
 			it.registerObjectMarshaller( Student ) { Student student ->
 
 				def output = [:]
-				output['studentId'] = student.studentId
+				output['studentId'] = student.studentId.toString()
 				output['studentName'] = student.studentName
 
 				return output
@@ -578,52 +529,55 @@ class BootStrap {
 				'value': msg.value]
 			}
 		}
-		
-		
+
+
 		JSON.registerObjectMarshaller(ExamSyllabus) {
 			ExamSyllabus examSyllabus ->
-		
-			  
-		   return  ['syllabus':  examSyllabus.syllabus,
-				   'subjectName': examSyllabus.subject.subjectName,
 
-			   
-			   ]
-			   
-	   
+
+				return  ['syllabus':  examSyllabus.syllabus,
+						 'subjectName': examSyllabus.subject.subjectName,
+
+
+				]
+
+
 		}
-		
+
 		JSON.registerObjectMarshaller(Exam) {
 			Exam subject ->
-		
-			  
-		   return  ['examId':  subject.examId?subject.examId.toString():'',
-				   'examType': subject.examType,
-			   'schedule':subject.examSubjectSchedule,
-			   
-			   
-			   ]
-			   
-	   }
-		
+
+
+
+				return  ['examId':  subject.examId?subject.examId.toString():'',
+						 'examType': subject.examType,
+						 'schedule':subject.examSubjectSchedule,
+
+
+				]
+
+		}
+
+
+
 		JSON.registerObjectMarshaller(ExamSchedule) {
 			ExamSchedule exSchedule ->
-		
-		   return  ['examSchedule':['subjectName':  exSchedule.subject.subjectName,
-			    'subjectSyllabus':exSchedule.subjectSyllabus.syllabus,
-			   'teacherName':exSchedule.teacher.teacherName,
-				   'examStartTime':exSchedule.startTime? exSchedule.startTime.format("yyyy-MM-dd hh:mm:ss a"):'date not',
-			  
-			   'examEndTime':exSchedule.endTime? exSchedule.startTime.format("yyyy-MM-dd hh:mm:ss a"):'date not' ]
-			   
-			   ]
-			   
-	   }
-		
-				JSON.createNamedConfig('exam') {
+
+				return  ['subjectName':  exSchedule.subject.subjectName,
+										 'subjectSyllabus':exSchedule.subjectSyllabus.syllabus,
+										 'teacherName':exSchedule.teacher.teacherName,
+										 'examStartTime':exSchedule.startTime? exSchedule.startTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a'):'date not',
+
+										 'examEndTime':exSchedule.endTime? exSchedule.startTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a'):'date not' ]
+
+
+
+		}
+
+		JSON.createNamedConfig('exam') {
 			it.registerObjectMarshaller( Grade ) { Grade msg ->
-			
-					 return ['exams': msg.exams
+
+				return ['exams': msg.exams
 				]
 			}
 		}
@@ -633,7 +587,7 @@ class BootStrap {
 
 			
 
-				 return  ['teacher':['teacherId': teach.id,
+				 return  ['teacher':['teacherId': teach.id.toString(),
 				'teacherName': teach.teacherName,
 				'emailId':teach.teacherEmailId,
 				'grades' : teach.grades
@@ -685,7 +639,7 @@ class BootStrap {
 
 
 
-				return  ['accountInfo':['username': g.username.toString(),
+				return  ['accountInfo':['username': g.username,
 										'name': g.name,
 										'educational_qualification' : g.educational_qualification ,
 										'profession' : g.profession,
@@ -710,7 +664,7 @@ class BootStrap {
 
 
 				return                  [
-										  'studentId': s.studentId.toString(),
+										  'studentId': s.studentId?.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
 										  'grade' : s.grade?.name.toString(),
@@ -745,7 +699,7 @@ class BootStrap {
 
 
 				return                  [
-										  'studentId': s.studentId.toString(),
+										  'studentId': s.studentId?.toString(),
 										  'registerNumber': s.registerNumber,
 										  'studentName' : s.studentName ,
 										  'grade' : s.grade?.name.toString(),
@@ -761,11 +715,11 @@ class BootStrap {
 														   'name' : s.getFather()?.name ,
 														],
 										  'mother' :   [
-												  'id' : s.getMother()?.id,
+												  'id' : s.getMother()?.id.toString(),
 												  'name' : s.getMother()?.name ,
 										  ],
 										  'local_guardian' :   [
-												  'id' : s.getLocalGuardian()?.id,
+												  'id' : s.getLocalGuardian()?.id.toString(),
 												  'name' : s.getLocalGuardian()?.name ,
 										  ]
 
@@ -791,9 +745,9 @@ class BootStrap {
 					present_guardian : s.present_guardian ,
 					grade : s.grade?.name.toString() ,
 					section : s.grade?.section ,
-					//father: s?.getFather() ,
-					//mother: s?.getMother() ,
-					//local_guardian: s?.getLocalGuardian()
+					father: s?.getFather() ,
+					mother: s?.getMother() ,
+					local_guardian: s?.getLocalGuardian()
 
 			]
 		}
@@ -824,15 +778,15 @@ class BootStrap {
 
 					'homeworkList' : [
 
-					homeworkId: h.homeworkId,
-					grade : h.grade?.name,
+					homeworkId: h.homeworkId.toString(),
+					grade : h.grade?.name.toString(),
 					section : h.grade?.section ,
 					subject: h.subject ,
 					dueDate : h.dueDate ,
 					homework: h.homework ,
 					dateCreated : h.dateCreated ,
 					student : h.student?.studentName ,
-					studentId : h.student?.studentId ,
+					studentId : h.student?.studentId.toString() ,
 					message : h.message ,
 					gradeFlag : h.gradeFlag
 
@@ -865,12 +819,12 @@ class BootStrap {
 
 
 				return  [
-						 'homeworkId' : h.homeworkId?h.homeworkId.toString():'' ,
+						 'homeworkId' : h.homeworkId.toString() ,
 						 'subject'    : h.subject ,
-						 'dueDate'    : h.dueDate?h.dueDate.format("yyyy-MM-dd").toString():''  ,
-						 'dateCreated': h.dateCreated?h.dateCreated.format("yyyy-MM-dd").toString():'' ,
+						 'dueDate'    : h.dueDate ,
+						 'dateCreated': h.dateCreated ,
 						 'message'    : h.message,
-						 'homeworkType'   : h.homework
+						 'homework'   : h.homework
 						]
 			}
 		}
@@ -885,16 +839,16 @@ class BootStrap {
 
 
 					 return [
-								 "threadId": cnv.threadId,
-								 "numberOfMessages" : cnv.messages.size(),
-								 "fromDate": cnv.fromDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
-								 "fromId": cnv.fromId ,
-								 "toId": cnv.toId,
-								 "inTrash": cnv.inTrash,
-								 "isRead": cnv.isRead,
-								 "title": cnv.title,
-								 "toDate": cnv.toDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
-								 "messages" : cnv.messages
+								 'threadId': cnv.threadId.toString(),
+								 'numberOfMessages' : cnv.messages.size(),
+								 'fromDate': cnv.fromDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+								 'fromId': cnv.fromId ,
+								 'toId': cnv.toId,
+								 'inTrash': cnv.inTrash,
+								 'isRead': cnv.isRead,
+								 'title': cnv.title,
+								 'toDate': cnv.toDate.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+								 'messages' : cnv.messages
 
 
 
@@ -905,7 +859,7 @@ class BootStrap {
 				{
 					it.registerObjectMarshaller( Message ) { Message m ->
 						return [
-								  'messageId' : m.messageId,
+								  'messageId' : m.messageId.toString(),
 								  'fromId' : m.fromId,
 								  'toId' : m.toId ,
 								  'messageText' : m.messageText,

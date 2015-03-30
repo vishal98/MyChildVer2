@@ -3,6 +3,7 @@ package ghumover2
 import grails.converters.JSON
 import grails.rest.RestfulController
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugins.rest.client.RestBuilder
 
 import java.sql.Array
 import java.text.SimpleDateFormat;
@@ -69,11 +70,30 @@ class HomeworkController extends RestfulController
 	   def response = Homework.findAllByGradeAndSubjectAndDateCreated(grade,subject,params.dateAssigned)
 	   render response as JSON
    }
+   
+   def test(){
+	   
+	   def rest = new RestBuilder()
+	   def resp = rest.put("https://api.pushbots.com/push/one"){
+		   header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
+		   header 'x-pushbots-secret', 'e68461d7755b0d3733b4b36717aea77d'
+		   contentType "application/json"
+		   json {
+			   token ="APA91bG90J_VfIGxfK_ZI4_kF0wRpurUbBPURYejC1uzDLbqUM4O5X83KEaeHulCtBNIYUokqV5QUwelLygKi8c5c2kD2lq05DXiiKJEDgH8NbHGLQkGIdzjvGfM6DFGhCETgSuX5kOr"
+				   platform="1"
+				   msg ="Push sarath test Notification from API call"
+				   sound ="ding"
+					badge ="badge"
+					 payload ="JSON"}
+
+	   }
+	   System.out.print("resp val : "+resp)
+   }
 
 	def saveHomework() {
 
 		try {
-
+           
 			def gradeFlag = params.gradeFlag
 
 			def grade = Grade.findByNameAndSection(Integer.parseInt(params.grade), params.section)

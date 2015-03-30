@@ -131,6 +131,16 @@ class TeacherController {
 
 		render stud as JSON
 	}
+
+	def getTeacherEvents()
+		{
+
+			render Grade.findAllByNameAndSection(5,'A').events as JSON
+		}
+
+
+
+
 }
 
 

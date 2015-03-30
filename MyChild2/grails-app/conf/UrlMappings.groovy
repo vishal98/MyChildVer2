@@ -136,10 +136,6 @@ class UrlMappings {
 							 action = "getUserConversations"
 						 }
 
-				 "/app/conversations/get"
-						 {
-							 controller = "conversation"
-							 action = "getCurUserConversations"
 
 
 				"/app/conversations/getFrom/$userId"
@@ -161,12 +157,20 @@ class UrlMappings {
 
 
 
-				 //Subject
+			"/app/events/student/$studentId/$date"
+					{
+						controller = "guardian"
+						action = "getStudentClassEvents"
 
-			"/app/subject/$grade/$section"{
-				controller = "teacher"
-				action = "getSubject"
-			}
+					}
+			  "/app/events/teacher/$date"
+					  {
+						  controller = "teacher"
+						  action = "getTeacherEvents"
+
+					  }
+
+
 
 
 	
@@ -175,6 +179,6 @@ class UrlMappings {
 	
 		}
 		}
-}
+
 	
 	

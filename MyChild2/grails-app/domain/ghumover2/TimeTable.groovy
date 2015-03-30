@@ -7,8 +7,8 @@ class TimeTable {
     Subject subject
     String day
     Teacher teacher
-    Timestamp startTime
-    Timestamp endTime
+	String startTime
+	String endTime
     static belongsTo = [grade:Grade]
     static constraints = {
       startTime(nullable: true)

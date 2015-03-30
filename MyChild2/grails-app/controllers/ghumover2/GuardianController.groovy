@@ -2,7 +2,9 @@ package ghumover2
 
 import grails.converters.JSON
 import grails.rest.RestfulController
-import grails.plugin.springsecurity.annotation.Secured;
+import grails.plugin.springsecurity.annotation.Secured
+
+import java.text.SimpleDateFormat;
 
 @Secured(['ROLE_PARENT'])
 class GuardianController extends RestfulController
@@ -77,6 +79,25 @@ class GuardianController extends RestfulController
 
 			}
 	 }
+
+
+	def getStudentClassEvents()
+		   {
+
+			   SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+			   Date date = formatter.parse(params.date);
+
+			   Long sid = Long.parseLong(params.studentId)
+			   Student student = Student.findByStudentId(sid)
+
+			   render student.grade.events as JSON
+
+
+
+			}
+
+
 
 
 }

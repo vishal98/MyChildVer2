@@ -309,7 +309,7 @@ class BootStrap {
 
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm"); new Date(2014, 02, 11, 04, 30)
 
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30" , date: "11-02-2014 05:30" ).save(flush: true)
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30" ).save(flush: true)
 		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
 		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :sathees,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
 		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
@@ -339,45 +339,45 @@ class BootStrap {
 		   // Add exam entries Date startTime
    
 
-				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B].each { cls ->
-
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: english).save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: maths).save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: sathees, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: history).save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: physics).save(flush: true)
-
-					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: physics).save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: history).save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry).save(flush: true)
-
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: maths).save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sathees, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: physics).save(flush: true)
-
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: history).save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: maths).save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: sathees, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: physics).save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: maths).save(flush: true)
-
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: maths).save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: sathees, subject: hindi).save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: history).save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: computerScience).save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: computerScience).save(flush: true)
-
-
-				}
+				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B,cl10A ,cl10B ].each { cls ->
+					
+										new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: english , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: maths , startTime: "11 Am" , endTime: "12 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Monday", teacher: sathees, subject: hindi , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: history , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: computerScience , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: physics ,  startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+					
+										new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Tuesday", teacher: sathees, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+					
+										new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Wednesday", teacher: sathees, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+					
+										new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Thursday", teacher: sathees, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+					
+										new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Friday", teacher: sathees, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+										new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+					
+					
+									}
 
 
 
@@ -418,6 +418,10 @@ class BootStrap {
 
 
 
+
+
+		 new Event(date: new Date().format("dd-MM-yyyy") ,gradeId: Grade.findByNameAndSection(5,"A").gradeId , title: "Class PTA Meeting" , description: "Parents meeting of all 5 A students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save()
+		 new Event(date: new Date().format("dd-MM-yyyy") , title: "Sports Day" , description: "Annual Sports day" , startTime: "Morning 9.30 " , endTime: "Evening 3.00"  , flag: "SCHOOL" ).save()
 
 
 
@@ -870,7 +874,24 @@ class BootStrap {
 
 
 
+			JSON.registerObjectMarshaller( Event )
+					{
+						e ->
 
+
+									[
+									'title' : e.title ,
+									'description' : e.description ,
+									'startTime' : e.startTime ,
+									 'endTime' : e.endTime
+
+									]
+
+
+
+
+
+					}
 
 
 

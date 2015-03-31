@@ -40,10 +40,12 @@ class CalendarDate
 		 holiday_description(nullable :true)
 	 }
 
-	static mapping = {
-		version false
+	
+                                     static mapping = {
+												        version false
+												        calendar_date  sqlType: "DATE"
+												    }
 
-	}
 
 
 

@@ -96,6 +96,34 @@ class GuardianController extends RestfulController
 
 
 			}
+		   
+		   // add this 2  as class members .
+		   def springSecurityService
+		  User user
+
+
+// New member function
+
+				 def getTeacherList()
+					{
+						  try {
+
+							  user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+							  Student student = Student.findByStudentId(Long.parseLong(params.studentId))
+							  JSON.use('TeacherListForParent'){
+							  render student.grade.teachers as JSON
+							  }
+
+						  }
+						  catch (Exception e)
+						  {
+							  render e
+						  }
+
+					}
+
+
+
 
 
 

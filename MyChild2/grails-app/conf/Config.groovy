@@ -152,6 +152,8 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'
 						'/assets/**':           ['permitAll'],
 						'/partials/**':         ['permitAll'],
 						'/api/**':              ['permitAll'],
+						'/excelTest/**':          ['permitAll'],
+						 '/studentDataExcel/**':          ['permitAll'],
 						'/**':                  ['isFullyAuthenticated()']
 				]
 				grails.plugin.springsecurity.filterChain.chainMap = [

@@ -8,44 +8,43 @@ import java.sql.Timestamp
 
 class CalendarDate
 {
-	@BindingFormat('dd-MM-yyyy')
-		Date calendar_date
-		Integer year
-		Integer quarter
-		Integer month
-		Integer day_of_month
-		Integer day_of_week
-		 String monthName
-		 String dayName
-		 Integer week_of_year
-		 Boolean isWeekday
-		 Boolean isHoliday
-		 Boolean isPayday
-		 String holiday_description
-		 static hasMany = [events:Event]
+    @BindingFormat('dd-MM-yyyy')
+        Date calendar_date
+        Integer year
+        Integer quarter
+        Integer month
+        Integer day_of_month
+        Integer day_of_week
+         String monthName
+         String dayName
+         Integer week_of_year
+         Boolean isWeekday
+         Boolean isHoliday
+         Boolean isPayday
+         String holiday_description
+         static hasMany = [events:Event]
 
-	 static constraints = {
+     static constraints = {
 
-		 year(nullable:true)
-		 quarter(nullable :true)
-		 month(nullable :true)
-		 day_of_month(nullable:true)
-		 day_of_week(nullable :true)
-		 monthName(nullable :true)
-		 dayName(nullable :true)
-		 week_of_year(nullable :true)
-		 isWeekday(nullable :true)
-		 isHoliday(nullable :true)
-		 isPayday(nullable :true)
-		 holiday_description(nullable :true)
-	 }
+         year(nullable:true)
+         quarter(nullable :true)
+         month(nullable :true)
+         day_of_month(nullable:true)
+         day_of_week(nullable :true)
+         monthName(nullable :true)
+         dayName(nullable :true)
+         week_of_year(nullable :true)
+         isWeekday(nullable :true)
+         isHoliday(nullable :true)
+         isPayday(nullable :true)
+         holiday_description(nullable :true)
 
-	
-                                     static mapping = {
-												        version false
-												        calendar_date  sqlType: "DATE"
-												    }
+     }
 
+    static mapping = {
+        version false
+        calendar_date  sqlType: "DATE"
+    }
 
 
 

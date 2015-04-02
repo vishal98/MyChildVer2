@@ -1,5 +1,7 @@
 package ghumover2
-
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.grails.plugins.excelimport.*
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -8,7 +10,7 @@ class StudentDataExcelController {
     def excelImportService
     def index() {
 
-         render "test"
+
 
     }
 
@@ -16,7 +18,7 @@ class StudentDataExcelController {
     def saveExcelData()
     {
 
-/*
+
         Map CONFIG_STUDENT_COLUMN_MAP = [
                 sheet:'Sheet1',
                 startRow: 1,
@@ -63,9 +65,6 @@ class StudentDataExcelController {
         CommonsMultipartFile file = (CommonsMultipartFile) mpr.getFile("file");
         Workbook workbook = WorkbookFactory.create(file.inputStream)
         //Iterate through bookList and create/persists your domain instances
-		render workbook
-		
-		
         def studentList = excelImportService.columns(workbook, CONFIG_STUDENT_COLUMN_MAP)
 
         def student , parent , father , mother ,local_guardian , address
@@ -104,6 +103,6 @@ class StudentDataExcelController {
 
 render "Data saved"
 
-*/
+
     }
 }

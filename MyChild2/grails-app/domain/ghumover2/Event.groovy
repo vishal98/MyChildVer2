@@ -19,7 +19,12 @@ class Event {
 
    static mapping = {
        id generator: 'increment' , name:'eventId'
+       date  sqlType: "DATE"
+
    }
+
+
+
 
 
 
@@ -32,5 +37,8 @@ class Event {
          startTime(nullable: true)
          endTime(nullable: true)
 
+
     }
+
+
 }

@@ -86,11 +86,11 @@ class ConversationController {
 			User fromUser =  (params.userId)? ( (params.userId.isNumber()) ? (User.findById(Long.parseLong(params.userId))) : User.findByUsername(params.userId) )   : null;
 
 			def conv = Conversation.findAllByFromIdAndToId(fromUser.username,user.username)
-			//JSON.use('msgList'){
-				//output ['numberOfConversations'] = conv.size()
+			JSON.use('msgList'){
+				output ['numberOfConversations'] = conv.size()
 				output ['conversations'] =  conv
 				render output as JSON
-			//}
+			}
 		}
 		catch (NullPointerException ne)
 		{
@@ -161,7 +161,6 @@ class ConversationController {
 			User fromUser =  (params.fromId)? ( (params.fromId.isNumber()) ? (User.findById(Long.parseLong(params.fromId))) : User.findByUsername(params.fromId) )   : null;
 			Long threadId = Long.parseLong(params.threadId)
 			String msg = params.messageText
-			String msgTitle = params.messageTitle
 			Conversation conversation = Conversation.findByThreadId(threadId)
 
 			Message newMsg = new Message(messageText: msg , messageTime: new Date() , fromId: fromUser.username , toId: toUser.username)
@@ -200,7 +199,39 @@ class ConversationController {
 
 
 
+   def replyMsg()
+     {
+		 def output = [:]
+		 try {
 
+			 Long threadId = Long.parseLong(params.threadId)
+
+			 String messageText = params.messageText
+			 String fromId = params.fromId
+			 String toId = params.toId
+
+			 if(new Message(threadId: threadId , messageText: messageText , fromId: fromId , toId: toId , messageTime: new Date() ).save())
+			 {
+                 output['status'] = "success"
+				 output['message'] = "Message sent"
+                 output['data'] = messageText
+			     render output as JSON
+			 }
+			 else
+			 {
+				 output['status'] = "failed"
+				 output['message'] = "Message not sent"
+				 output['data'] = messageText
+				 render output as JSON
+			 }
+
+		 }
+		 catch (Exception e)
+		 {
+			 render e
+		 }
+
+    }
 
 
 

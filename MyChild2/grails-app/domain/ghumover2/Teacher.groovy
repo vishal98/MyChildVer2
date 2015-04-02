@@ -1,12 +1,13 @@
 package ghumover2
 import grails.rest.Resource
 
+import javax.persistence.Transient
+
 @Resource
 class Teacher  extends User  {
 
 	 static belongsTo = Grade
 	 static hasMany = [grades:Grade,subject:Subject ]
-	 
 
 	 Long teacherId
 	 String teacherName
@@ -14,8 +15,35 @@ class Teacher  extends User  {
 	 String teacherEmailId
 	 String phoneNo
 
-	 static constraints = {
+	 static mapping = {
 		  id generator: 'increment',name: 'teacherId'
 		  
 	}
+
+
+	void addToGradeSubject(Grade grade , Subject subject)
+	{
+		this.addToGrades(grade)
+		this.addToSubject(subject)
+		grade.addToSubject(subject)
+		new GradeTeacherSubject(grade: grade, teacher: this , subject:subject).save()
+	}
+	void removeFromGradeSubject(Grade grade , Subject subject)
+	{
+		GradeTeacherSubject.findByGradeAndTeacherAndSubject(grade,this,subject).delete()
+	}
+
+	def getSubjectsInGrade(grade)
+	{
+		return GradeTeacherSubject.findAllByGradeAndTeacher(grade,this)
+	}
+
+
+	def getAllGradesAndSubjects()
+	{
+		return GradeTeacherSubject.findAll("from GradeTeacherSubject as g where g.teacher = ? ",[this])
+	}
+
+
+
 }

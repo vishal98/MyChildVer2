@@ -1,6 +1,8 @@
 package ghumover2
 
 import grails.converters.JSON
+
+import java.text.SimpleDateFormat
 import java.util.List
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -9,6 +11,9 @@ import grails.plugin.springsecurity.annotation.Secured
 class TeacherController {
 	def springSecurityService
 	User user
+	static allowedMethods = [sendMailToParents	: "POST"]
+
+
 	def getGrade (){
 		def article=new Grade()
 		def articleList=article.list()
@@ -56,13 +61,14 @@ class TeacherController {
 		Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
 
 
-
+		JSON.use('TeachersSubjects'){
 		output['teacherId'] = user.id.toString()
 		output['username'] = user.username
 		output['grade'] = grade.name
 		output['section'] = grade.section
-		output['subjects'] = grade.subject.toList()
+		output['subjects'] = t.getSubjectsInGrade(grade)
 		render output as JSON
+		}
 
 	}
 
@@ -133,10 +139,121 @@ class TeacherController {
 	}
 
 	def getTeacherEvents()
-		{
+	    {
 
-			render Grade.findAllByNameAndSection(5,'A').events as JSON
+			try {
+                def output = []
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				Date date = formatter.parse(params.date);
+				user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+			    Teacher t = Teacher.findByUsername(user.username)
+
+				render t.grades.events.date.find { it == date } as JSON
+
+
+			}
+			catch (NullPointerException ne)
+			{
+                 render(ne)
+			}
+			catch (Exception e)
+			{
+                render e
+			}
+
+
+
 		}
+
+
+
+	def getAllSubjectsInAllGrades()
+	        {
+				def output = [:]
+				def subjects = [:]
+				user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+				Teacher t = Teacher.findByUsername(user.username)
+				JSON.use('TeachersSubjects')
+						{
+				output['teacherId'] = user.id.toString()
+				output['username'] = user.username
+				output['gradesAndSubjects'] = t.getAllGradesAndSubjects()
+				render output as JSON
+						}
+			}
+
+
+	    def sendMailToParents()
+		  {
+
+
+			  try {
+
+				  String message  = params.message
+				  int gradeId = Integer.parseInt(params.grade)
+				  String section = params.section
+                  String title = params.title
+				  Conversation tempConv
+				  user  =   springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+				  Teacher t = Teacher.findByUsername(user.username)
+                  Grade grade = Grade.findByNameAndSection(gradeId,section)
+                  def output = [:]
+				  def data = [:]
+				  grade.students.each {
+
+					  if(it.getFather()!= null){
+						  tempConv = new Conversation(fromId: it.getFather().username, toId:t.username , title: title , inTrash: false , isRead: false , toDate: new Date())
+								  .addToMessages(new Message(messageText:message , messageTime: new Date() , fromId: t.teacherName , toId: it.getFather()?.name))
+								  .save()
+						                          it.getFather().addToConversations(tempConv).save()
+                                                  t.addToConversations(tempConv).save()
+
+					  }
+
+					  if(it.getMother()!= null)
+					   {
+						   tempConv = new Conversation(fromId: t.username , toId: it.getMother()?.username , title: title , inTrash: false , isRead: false , toDate: new Date())
+								   .addToMessages(new Message(messageText:message , messageTime: new Date() , fromId: t.teacherName , toId: it.getMother()?.name))
+								   .save()
+						   it.getMother().addToConversations(tempConv).save()
+						   t.addToConversations(tempConv).save()
+
+					   }
+					  
+					  if(it.getLocalGuardian()!= null)
+					   {
+						  tempConv =  new Conversation(fromId: t.username , toId: it.getLocalGuardian()?.username , title: title , inTrash: false , isRead: false , toDate: new Date())
+								   .addToMessages(new Message(messageText:message , messageTime: new Date() , fromId: t.teacherName , toId: it.getLocalGuardian()?.name))
+								   .save()
+						   it.getLocalGuardian().addToConversations(tempConv).save()
+						   t.addToConversations(tempConv).save()
+					   }
+				  }
+
+
+				 data['title'] = title
+				 data['message'] = message
+
+                 output['status'] = "success"
+				 output['message'] = "Message successfully sent to parents of "+grade.name +" "+section+" students"
+                 output['data'] = data
+
+				 render output as JSON
+
+
+
+			  }
+			  catch (Exception e)
+			  {
+				  render e
+			  }
+
+
+
+
+		  }
+
+
 
 
 

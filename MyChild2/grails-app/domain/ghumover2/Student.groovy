@@ -16,12 +16,11 @@ class Student  {
 	Date dob
 	String studentPhoto
 	String present_guardian
-	
 	static belongsTo = [grade : Grade]
 
 	static hasMany = [siblings:Sibling]
 
-	static mapping = { id generator: 'increment',name: 'studentId' 
+	static mapping = { id generator: 'increment',name: 'studentId'
 		dob sqlType: "DATE"
 	}
 

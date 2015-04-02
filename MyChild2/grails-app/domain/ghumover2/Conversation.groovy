@@ -32,7 +32,8 @@ class Conversation {
 
 
     static constraints = {
-
+         toDate(nullable: true)
+         fromDate(nullable: true)
     }
 
 

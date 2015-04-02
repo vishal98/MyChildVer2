@@ -150,7 +150,7 @@ class ConversationController {
 
 
 
-
+/*
 	def saveMessage()
 	{
 		def output = [:]
@@ -194,13 +194,73 @@ class ConversationController {
 
 	}
 
+*/
+
+
+
+
+	def newMail()
+	{
+		def output = [:]
+		try{
+
+
+			User toUser =  (params.toId)? ( (params.toId.isNumber()) ? (User.findById(Long.parseLong(params.toId))) : User.findByUsername(params.toId) )   : null;
+			User fromUser =  (params.fromId)? ( (params.fromId.isNumber()) ? (User.findById(Long.parseLong(params.fromId))) : User.findByUsername(params.fromId) )   : null;
+			String msg = params.messageText
+			String title = params.title
+			Conversation conversation = new Conversation(fromId: fromUser.username , toId: toUser.username , title: title , inTrash: false,isRead: false ,toDate: new Date() )
+										.addToMessages(new Message(messageText: msg , messageTime: new Date() , fromId: fromUser.username , toId: toUser.username))
+										.save()
+
+
+			fromUser.addToConversations(conversation).save()
+			toUser.addToConversations(conversation).save()
+
+
+			output['status'] = "success"
+			output['message'] = "message sent"
+
+			output['data'] = conversation
+			render output as JSON
+		}
+
+
+
+		catch (NullPointerException ne)
+		{
+			output['status'] = "error"
+			output['message'] = "User Id  '"+ params.toId +"'  or  '"+params.fromId+"' not found. check Ids"
+			output['data'] = "NULL"
+			render output as JSON
+		}
+		catch (Exception e)
+		{
+			output['status'] = "error"
+			output['message'] = "Some error occured"
+			output['data'] = "NULL"
+			render e as JSON
+
+		}
+
+	}
 
 
 
 
 
-   def replyMsg()
-     {
+
+
+
+
+
+
+
+
+
+
+	def replyMsg()
+	 {
 		 def output = [:]
 		 try {
 
@@ -212,10 +272,10 @@ class ConversationController {
 
 			 if(new Message(threadId: threadId , messageText: messageText , fromId: fromId , toId: toId , messageTime: new Date() ).save())
 			 {
-                 output['status'] = "success"
+				 output['status'] = "success"
 				 output['message'] = "Message sent"
-                 output['data'] = messageText
-			     render output as JSON
+				 output['data'] = messageText
+				 render output as JSON
 			 }
 			 else
 			 {
@@ -231,7 +291,7 @@ class ConversationController {
 			 render e
 		 }
 
-    }
+	}
 
 
 

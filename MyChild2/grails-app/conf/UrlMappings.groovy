@@ -10,7 +10,10 @@ class UrlMappings {
 			"/"(view:"/index")
 			"500"(view:'/error')
 
-
+"/Parent/username/$username"{
+					controller = "parent"
+					action = "getParentDetails"
+			}
 
 
 			// TIME TABLE
@@ -99,7 +102,7 @@ class UrlMappings {
 					action = "getStudentList"
 			}
 
-			"/Teacher/studentList/$grade/$section"
+			"/Teacher/$studentList/$grade/$section"
 					  {
 						  controller = "teacher"
 						  action = "getStudentListByGradeSection"
@@ -108,16 +111,11 @@ class UrlMappings {
 				controller = "teacher"
 				action = "getTeacherDetails"
 			}
-
 			"/app/subject/$grade/$section"{
 				controller = "teacher"
 				action = "getSubject"
 			}
 
-			"/app/teacher/subject/$grade/$section"{
-				controller = "teacher"
-				action = "getSubject"
-			}
 
 			"/app/teacher/getAllSubjectsInAllGrades"
 					{

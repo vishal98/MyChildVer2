@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 @Resource
 class Grade {
 
-    static hasMany = [students:Student,exams:Exam , events:Event , attendance:Attendance , teachers:Teacher]
+    static hasMany = [students:Student,exams:Exam , events:Event , attendance:Attendance , teachers:Teacher , timetable:TimeTable ]
 
     Long gradeId
     int name

@@ -10,7 +10,9 @@ import grails.rest.Resource
 class TimeTableController {
 
    // static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    def springSecurityService
 
+    User user
 
 
     def getWeekTimetable()
@@ -50,5 +52,67 @@ class TimeTableController {
 
 
              }
+
+
+
+
+
+
+
+    def getTeacherWeekTimetable()
+      {
+          def output = [:]
+          try {
+
+                user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+                Teacher teacher = Teacher.findByUsername(user.username)
+                JSON.use('teacherWeekTT')
+                        {
+                            output['teacherId'] = teacher.id.toString()
+                            output['teacherName'] = teacher.teacherName
+                            output['timeTable'] = teacher.timetables
+                            render output as JSON
+                        }
+            }
+            catch (Exception e)
+            {
+                 render e
+            }
+      }
+
+
+
+
+
+    def getTeacherDayTimetable()
+     {
+         def output = [:]
+         try {
+             user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+             Teacher teacher = Teacher.findByUsername(user.username)
+             String day = params.day
+             output['teacherId'] = teacher.id.toString()
+             output['teacherName'] = teacher.teacherName
+             output['timeTable'] =  TimeTable.findAllByTeacherAndDay(teacher,day)
+             render output as JSON
+
+         }
+         catch (Exception e)
+         {
+                render e
+         }
+
+      }
+
+
+
+
+
+
+
+
+
+
+
 
 }

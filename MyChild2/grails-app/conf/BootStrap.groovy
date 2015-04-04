@@ -1065,9 +1065,45 @@ class BootStrap {
 				}
 
 
+        JSON.registerObjectMarshaller( TimeTable ) { TimeTable t ->
+            return [
 
 
-	}
+
+                    'grade' : t.grade.name?.toString(),
+                    'section' : t.grade?.section ,
+                    'subject' : t.subject?.subjectName,
+
+                   'day' : t.day ,
+                   'startTime': t.startTime ,
+                   'endTime' : t.endTime
+
+
+            ]
+        }
+
+
+
+        JSON.createNamedConfig('teacherWeekTT')
+                {
+                    it.registerObjectMarshaller(Teacher) {
+                        Teacher t ->
+                            return [
+                                    'teacherId' : t.id.toString() ,
+                                    'teacherName'  : t.teacherName ,
+                                    'timetable' : t.timetables
+                            ]
+
+                    }
+
+
+                }
+
+
+
+
+
+    }
 
 	def destroy = {
 	}

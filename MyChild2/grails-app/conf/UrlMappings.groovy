@@ -226,7 +226,17 @@ class UrlMappings {
 			"/app/teacher/attendance/save"(controller: "attendance" , action: "saveAttendance" , parseRequest: true)
 			
 			
-	
+			"/app/teacher/timetable/"
+			{
+				controller = "TimeTable"
+				action = "getTeacherWeekTimetable"
+			}
+	 "/app/teacher/timetable/$day"
+			 {
+				 controller = "TimeTable"
+				 action = "getTeacherDayTimetable"
+
+			 }
 	
 	
 		}

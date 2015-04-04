@@ -7,7 +7,7 @@ import javax.persistence.Transient
 class Teacher  extends User  {
 
 	 static belongsTo = Grade
-	 static hasMany = [grades:Grade,subject:Subject ]
+	 static hasMany = [grades:Grade,subject:Subject , timetables:TimeTable]
 
 	 Long teacherId
 	 String teacherName
@@ -25,10 +25,10 @@ class Teacher  extends User  {
     {
 
 
-        new GradeTeacherSubject(grade: grade, teacher: this , subject:subject).save()
-        this.addToGrades(grade).save()
-        grade.addToTeachers(this).save()
-        this.addToSubject(subject).save()
+		new GradeTeacherSubject(grade: grade, teacher: this , subject:subject).save()
+		this.addToGrades(grade).save()
+		grade.addToTeachers(this).save()
+		this.addToSubject(subject).save()
 
     }
 	void removeFromGradeSubject(Grade grade , Subject subject)

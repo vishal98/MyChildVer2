@@ -6,10 +6,10 @@ class TimeTable {
 
     Subject subject
     String day
-    Teacher teacher
+
     String startTime
     String endTime
-    static belongsTo = [grade:Grade]
+    static belongsTo = [grade:Grade , teacher:Teacher ]
     static constraints = {
       startTime(nullable: true)
       endTime(nullable: true)

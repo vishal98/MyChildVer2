@@ -287,9 +287,9 @@ class BootStrap {
         father = Guardian.findByUsername("jacob@test.com")
         mother = Guardian.findByUsername("reena@test.com")
 
-	s1 =  new Student( grade:cl5B  , registerNumber: "ST109" ,studentName: "Akhil" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
-	s1.setAsFather( new Guardian(name: "Jacob" , username: "jacob@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
-	s1.setAsMother( new Guardian(name:"Reena" , username: "reena@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
+        s2 =  new Student(grade: cl6B , registerNumber: "ST110" ,studentName: "Abhijith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+        s2.setAsFather( father )
+        s2.setAsMother( mother )
 
         s3 =  new Student( grade: cl7B ,  registerNumber: "ST111" ,studentName: "Ashiq" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
         s3.setAsFather( father )
@@ -314,6 +314,8 @@ class BootStrap {
 
 
 
+            new UserRole(user:father , role:roleParent).save(flush: true)
+            new UserRole(user:mother , role:roleParent).save(flush: true)
 
 
             s1 =  new Student( grade:cl8B  , registerNumber: "ST114" ,studentName: "Nijo" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
@@ -411,46 +413,27 @@ class BootStrap {
 
 		   // Add exam entries Date startTime
    
+//NEW VALID TIME TABLE ENTRIES
 
-				[cl5A ,cl5B,cl6A,cl6B,cl7A,cl7B,cl9A ,cl9B ].each { cls ->
+               ["Monday" , "Tuesday" , "Wednesday" , "Thursday" , "Friday"].each {
 
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: english , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: maths , startTime: "11 Am" , endTime: "12 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: satheesh, subject: hindi , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: history , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: mathew, subject: computerScience , startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Monday", teacher: sibi, subject: physics ,  startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:mathew , subject: english , startTime: "10:00 AM" , endTime: "11:00 AM")).save()
+                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:sibi , subject: hindi , startTime: "11:10 AM" , endTime: "12:00 PM")).save()
+                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:satheesh , subject: chemistry , startTime: "12:05 PM" , endTime: "1:00 PM")).save()
+                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:raji , subject: physics , startTime: "2:00 PM" , endTime: "3:00 PM")).save()
 
-					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: satheesh, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: satheesh, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Tuesday", teacher: sibi, subject: chemistry, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: satheesh, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Wednesday", teacher: sibi, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: satheesh, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: physics, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Thursday", teacher: sibi, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: maths, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: satheesh, subject: hindi, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: history, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: mathew, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
-					new TimeTable(grade: cls, day: "Friday", teacher: sibi, subject: computerScience, startTime: "10 Am" , endTime: "11 Am").save(flush: true)
+                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:raji , subject: physics , startTime: "10:00 AM" , endTime: "11:00 AM")).save()
+                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:satheesh , subject: chemistry , startTime: "11:10 AM" , endTime: "12:00 PM")).save()
+                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:sibi , subject: hindi , startTime: "12:05 PM" , endTime: "1:00 PM")).save()
+                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:mathew , subject: english , startTime: "2:00 PM" , endTime: "3:00 PM")).save()
 
 
-				}
+
+
+               }
+			
+
+				
 
 
 
@@ -617,7 +600,7 @@ class BootStrap {
 			 Student student ->
 
 				def output = [:]
-				output['studentId'] = student.studentId
+				output['studentId'] = student.studentId.toString()
 				output['studentName'] = student.studentName
 				output['grade']=student.grade.name
 				output['section']=student.grade.section

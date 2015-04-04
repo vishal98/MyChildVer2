@@ -196,11 +196,39 @@ class UrlMappings {
 					}
 
 
-	
+					
+					
+					//Attendance
+					
+							"/app/attendance/grade/$grade/$section/$date"
+									{
+					
+										controller = "attendance"
+										action = "getGradeAttendance"
+					
+									}
+							"/app/teacher/attendance/save"(controller: "attendance" , action: "saveAttendance" , parseRequest: true)
+					
+					
+						   "/app/attendance/student/$studentId/from/$fromDate/to/$toDate"
+								   {
+									   controller = "attendance"
+									   action = "getStudentAttendanceBetween"
+					
+								   }
+					
+							"/app/attendance/student/$studentId/month/$month/$year"
+									{
+										 controller = "attendance"
+										action = "getAttendanceOfMonth "
+									}
+						
+			"/app/teacher/attendance/save"(controller: "attendance" , action: "saveAttendance" , parseRequest: true)
+			
+			
 	
 	
 	
 		}
 		}
 
-	

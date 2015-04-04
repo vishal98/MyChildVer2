@@ -62,7 +62,7 @@ class TeacherController {
 
 
 		JSON.use('TeachersSubjects'){
-		output['teacherId'] = user.id.toString()
+		output['teacherId'] = t.id.toString()
 		output['username'] = user.username
 		output['grade'] = grade.name
 		output['section'] = grade.section

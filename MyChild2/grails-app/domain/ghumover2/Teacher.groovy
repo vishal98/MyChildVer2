@@ -22,12 +22,15 @@ class Teacher  extends User  {
 
 
 	void addToGradeSubject(Grade grade , Subject subject)
-	{
-		this.addToGrades(grade)
-		this.addToSubject(subject)
-		grade.addToSubject(subject)
-		new GradeTeacherSubject(grade: grade, teacher: this , subject:subject).save()
-	}
+    {
+
+
+        new GradeTeacherSubject(grade: grade, teacher: this , subject:subject).save()
+        this.addToGrades(grade).save()
+        grade.addToTeachers(this).save()
+        this.addToSubject(subject).save()
+
+    }
 	void removeFromGradeSubject(Grade grade , Subject subject)
 	{
 		GradeTeacherSubject.findByGradeAndTeacherAndSubject(grade,this,subject).delete()

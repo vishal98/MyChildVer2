@@ -1,7 +1,8 @@
 package ghumover2
 import grails.rest.Resource
 import org.grails.databinding.BindingFormat
-import javax.persistence.Transient;
+import javax.persistence.Transient
+import java.text.SimpleDateFormat;
 
 @Resource(formats=['json', 'xml'])
 class Student  {
@@ -54,6 +55,8 @@ class Student  {
 	}
 
 
+
+
 	@Transient
 	Guardian getMother() {
 
@@ -76,6 +79,31 @@ class Student  {
 	List<Student> getParents() {
 		return  GuardianChildren.findAllByStudent(this).guardian
 	}
+
+
+	def getAttendance(String from_date , String to_date)
+	{
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+		Date date_from = formatter.parse(from_date);
+		Date date_upto = formatter.parse(to_date)
+
+        def allAttendance =   Attendance.findAllByDateBetween(date_from ,date_upto)
+        def studentAbsense = new ArrayList()
+		allAttendance.each { attendence ->
+
+			if(attendence.absentees.studentId.contains(this.studentId))
+			 {
+				 studentAbsense << attendence
+			 }
+
+
+		}
+		return studentAbsense
+
+	}
+
 
 
 

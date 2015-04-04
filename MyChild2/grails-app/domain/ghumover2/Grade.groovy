@@ -1,15 +1,18 @@
 package ghumover2
 import grails.rest.Resource
 
+import java.text.SimpleDateFormat
+
 @Resource
 class Grade {
 
-    static hasMany = [teachers:Teacher , students:Student,subject:Subject,exams:Exam , events:Event]
+    static hasMany = [students:Student,exams:Exam , events:Event , attendance:Attendance , teachers:Teacher]
+
     Long gradeId
     int name
 	String section
-    Integer classTeacherId
-	String classTeacherName
+    Long classTeacherId
+
  
 
 static mapping ={
@@ -18,21 +21,27 @@ static mapping ={
 
     static constraints = {
 
-    	classTeacherId(nullable:true)
-		classTeacherName(nullable:true)
-        gradeId(nullable: true)
         classTeacherId(nullable: true)
-        classTeacherName(nullable: true )
+      
+
     }
 
 
     def addSubjectAndTeacher(Subject subject , Teacher teacher)
       {
-          teacher.addToGrades(this)
-          teacher.addToSubject(subject)
-          this.addToTeachers(teacher)
+
           new GradeTeacherSubject(grade: this , teacher:teacher , subject:subject).save()
+
       }
+
+
+     def getAttendance(String date)
+     {
+
+         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+         Date att_date = formatter.parse(date);
+         return  Attendance.findAllByDateAndGrade(att_date,this)
+     }
 
 
 

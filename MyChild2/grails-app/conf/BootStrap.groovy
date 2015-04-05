@@ -14,6 +14,9 @@ class BootStrap {
 
 	private static final String ROLE_TEACHER = 'ROLE_TEACHER'
 	private static final String ROLE_PARENT = 'ROLE_PARENT'
+	private static final String ROLE_ADMIN = 'ROLE_ADMIN'
+	
+	
 
 
 	def dataSource
@@ -74,6 +77,12 @@ class BootStrap {
 
 		roleParent = new Role(authority: ROLE_PARENT)
 		roleParent.save()
+		
+		def roleAdmin = new Role(authority: ROLE_ADMIN)
+		roleAdmin.save()
+ 
+ def admin = new User(username: "admin" , password: '123' ).save()
+ new UserRole(user: admin, role: roleAdmin).save()
 
 
 
@@ -573,8 +582,8 @@ class BootStrap {
 
 				def output = [:]
 				output['subject'] = home.subject
-				output['dueDate'] = home.dueDate
-				output['homeGivenDate'] = home.dateCreated
+				output['dueDate'] = home.dueDate.format("dd-MM-yyyy")
+				output['homeGivenDate'] = home.dateCreated.format("dd-MM-yyyy")
 				output['details'] = home.message
 
 				return output
@@ -602,7 +611,7 @@ class BootStrap {
 				def output = [:]
 				output['studentId'] = student.studentId.toString()
 				output['studentName'] = student.studentName
-				output['grade']=student.grade.name
+				output['grade']=student.grade.name.toString()
 				output['section']=student.grade.section
 				output['classTeacherName']=student.grade.classTeacherName
 				
@@ -615,7 +624,7 @@ class BootStrap {
 			Subject subject ->
 
 			   def output = [:]
-			   output['subjectId'] = subject.subjectId
+			   output['subjectId'] = subject.subjectId.toString()
 			   output['subjectName'] = subject.subjectName
 
 			   
@@ -658,6 +667,20 @@ class BootStrap {
 
 				]
 
+		}
+
+
+		JSON.registerObjectMarshaller(Message) {
+
+			Message m ->
+				return ['messageId' : m.messageId.toString() ,
+						'messageText' : m.messageText ,
+						'messageTime' : m.messageTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a') ,
+						'from' : m.fromId ,
+						'to' : m.toId
+
+
+				]
 		}
 
 
@@ -774,7 +797,7 @@ class BootStrap {
 										  'gender' : s.gender,
 										  'present_address' : s.present_address ,
 										  'no_of_siblings' : s.no_of_siblings.toString() ,
-										  'dob' : s.dob,
+										  'dob' : s.dob.format("dd-MM-yyyy"),
 										  'age' : s.getAge() ,
 										  'present_guardian' : s.present_guardian
 
@@ -810,8 +833,8 @@ class BootStrap {
 												  'name' : s.getMother()?.name ,
 										  ],
 										  'local_guardian' :   [
-												  'id' : s.getLocalGuardian()?.id.toString(),
-												  'name' : s.getLocalGuardian()?.name ,
+												  'id' : (s.getLocalGuardian())? s.getLocalGuardian()?.id.toString() : "No local guardian" ,
+												  'name' : (s.getLocalGuardian())? s.getLocalGuardian()?.name : "No local guardian" ,
 										  ]
 
 									  ]
@@ -838,7 +861,7 @@ class BootStrap {
 					section : s.grade?.section ,
 				//	father: s?.getFather() ,
 				//	mother: s?.getMother() ,
-					local_guardian: s?.getLocalGuardian()
+					local_guardian: (s.getLocalGuardian()) ? s.getLocalGuardian() : "No local guardian"
 
 			]
 		}
@@ -848,7 +871,7 @@ class BootStrap {
 					  subject : t.subject?.subjectName ,
 					  day : t.day ,
 					  teacher: t.teacher?.teacherName ,
-					  grade: t.grade?.name ,
+					  grade: t.grade?.name.toString() ,
 					  section: t.grade?.section
 
 
@@ -873,9 +896,9 @@ class BootStrap {
 					grade : h.grade?.name.toString(),
 					section : h.grade?.section ,
 					subject: h.subject ,
-					dueDate : h.dueDate ,
+					dueDate : h.dueDate.format("dd-MM-yyyy") ,
 					homework: h.homework ,
-					dateCreated : h.dateCreated ,
+					dateCreated : h.dateCreated.format("dd-MM-yyyy") ,
 					student : h.student?.studentName ,
 					studentId : h.student?.studentId.toString() ,
 					message : h.message ,
@@ -912,8 +935,8 @@ class BootStrap {
 					return  [
 							 'homeworkId' : h.homeworkId.toString() ,
 							 'subject'    : h.subject ,
-							 'dueDate'    : h.dueDate ,
-							 'dateCreated': h.dateCreated ,
+							 'dueDate'    : h.dueDate.format("dd-MM-yyyy") ,
+							 'dateCreated': h.dateCreated.format("dd-MM-yyyy") ,
 							 'message'    : h.message,
 							 'homework'   : h.homework
 							]
@@ -967,6 +990,7 @@ class BootStrap {
 
 
                                     [
+									'eventId' : e.eventId.toString(),
 									'title' : e.title ,
 									'description' : e.description ,
 									'startTime' : e.startTime ,
@@ -987,6 +1011,7 @@ class BootStrap {
 					it.registerObjectMarshaller(Teacher) { Teacher t ->
 
 						return [ 'teacherId' : t.id.toString() ,
+								 'username' : t.username,
 								 'teacherName' : t.teacherName ,
 								 'teacherPhoto': t.teacherPhoto,
                                  'teacherEmailId' : t.teacherEmailId ,
@@ -1003,11 +1028,11 @@ class BootStrap {
 				{
 					it.registerObjectMarshaller(GradeTeacherSubject) { GradeTeacherSubject g ->
 
-                           return [ 'gradeId' : g.grade?.gradeId ,
-								    'gradename': g.grade?.name,
+                           return [ 'gradeId' : g.grade?.gradeId.toString() ,
+								    'gradename': g.grade?.name.toString(),
 								    'section':g.grade?.section,
 								    'subjectName':g.subject?.subjectName ,
-								    'subjectId':g.subject?.subjectId
+								    'subjectId':g.subject?.subjectId.toString()
 
 
                            ]

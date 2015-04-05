@@ -19,7 +19,7 @@ class Conversation {
     @BindingFormat("dd-MM-yyyy")
     Date toDate
     @BindingFormat("dd-MM-yyyy")
-    Date fromDate
+
 
 
 
@@ -33,7 +33,7 @@ class Conversation {
 
     static constraints = {
          toDate(nullable: true)
-         fromDate(nullable: true)
+
     }
 
 

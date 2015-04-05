@@ -164,6 +164,7 @@ class AttendanceController {
 			   String from_date = "01-" + month + "-" + year;
 			   String to_date = daysInMonth + "-" + month + "-" + year
 
+					   int workingDay=daysInMonth-4	   
 			   def absentDays = student.getAttendance(from_date, to_date)
 			   def absentDates = []
 			   absentDays.each {

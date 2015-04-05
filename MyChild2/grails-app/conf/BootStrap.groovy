@@ -955,7 +955,7 @@ class BootStrap {
 					 return [
 								 'threadId': cnv.threadId.toString(),
 								 'numberOfMessages' : cnv.messages.size(),
-								 'fromDate': cnv.fromDate?.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+								 //'fromDate': cnv.fromDate?.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
 								 'fromId': cnv.fromId ,
 								 'toId': cnv.toId,
 								 'inTrash': cnv.inTrash,

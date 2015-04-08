@@ -62,6 +62,10 @@ class BootStrap {
 				"where c.month=8 and c.day_of_month = 15")
 
 
+
+CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.holiday_description='Sunday' where c.dayName like ? " , ['Sunday']);
+
+
 		// END OF BOOTSTRAPING DATES
 
 
@@ -544,12 +548,12 @@ class BootStrap {
 
 
 
+          new Event(calendar_date: CalendarDate.today() ,grade: Grade.findByNameAndSection(5,"A") , title: "Class PTA Meeting" , description: "Parents meeting of all 5 A students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save(flush: true)
+          new Event(calendar_date: CalendarDate.today() , title: "Sports Day" , description: "Annual Sports day" , startTime: "Morning 9.30 " , endTime: "Evening 3.00"  , flag: "SCHOOL" ).save()
+          new Event(calendar_date: CalendarDate.today() ,grade: Grade.findByNameAndSection(5,"B") , title: "Class PTA Meeting" , description: "Parents meeting of all 5 B students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save(flush: true)
+          new Event(calendar_date: CalendarDate.today() , title: "Arts Day" , description: "Annual Arts day" , startTime: "Morning 11.30 " , endTime: "Evening 4.00"  , flag: "SCHOOL" ).save()
 
-
-		new Event(date: new Date().format("dd-MM-yyyy").toString() ,gradeId: Grade.findByNameAndSection(5,"A").gradeId , title: "Class PTA Meeting" , description: "Parents meeting of all 5 A students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save()
-		 new Event(date: new Date().format("dd-MM-yyyy").toString() , title: "Sports Day" , description: "Annual Sports day" , startTime: "Morning 9.30 " , endTime: "Evening 3.00"  , flag: "SCHOOL" ).save()
-         new Event(date: new Date().format("dd-MM-yyyy").toString() ,gradeId: Grade.findByNameAndSection(6,"A").gradeId , title: "Class PTA Meeting" , description: "Parents meeting of all 6 A students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save()
-
+          new Event(calendar_date: CalendarDate.getDate("08-04-2015") ,grade: Grade.findByNameAndSection(6,"A") , title: "Class PTA Meeting" , description: "Parents meeting of all 6 A students" , startTime: "Evening 3.30 " , endTime: "Evening 5.30"  , flag: "GRADE" ).save(flush: true)
 
 
 
@@ -613,7 +617,7 @@ class BootStrap {
 				output['studentName'] = student.studentName
 				output['grade']=student.grade.name.toString()
 				output['section']=student.grade.section
-				output['classTeacherName']=student.grade.classTeacherName
+				output['classTeacherName']=student.grade.id.toString()
 				
 				
 
@@ -990,11 +994,13 @@ class BootStrap {
 
 
                                     [
-									'eventId' : e.eventId.toString(),
-									'title' : e.title ,
-									'description' : e.description ,
-									'startTime' : e.startTime ,
-									 'endTime' : e.endTime
+									     'eventId' : e.eventId.toString(),
+                                    'title' : e.title ,
+                                    'description' : e.description ,
+                                    'eventDate' : e.calendar_date?.calendar_date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+                                    'startTime' : e.startTime ,
+                                    'endTime' : e.endTime,
+                                    'eventType': (e.flag == 'SCHOOL') ? "School Event" : "Class Event of class  "+e.grade.name+" "+e.grade.section
 
 							        ]
 
@@ -1043,21 +1049,22 @@ class BootStrap {
 
 
 
-
-		JSON.registerObjectMarshaller( Attendance ) { Attendance a ->
-			return [
-
-
-
-							'attendanceId' : a.attendanceId.toString(),
-					        'date' : a.date.format('EEEE, dd MMMM yyyy'),
-							'grade' : a.grade?.name.toString() ,
-							'section' : a.grade?.section,
-							'absentees':a.absentees
-
-
-					]
-		}
+				JSON.registerObjectMarshaller( Attendance ) { Attendance a ->
+					return [
+		
+		
+									'attendanceId' : a.attendanceId.toString(),
+									'date' : a.date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+									'grade' : a.grade?.name.toString() ,
+									'section' : a.grade?.section,
+									'total_students' : a.grade?.students.size().toString(),
+									 'total_absent' : a.absentees.size().toString() ,
+									'absentees':a.absentees
+		
+		
+							]
+				}
+		
 
 
 

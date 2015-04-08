@@ -2,14 +2,11 @@ package ghumover2
 
 import org.grails.databinding.BindingFormat
 
+
 class Event {
 
     Long eventId
-    @BindingFormat('dd-MM-yyyy')
-    Date date
-    static belongsTo = [date:CalendarDate , gradeId:Grade ]
-    static  mappedBy = [date:'calendar_date']
-
+    static belongsTo = [calendar_date:CalendarDate , grade:Grade ]
     String title
     String description
     String startTime
@@ -19,7 +16,7 @@ class Event {
 
    static mapping = {
        id generator: 'increment' , name:'eventId'
-       date  sqlType: "DATE"
+       date sqlType: 'DATE'
 
    }
 
@@ -30,7 +27,7 @@ class Event {
 
     static constraints = {
 
-         gradeId(nullable: true)
+      
          flag inList: ["SCHOOL", "GRADE"]
          title(nullable: true)
          description(nullable: true)

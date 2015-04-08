@@ -171,19 +171,14 @@ class UrlMappings {
 
 
 
+			"/app/conversations/sent"
+			{
+				controller = "conversation"
+				action = "getSentConversations"
 
-			"/app/events/student/$studentId/$date"
-					{
-						controller = "guardian"
-						action = "getStudentClassEvents"
+			}
 
-					}
-			  "/app/events/teacher/$date"
-					  {
-						  controller = "teacher"
-						  action = "getTeacherEvents"
 
-					  }
 
 
 
@@ -223,7 +218,7 @@ class UrlMappings {
 										action = "getAttendanceOfMonth "
 									}
 						
-			"/app/teacher/attendance/save"(controller: "attendance" , action: "saveAttendance" , parseRequest: true)
+
 			
 			
 			"/app/teacher/timetable/"
@@ -231,13 +226,70 @@ class UrlMappings {
 				controller = "TimeTable"
 				action = "getTeacherWeekTimetable"
 			}
-	 "/app/teacher/timetable/$day"
+	       "/app/teacher/timetable/$day"
 			 {
 				 controller = "TimeTable"
 				 action = "getTeacherDayTimetable"
 
 			 }
-	
+
+
+
+			//Student list Api
+
+	  "/app/get/students/$grade/$section"
+			  {
+				  controller = "student"
+				  action = "getStudentsOfClass"
+
+			  }
+
+
+
+			//mail pendings
+
+			"/app/conversations/sent"
+					{
+						controller = "conversation"
+						action = "getSentConversations"
+
+					}
+
+
+
+
+			//  Teacher events
+
+			 "/app/events/teacher/$month/$year"
+					 {
+						 controller = "Teacher"
+						 action = "getTeacherMonthEvents"
+
+					 }
+			"/app/events/teacher/$date"
+					{
+						controller = "teacher"
+						action = "getTeacherEvents"
+
+					}
+
+            // student events
+             "/app/events/student/$studentId/$month/$year"
+					 {
+
+						 controller = "guardian"
+						 action = "getStudentMonthEvents"
+
+					 }
+
+			"/app/events/student/$studentId/$date"
+					{
+						controller = "guardian"
+						action = "getStudentClassEvents"
+
+					}
+					
+
 	
 		}
 		}

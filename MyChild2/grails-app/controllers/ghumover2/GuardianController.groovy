@@ -13,7 +13,7 @@ class GuardianController extends RestfulController
 	static responseFormats = ['json', 'xml']
 	def springSecurityService
 	User user
-
+	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 	GuardianController() {
 		super(Guardian)
 	}
@@ -85,18 +85,73 @@ class GuardianController extends RestfulController
 
 	def getStudentClassEvents()
 	       {
+              def result = [:]
+			   try {
 
-			   SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-			   Date date = formatter.parse(params.date);
 
-			   Long sid = Long.parseLong(params.studentId)
-               Student student = Student.findByStudentId(sid)
-               render student.grade.events as JSON
+				   Date date = formatter.parse(params.date);
+                   Long sid = Long.parseLong(params.studentId)
+				   Student student = Student.findByStudentId(sid)
 
+
+				   def eventList = Event.findAll("from Event as e where (e.calendar_date.calendar_date = :date and e.grade.gradeId = :gradeId ) or (e.calendar_date.calendar_date = :date and e.flag = :flag) order by e.calendar_date.calendar_date ",[date:date ,gradeId:student.grade.gradeId,flag:"SCHOOL"  ]  )
+
+
+				   result['studentId'] = student.studentId.toString()
+				   result['teacherName'] = student.studentName
+				   result['eventDate'] = date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+				   result['no_of_events'] = eventList.size().toString()
+				   result['events'] = eventList
+			       render result as JSON
+			   }
+              catch (Exception e)
+			  {
+				  render e
+			  }
 
 
 	        }
+
+
+
+	def getStudentMonthEvents()
+	  {
+	     def result = [:]
+		 try {
+
+
+			 int month = Integer.parseInt(params.month)
+			 int year =  Integer.parseInt(params.year)
+			 Long sid = Long.parseLong(params.studentId)
+			 Student student = Student.findByStudentId(sid)
+
+			 Date start_date = formatter.parse("01-"+month+"-"+year)
+			 Date end_date = formatter.parse(CalendarDate.getTotalDaysInMonth(month,year)+"-"+month+"-"+year)
+
+
+			 def eventList = Event.findAll("from Event as e where (e.calendar_date.calendar_date between :f_date and :t_date  and e.grade.gradeId = :gradeId)  or  ( e.calendar_date.calendar_date between :f_date and :t_date  and e.flag = :flag) order by e.calendar_date.calendar_date " , [f_date:start_date , t_date:end_date , gradeId:student.grade.gradeId , flag:"SCHOOL" ] )
+
+			 result['studentId'] = student.studentId.toString()
+			 result['studentName'] = student.studentName
+			 result['month'] = month.toString()
+			 result['year'] = year.toString()
+			 result['from_date'] = start_date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			 result['to_date'] = end_date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			 result['no_of_events'] = eventList.size().toString()
+			 result['events'] = eventList
+			 render result as JSON
+
+
+		 }
+		catch (Exception e)
+		{
+             render e
+
+		}
+
+	  }
+
 
 
 

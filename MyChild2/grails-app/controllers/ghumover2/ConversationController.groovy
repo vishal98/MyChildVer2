@@ -4,6 +4,7 @@ import grails.converters.JSON
 
 
 class ConversationController {
+	static allowedMethods = [getUserConversations	: "GET" , getSentConversations:"GET"  , newMail :"POST" , replyMsg : "POST"]
 	def springSecurityService
 
 	User user
@@ -18,9 +19,12 @@ class ConversationController {
 
 			user  =    (params.userId)? ( (params.userId.isNumber()) ? (User.findById(Long.parseLong(params.userId))) : User.findByUsername(params.userId) )   : user;
 
+
 			JSON.use('msgList'){
-				output ['numberOfConversations'] = user.conversations.size()
-				output ['conversations'] =  user.conversations
+			    def inbox = Conversation.findAllByToId(user.username)
+
+				output ['numberOfConversations'] = inbox.size()
+				output ['conversations'] =  inbox
 				render output as JSON
 			}
 
@@ -45,6 +49,52 @@ class ConversationController {
 			render output as JSON
 		}
 	}
+
+
+
+
+
+	def getSentConversations()
+	{
+		def output = [:]
+		try {
+
+			user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+
+			JSON.use('msgList'){
+				def sentbox = Conversation.findAllByFromId(user.username)
+
+				output ['numberOfConversations'] = sentbox.size().toString()
+				output ['conversations'] =  sentbox
+				render output as JSON
+			}
+
+
+
+
+
+
+		}
+		catch (NullPointerException ne)
+		{
+			output['status'] = "error"
+			output['message'] = "User Id "+ params.userId +" not found"
+			output['data'] = "NULL"
+			render output as JSON
+		}
+		catch (Exception e)
+		{
+			output['status'] = "error"
+			output['message'] = "Error occured "
+			output['data'] = e
+			render output as JSON
+		}
+	}
+
+
+
+
+
 
 
 

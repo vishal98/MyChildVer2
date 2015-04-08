@@ -11,6 +11,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class TeacherController {
 	def springSecurityService
 	User user
+	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 	static allowedMethods = [sendMailToParents	: "POST"]
 
 
@@ -140,15 +141,27 @@ class TeacherController {
 
 	def getTeacherEvents()
 	    {
-
+			def output = [:]
 			try {
-                def output = []
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-				Date date = formatter.parse(params.date);
+
 				user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
 			    Teacher t = Teacher.findByUsername(user.username)
+                def teacherGrades = t.grades
+				Date date = formatter.parse(params.date)
 
-				render t.grades.events.date.find { it == date } as JSON
+
+				def teacherEvents = Event.findAll("from Event as e where (e.calendar_date.calendar_date = :date and e.grade.gradeId in (:g_list)) or (e.calendar_date.calendar_date = :date and e.flag = :flag ) order by e.calendar_date.calendar_date   " ,[date:date , g_list: t.grades.gradeId , flag:"SCHOOL"])
+            	output['teacherId'] = t.id.toString()
+				output['teacherName'] = t.teacherName
+				output['eventDate'] = date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+				output['no_of_events'] = teacherEvents.size().toString()
+				output['events'] = teacherEvents
+
+				render output as JSON
+
+
+
+
 
 
 			}
@@ -164,6 +177,54 @@ class TeacherController {
 
 
 		}
+
+
+
+	def getTeacherMonthEvents()
+	  {
+		  def output= [:]
+		  try {
+			  user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+			  Teacher t = Teacher.findByUsername(user.username)
+
+
+
+                int month = Integer.parseInt(params.month)
+			    int year =  Integer.parseInt(params.year)
+
+
+						  Date start_date = formatter.parse("01-"+month+"-"+year)
+			              Date end_date = formatter.parse(CalendarDate.getTotalDaysInMonth(month,year)+"-"+month+"-"+year)
+
+
+			   def eventList = Event.findAll("from Event as e where (e.calendar_date.calendar_date between :f_date and :t_date  and e.grade.gradeId in (:g_list))  or  ( e.calendar_date.calendar_date between :f_date and :t_date  and e.flag = :flag) order by e.calendar_date.calendar_date " , [f_date:start_date , t_date:end_date , g_list:t.grades.gradeId , flag:"SCHOOL" ] )
+
+			  output['teacherId'] = t.id.toString()
+			  output['teacherName'] = t.teacherName
+			  output['month'] = month.toString()
+			  output['year'] = year.toString()
+			  output['from_date'] = start_date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			  output['to_date'] = end_date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			  output['no_of_events'] = eventList.size().toString()
+			  output['events'] = eventList
+
+			  render output as JSON
+
+		    }
+		  catch (NullPointerException ne)
+		  {
+			   render(ne)
+		  }
+		  catch (Exception e)
+		  {
+			  render(e)
+
+		  }
+
+
+	  }
+
+
 
 
 

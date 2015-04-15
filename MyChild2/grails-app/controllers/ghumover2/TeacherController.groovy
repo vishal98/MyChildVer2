@@ -316,6 +316,38 @@ class TeacherController {
 
 
 
+		  def getTeacherWeekTimetable()
+		  {
+
+			  try {
+
+				  user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+				  Teacher teacher = Teacher.findByUsername(user.username)
+
+
+
+				   def teacherTT = [:]
+
+				  def days = TimeTable.executeQuery("select distinct a.day from TimeTable a ")
+				  JSON.use('TeachergetTimeTable')
+						  {
+							  days.each {
+								  teacherTT[it] = TimeTable.findAllByTeacherAndDay(teacher,it)
+							  }
+
+							  render teacherTT as JSON
+						  }
+
+			  }
+			  catch (Exception e)
+			  {
+				  render e
+			  }
+		  }
+
+
+
+
 
 
 

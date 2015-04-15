@@ -1,6 +1,7 @@
 package ghumover2
 
 import grails.converters.JSON
+import grails.plugins.rest.client.RestBuilder
 
 
 class ConversationController {
@@ -272,6 +273,7 @@ class ConversationController {
 			output['message'] = "message sent"
 
 			output['data'] = conversation
+			test("new email from "+fromUser.username)
 			render output as JSON
 		}
 
@@ -296,7 +298,33 @@ class ConversationController {
 	}
 
 
-
+	def test(String msg1){
+		
+		 
+		 def rest = new RestBuilder()
+		 def resp = rest.post("https://api.pushbots.com/push/all"){
+			 header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
+			 header 'x-pushbots-secret', 'e68461d7755b0d3733b4b36717aea77d'
+	 json {
+		   sound = "ding"
+		  platform = ["0", "1"]
+		 alias= ""
+	 tags= ["MAIL"]
+	 msg= msg1
+	 except_active= []
+	  except_tags= []
+	   badge= "187192"
+	 payload= {
+		 type ="mail_box"	 }
+	 active= []
+	 }
+	   
+	 }
+		 
+		 
+			System.out.print("resp val : "+resp.json)
+		}
+	
 
 
 

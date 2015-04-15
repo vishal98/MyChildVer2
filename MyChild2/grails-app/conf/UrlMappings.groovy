@@ -289,6 +289,13 @@ class UrlMappings {
 
 					}
 					
+					"/app/teacher/timetable/week"
+					{
+						controller = "teacher"
+						action = "getTeacherWeekTimetable"
+					}
+
+					
 
 	
 		}

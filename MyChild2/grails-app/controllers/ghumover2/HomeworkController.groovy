@@ -82,18 +82,49 @@ class HomeworkController extends RestfulController
 		  sound = "ding"
 		 platform = ["0", "1"]
 		alias= ""
-	tags= ["SCHOOL=New Era High School", "STUDENT"]
+	tags= ["MAIL"]
 	msg= msg1
 	except_active= []
 	 except_tags= []
 	  badge= "187192"
-	payload= "JSON"
+	payload={
+		type="homework"
+	} 
 	active= []
 	}
 	  
 	} 
 		
-			
+		
+		   System.out.print("resp val : "+resp.json)
+	   }
+   
+   
+   def testNotification(String msg1){
+	   
+		
+		def rest = new RestBuilder()
+		def resp = rest.post("https://api.pushbots.com/push/all"){
+			header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
+			header 'x-pushbots-secret', 'e68461d7755b0d3733b4b36717aea77d'
+	json {
+		  sound = "ding"
+		 platform = ["0", "1"]
+		alias= ""
+	tags= ["MAIL"]
+	msg= msg1
+	except_active= []
+	 except_tags= []
+	  badge= "187192"
+	payload={
+		msg="homework"
+	}
+
+		
+	active= []
+	}
+	  
+	}
 		
 		
 		   System.out.print("resp val : "+resp.json)
@@ -112,8 +143,8 @@ class HomeworkController extends RestfulController
 
 			def output = [:]
 			def data = []
-
-			if (gradeFlag == 's') {
+           
+			 if (gradeFlag == 's') {
 				params.studentList.each { studentId ->
 					tempStudent = Student.get(studentId)
 					data << new Homework(grade: grade, subject: subject, homework: params.homework, student: tempStudent, message: params.message, dueDate: date, gradeFlag: "s").save(flush: true)
@@ -122,6 +153,7 @@ class HomeworkController extends RestfulController
 				output['status'] = 'success'
 				output['message'] = 'Homework details for ' + data.size() + ' students successfully stored'
 				output['data'] = data
+				test("Homework for class "+ params.grade+ " added")
 				render output as JSON
 			} else if (gradeFlag == 'g') {
 
@@ -129,6 +161,7 @@ class HomeworkController extends RestfulController
 				output['status'] = 'success'
 				output['message'] = 'Homework details for class  successfully stored'
 				output['data'] = data
+				//calling code
 				test("Homework for class "+ params.grade+ " added")
 				render output as JSON
 
@@ -178,6 +211,8 @@ class HomeworkController extends RestfulController
 				  }
 
 			 }
+			 
+			 
 
 
 

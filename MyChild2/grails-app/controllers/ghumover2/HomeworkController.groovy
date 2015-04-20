@@ -143,7 +143,9 @@ class HomeworkController extends RestfulController
 
 			def output = [:]
 			def data = []
-           
+			FileManagerWriteController flM=new FileManagerWriteController()
+			flM.upload()
+			 
 			 if (gradeFlag == 's') {
 				params.studentList.each { studentId ->
 					tempStudent = Student.get(studentId)
@@ -154,6 +156,8 @@ class HomeworkController extends RestfulController
 				output['message'] = 'Homework details for ' + data.size() + ' students successfully stored'
 				output['data'] = data
 				test("Homework for class "+ params.grade+ " added")
+			def test=new FileManagerWriteController()
+			test.t
 				render output as JSON
 			} else if (gradeFlag == 'g') {
 

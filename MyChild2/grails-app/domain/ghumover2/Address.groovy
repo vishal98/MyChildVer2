@@ -1,4 +1,5 @@
 package ghumover2
+
 class Address {
     String address
     String place

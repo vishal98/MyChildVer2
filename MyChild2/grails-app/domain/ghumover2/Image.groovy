@@ -1,4 +1,4 @@
-package mychild2
+package ghumover2
 
 class Image {
 

@@ -1,21 +1,21 @@
-package mychild2
+package ghumover2
 
 import java.sql.Timestamp
 
 class FileAccessMap {
-	
+
 	String fileId
 	String accessibleToId
 	String accessType
 	String accessLevel
-	String accesStart
-	String accessEnd
+	Timestamp accessStart
+	Timestamp accessEnd
 	String isActive
 	String createdByUserId
 	Timestamp createdDatetime
 	Timestamp lastModifiedDatetime
 	String lastModifiedBy
-
+	
     static constraints = {
     }
 }

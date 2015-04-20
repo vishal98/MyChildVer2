@@ -95,6 +95,23 @@ environments {
     }
 }
 
+
+grails {
+	plugin {
+		aws {
+			credentials {
+				accessKey = "AKIAJKWMXLFILTKJCI7A"
+				secretKey = "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"
+			}
+			s3 {
+				acl = "public"
+				bucket = "quickstore"
+				bucketLocation = "ap-southeast-1"
+			}
+		}
+	}
+}
+
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:

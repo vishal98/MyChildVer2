@@ -1,21 +1,21 @@
-package mychild2
+package ghumover2
+
 
 import java.sql.Timestamp;
 
-class File {
+class MyChildFile extends File{
 
 	String fileId
 	String fileName
 	String filePath
 	String description
-	String accessStart
-	String Version
-	Date archiveDatetime
-	String accessEnd
+	Timestamp accessStart
+	Timestamp archiveDatetime
+	Timestamp accessEnd
 	String statusCode
-	String createdByUserId
-	Boolean isActive
-	Timestamp createdDatetime
+	User createdByUserId
+	String isActive
+	Timestamp creationdate
 	Timestamp lastModifiedDatetime
 	String lastModifiedBy
 	

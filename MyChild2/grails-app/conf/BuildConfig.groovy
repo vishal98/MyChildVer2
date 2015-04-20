@@ -50,6 +50,10 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
+		build 'org.apache.httpcomponents:httpcore:4.2'
+		build 'org.apache.httpcomponents:httpclient:4.2'
+		runtime 'org.apache.httpcomponents:httpcore:4.2'
+		runtime 'org.apache.httpcomponents:httpclient:4.2'
 		// specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 		 runtime 'mysql:mysql-connector-java:5.1.29'
 		// runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
@@ -61,7 +65,6 @@ grails.project.dependency.resolution = {
 		// plugins for the build system only
 		build ":tomcat:7.0.55"
 		compile ":gson:1.1.4"
-		
 		// plugins for the compile step
 		compile ":scaffolding:2.1.2"
 		compile ':cache:1.1.8'
@@ -74,7 +77,7 @@ grails.project.dependency.resolution = {
 		}
 		
 		runtime ":cors:1.1.6"
-		
+	
 		
 	
 		
@@ -83,7 +86,7 @@ grails.project.dependency.resolution = {
 		runtime ":database-migration:1.4.0"
 		runtime ":jquery:1.11.1"
 		compile ":rest-client-builder:2.1.1"
-
+		compile ':aws:1.9.13.2'
 		// Uncomment these to enable additional asset-pipeline capabilities
 		//compile ":sass-asset-pipeline:1.9.0"
 		//compile ":less-asset-pipeline:1.10.0"

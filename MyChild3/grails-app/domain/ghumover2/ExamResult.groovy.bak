@@ -1,0 +1,11 @@
+package ghumover2
+
+class ExamResult {
+Exam exam
+Student student
+Subject subject
+int marks
+String grade
+int maxMarks	
+
+}

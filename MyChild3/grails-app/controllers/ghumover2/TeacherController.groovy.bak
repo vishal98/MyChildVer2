@@ -5,7 +5,7 @@ import grails.converters.JSON
 import java.text.SimpleDateFormat
 import java.util.List
 import grails.plugin.springsecurity.annotation.Secured
-
+import grails.plugins.rest.client.RestBuilder
 
 @Secured(['ROLE_TEACHER'])
 class TeacherController {

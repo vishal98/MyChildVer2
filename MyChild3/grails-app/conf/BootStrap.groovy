@@ -110,14 +110,14 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 		Grade cl5A , cl5B , cl6A , cl6B , cl7A ,cl7B , cl8A , cl8B , cl9A , cl9B , cl10A , cl10B
 
-		cl5A = new Grade(name: 5 , section: "A").save()
-		cl5B = new Grade(name: 5 , section: "B").save()
-		cl6A = new Grade(name: 6 , section: "A").save()
-		cl6B = new Grade(name: 6 , section: "B").save()
-		cl7A = new Grade(name: 7 , section: "A").save()
-		cl7B = new Grade(name: 7 , section: "B").save()
-		cl8A = new Grade(name: 8 , section: "A").save()
-		cl8B = new Grade(name: 8 , section: "B").save()
+		cl5A = new Grade(name: 5 , section: "A" , classTeacherId: 1).save()
+		cl5B = new Grade(name: 5 , section: "B" , classTeacherId: 2).save()
+		cl6A = new Grade(name: 6 , section: "A" , classTeacherId: 3).save()
+		cl6B = new Grade(name: 6 , section: "B" , classTeacherId: 4).save()
+		cl7A = new Grade(name: 7 , section: "A" , classTeacherId: 5).save()
+		cl7B = new Grade(name: 7 , section: "B" , classTeacherId: 6).save()
+		cl8A = new Grade(name: 8 , section: "A" , classTeacherId: 7).save()
+		cl8B = new Grade(name: 8 , section: "B" , classTeacherId: 8).save()
 		cl9A = new Grade(name: 9 , section: "A").save()
 		cl9B = new Grade(name: 9 , section: "B").save()
 		cl10A = new Grade(name: 10 , section: "A").save()
@@ -178,7 +178,10 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 		    mathew.addToGradeSubject(cl5A,english)
-            mathew.addToGradeSubject(cl5B,english)
+			mathew.addToGradeSubject(cl5A,hindi)
+			mathew.addToGradeSubject(cl5A,computerScience)
+			mathew.addToGradeSubject(cl5A,hindi)
+            mathew.addToGradeSubject(cl5B,history)
             mathew.addToGradeSubject(cl9A,english)
             mathew.addToGradeSubject(cl9B,english)
 
@@ -231,16 +234,16 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
                 vinod.addToGradeSubject(cl7A,socialScience)
                 vinod.addToGradeSubject(cl7B,socialScience)
 
-				cl5A.setClassTeacherId(mathew.id)
-				cl5B.setClassTeacherId(sibi.id)
-				cl6A.setClassTeacherId(raji.id)
-				cl6B.setClassTeacherId(vinod.id)
-				cl7A.setClassTeacherId(satheesh.id)
-				cl7B.setClassTeacherId(robin.id)
-				cl8A.setClassTeacherId(anil.id)
-				cl8B.setClassTeacherId(binu.id)
-				cl9A.setClassTeacherId(maya.id)
-				cl9B.setClassTeacherId(shyam.id)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -257,11 +260,11 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
             father = Guardian.findByUsername("ravi@test.com")
             mother = Guardian.findByUsername("raani@test.com")
 
-            s2 =  new Student(grade: cl6A , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
+            s2 =  new Student(grade: cl5A , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
-            s3 =  new Student(grade: cl7A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s3 =  new Student(grade: cl5A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s3.setAsFather( father )
             s3.setAsMother( mother )
 
@@ -276,11 +279,11 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
             father = Guardian.findByUsername("nagesh@test.com")
             mother = Guardian.findByUsername("nanditha@test.com")
 
-            s2 =  new Student(grade: cl6A , registerNumber: "ST107" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s2 =  new Student(grade: cl5A , registerNumber: "ST107" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
-            s3 =  new Student( grade: cl7A ,  registerNumber: "ST108" ,studentName: "Nikhitha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s3 =  new Student( grade: cl5A ,  registerNumber: "ST108" ,studentName: "Nikhitha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s3.setAsFather( father )
             s3.setAsMother( mother )
 
@@ -302,12 +305,12 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 		// SECOND STUDENT DETAILS
 
-            s2 =  new Student(grade: cl6B , registerNumber: "ST104" ,studentName: "Manoj" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s2 =  new Student(grade: cl5B , registerNumber: "ST104" ,studentName: "Manoj" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
             s2.setAsLocalGuardian( local_guardian )
 
-            s3 =  new Student(grade: cl7B ,  registerNumber: "ST105" ,studentName: "Mohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian", present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
+            s3 =  new Student(grade: cl5A ,  registerNumber: "ST105" ,studentName: "Mohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Local Guardian", present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
             s3.setAsFather( father )
             s3.setAsMother( mother )
             s3.setAsLocalGuardian( local_guardian )
@@ -322,18 +325,18 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-        s1 =  new Student( grade:cl5B  , registerNumber: "ST109" ,studentName: "Akhil" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+        s1 =  new Student( grade:cl5A  , registerNumber: "ST109" ,studentName: "Akhil" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
         s1.setAsFather( new Guardian(name: "Jacob" , username: "jacob@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
         s1.setAsMother( new Guardian(name:"Reena" , username: "reena@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
         father = Guardian.findByUsername("jacob@test.com")
         mother = Guardian.findByUsername("reena@test.com")
 
-        s2 =  new Student(grade: cl6B , registerNumber: "ST110" ,studentName: "Abhijith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+        s2 =  new Student(grade: cl5A , registerNumber: "ST110" ,studentName: "Abhijith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
         s2.setAsFather( father )
         s2.setAsMother( mother )
 
-        s3 =  new Student( grade: cl7B ,  registerNumber: "ST111" ,studentName: "Ashiq" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+        s3 =  new Student( grade: cl5B ,  registerNumber: "ST111" ,studentName: "Ashiq" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
         s3.setAsFather( father )
         s3.setAsMother( mother )
 
@@ -343,14 +346,14 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-            s1 =  new Student( grade:cl8A  , registerNumber: "ST112" ,studentName: "Bony" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+            s1 =  new Student( grade:cl5A  , registerNumber: "ST112" ,studentName: "Bony" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
             s1.setAsFather( new Guardian(name: "Joy" , username: "joy@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
             s1.setAsMother( new Guardian(name:"Molly" , username: "molly@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
             father = Guardian.findByUsername("joy@test.com")
             mother = Guardian.findByUsername("molly@test.com")
 
-            s2 =  new Student(grade: cl9A , registerNumber: "ST113" ,studentName: "Binil" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s2 =  new Student(grade: cl5A , registerNumber: "ST113" ,studentName: "Binil" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
@@ -360,14 +363,14 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
             new UserRole(user:mother , role:roleParent).save(flush: true)
 
 
-            s1 =  new Student( grade:cl8B  , registerNumber: "ST114" ,studentName: "Nijo" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+            s1 =  new Student( grade:cl5B  , registerNumber: "ST114" ,studentName: "Nijo" , gender: "male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
             s1.setAsFather( new Guardian(name: "Raju" , username: "raju@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
             s1.setAsMother( new Guardian(name:"Geetha" , username: "geetha@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
             father = Guardian.findByUsername("raju@test.com")
             mother = Guardian.findByUsername("geetha@test.com")
 
-            s2 =  new Student(grade: cl9B , registerNumber: "ST115" ,studentName: "Nithin" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s2 =  new Student(grade: cl5A , registerNumber: "ST115" ,studentName: "Nithin" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
@@ -415,25 +418,52 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-		new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "English Syllabus" ).save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Chemistry Syllabus").save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Physics Syllabus").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "Chapter 1-7 " ).save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Chapter 1-3 newton laws").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: maths,syllabus: "CompleteAlgebra").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: hindi , syllabus: "Poems and  Chapter 1-3").save(flush: true)
+		new ExamSyllabus(exam: exam1 , subject: history , syllabus: "Complete Indus valley civilzation  ").save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: english ,syllabus: "Non Vowel " ).save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: chemistry,syllabus: "Liquid and its properties").save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: physics , syllabus: "Chapter 1-3 newton laws").save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: maths,syllabus: "Chapter 2-4").save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: hindi , syllabus: "Chapter 1-5").save(flush: true)
+		new ExamSyllabus(exam: exam2 , subject: history , syllabus: "Complete India Indpedence story chapters").save(flush: true)
 
-		def examSyllabus1 , examSyllabus2 ,examSyllabus3
+
+		def examSyllabus1 , examSyllabus2 ,examSyllabus3, examSyllabus4 , examSyllabus5 ,examSyllabus6,examSyllabus7 , examSyllabus8 ,examSyllabus9, examSyllabus10 , examSyllabus11 ,examSyllabus12
 		examSyllabus1 = ExamSyllabus.get(1)
 		examSyllabus2 = ExamSyllabus.get(2)
 		examSyllabus3 = ExamSyllabus.get(3)
+		examSyllabus4 = ExamSyllabus.get(4)
+		examSyllabus5 = ExamSyllabus.get(5)
+		examSyllabus6 = ExamSyllabus.get(6)
+		examSyllabus7 = ExamSyllabus.get(7)
+		examSyllabus8 = ExamSyllabus.get(8)
+		examSyllabus9 = ExamSyllabus.get(9)
+		examSyllabus10 = ExamSyllabus.get(10)
+		examSyllabus11 = ExamSyllabus.get(11)
+		examSyllabus12 = ExamSyllabus.get(12)
 
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm"); new Date(2014, 02, 11, 04, 30)
 
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30" ).save(flush: true)
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :cl10A,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus1, subject: maths ,teacher : sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus2 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus3, subject: history ,teacher :satheesh,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 05:30",endTime: "11-02-2014 05:30").save(flush: true)
-
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save(flush: true)
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :cl10A,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus4, subject: maths ,teacher : sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus5 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus6, subject: history ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus11 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus12, subject: history ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus7,  subject: english ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save(flush: true)
+		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus8, subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus9, subject: physics ,teacher :cl10A,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus10, subject: maths ,teacher : sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+	
+		
 		def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
 
 		examSchedule1 = ExamSchedule.get(1)
@@ -445,6 +475,8 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		examSchedule7 = ExamSchedule.get(7)
 
 		cl5A.addToExams(exam1).save(flush: true)
+		cl5A.addToExams(exam2).save(flush: true)
+		cl5A.addToExams(exam3).save(flush: true)
 
 
 
@@ -454,26 +486,10 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 				.addToExamSubjectSchedule(examSchedule3).save(flush: true)
 
 		   // Add exam entries Date startTime
-   
-//NEW VALID TIME TABLE ENTRIES
 
-               ["Monday" , "Tuesday" , "Wednesday" , "Thursday" , "Friday"].each {
-
-                  /* cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:mathew , subject: english , startTime: "10:00 AM" , endTime: "11:00 AM")).save()
-                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:sibi , subject: hindi , startTime: "11:10 AM" , endTime: "12:00 PM")).save()
-                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:satheesh , subject: chemistry , startTime: "12:05 PM" , endTime: "1:00 PM")).save()
-                   cl5A.addToTimetable(new TimeTable(grade: cl5A , day: it , teacher:raji , subject: physics , startTime: "2:00 PM" , endTime: "3:00 PM")).save()
-
-                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:raji , subject: physics , startTime: "10:00 AM" , endTime: "11:00 AM")).save()
-                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:satheesh , subject: chemistry , startTime: "11:10 AM" , endTime: "12:00 PM")).save()
-                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:sibi , subject: hindi , startTime: "12:05 PM" , endTime: "1:00 PM")).save()
-                   cl5B.addToTimetable(new TimeTable(grade: cl5B , day: it , teacher:mathew , subject: english , startTime: "2:00 PM" , endTime: "3:00 PM")).save()
-
-
-
-
-               }
-			
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: english).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(2) , grade: "NA" , subject: english).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(3) , grade: "NA" , subject: english).save()
 
 
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
@@ -525,6 +541,30 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:vanajakshi , subject: clubAct , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -651,11 +691,10 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 			
 							[
 							gradeName : grade.name.toString(),
-							section : grade.section,
-							 student : grade.students.collect{ Student std ->
-			[studentId: std.studentId.toString(), studentName: std.studentName
-				]
-							}]
+							section : grade.section ,
+			                classTeacher : (grade.classTeacherId) ?  Teacher.findById(grade.classTeacherId)?.teacherName  : 'None' ,
+			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[studentId: std.studentId.toString(), studentName: std.studentName] } : []]
+
 						}
 
 		JSON.createNamedConfig('homework') {
@@ -1213,13 +1252,96 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 			}
 
 
+//NEW
+		JSON.registerObjectMarshaller( Teacher )
+				{
+					Teacher t ->
+						return [
+						        teacherId: t.id.toString() ,
+								teacherName: t.teacherName ,
+								teacherEmailId: t.teacherEmailId ,
+								teacherPhoto: t.teacherPhoto
 
 
+						]
+				}
+
+
+
+		JSON.registerObjectMarshaller( SchoolClass  )
+				{
+					SchoolClass s ->
+						return [
+								school_grade_id: s.school_class_id ,
+								class_name: s.class_name ,
+								class_tags: s.class_tags ,
+								school : s.school ,
+								grades : s.grades.collect() { Grade g ->
+									         [gradeId: g.gradeId,
+									          name : g.name ,
+								              section: g.section
+									         ]
+								}
+
+
+						]
+				}
+
+
+		JSON.registerObjectMarshaller( ExamResult  )
+				{
+					ExamResult e ->
+                            return [
+									resultId : e.resultId.toString() ,
+									exam : [ examId : e.exam?.examId ,
+									         examName : e.exam?.examName ,
+											 examType : e.exam?.examType ,
+											 grade : e.exam?.grade.gradeId.toString()
+                                            ] ,
+
+									subject : [ subjectId : e.subject?.subjectId.toString() ,
+												subjectName: e.subject?.subjectName
+									] ,
+									student : [studentId : e.student?.studentId.toString() ,
+											   studentName: e.student?.studentName
+									] ,
+									maxMarks : e.maxMarks,
+									marks : e.marks ,
+									grade : e.grade
+							]
+				}
+
+		JSON.registerObjectMarshaller( Exam )
+				{
+					Exam e ->
+						return[
+
+								examId : e.examId.toString() ,
+								examName : e.examName ,
+								examType : e.examType ,
+								grade : [gradeId : e.grade?.gradeId.toString() , gradeName: e.grade?.name , section : e.grade?.section] ,
+								examSchedule : e.examSubjectSchedule.collect()    { ExamSchedule es -> [ subject:[ subjectId:  es.subject?.subjectId.toString() ,
+																												   subjectName: es.subject?.subjectName ] ,
+																										 syllabus : [ id:es.subjectSyllabus?.id.toString() , syllabus: es.subjectSyllabus.syllabus] ,
+																										 startTime : es.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+																										 endTime: es.endTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")]
+								                                                 } ,
+								results : e.results
+
+
+						]
+
+
+
+
+				}
 
 
 
 	}
+
 
 	def destroy = {
 	}
 }
+

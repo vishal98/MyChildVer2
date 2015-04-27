@@ -1,0 +1,28 @@
+package ghumover2
+
+import grails.rest.Resource
+
+@Resource(formats=['json', 'xml'])
+class ExamResult {
+    Long resultId
+    static belongsTo = [exam:Exam]
+    Student student
+    Subject subject
+    int marks
+    String grade
+    int maxMarks
+
+    static constraints = {
+        marks(nullable:true)
+        grade(nullable:true)
+        exam(nullable: true)
+        maxMarks(nullable:true)
+        student(nullable: true)
+        subject(nullable: true)
+
+    }
+    static mapping = {
+        id generator: 'increment',name: 'resultId'
+    }
+
+}

@@ -2,7 +2,7 @@ package ghumover2
 
 class User {
 
-	//transient springSecurityService
+	transient springSecurityService
 
 	String username
 	String password
@@ -16,8 +16,8 @@ class User {
 	String deviceToken
 	String platform
 	
-	
-	//static transients = ['springSecurityService']
+	static hasMany = [conversations : Conversation]
+//	static transients = ['springSecurityService']
 
 	static constraints = {
 		username blank: false, unique: true
@@ -28,8 +28,8 @@ class User {
 	}
 	
 
-	static hasMany = [conversations : Conversation]
-	/*static mapping = {
+
+	static mapping = {
 		password column: '`password`'
 	}
 
@@ -49,5 +49,5 @@ class User {
 
 	protected void encodePassword() {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-	}*/
+	}
 }

@@ -362,6 +362,18 @@ class UrlMappings {
 			controller = "Teacher"
 			action = "getTest"
 	}
+	
+	  "/app/admin/grades"(resources:"grade" ,  includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+	
+				"/app/admin/teachers"(resources:"teacher" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+	
+				"/app/admin/students"(resources:"student" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+	
+				"/app/admin/events"(resources:"event" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+	
+				"/app/admin/guardian"(resources:"guardian"  , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+	
+				"/app/admin/timetables"(resource: "timetable" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
 		
 
 	

@@ -6,7 +6,7 @@ class UrlMappings {
 					// apply constraints here
 				}
 			}
-	
+
 			"/"(view:"/index")
 			"500"(view:'/error')
 
@@ -237,13 +237,13 @@ class UrlMappings {
 
 			//Student list Api
 
-	  "/app/get/students/$grade/$section"
+	/*  "/app/get/students/$grade/$section"
 			  {
 				  controller = "student"
 				  action = "getStudentsOfClass"
 
 			  }
-
+*/
 
 
 			//mail pendings
@@ -296,73 +296,85 @@ class UrlMappings {
 					}
 
 					
-		"/addEmp"{
-			controller = "employee"
-			action = "saveEmployee"
-	}
-	
-		"/show"{
-			controller = "mydata"
-			action = "index"
-	}
-		
-		"/addSchool"{
-			controller = "School"
-			action = "addSchool"
-	}
-		"/addDepartMent"{
-			controller = "School"
-			action = "addDepartMent"
-	}
-		
-		
-		
-		"/addTeacher"{
-			controller = "Teacher"
-			action = "addteacher"
-	}
-		
-		"/addTeacherToDepartment"{
-			controller = "Teacher"
-			action = "addTeacherToDepartment"
-	}
-		"/addSchoolClass"{
-			controller = "Teacher"
-			action = "addSchoolClass"
-	}
-		
-		
-		"/addgrade"{
-			controller = "Teacher"
-			action = "addgrade"
-	}
-		"/addGuardian"{
-			controller = "Teacher"
-			action = "addGuardian"
-	}
-		"/addStudent"{
-			controller = "Teacher"
-			action = "addStudent"
-	}
-		
-		"/addTeacherToSection"{
-			controller = "Teacher"
-			action = "addTeacherToSection"
-	}
-		"/registerForpush"{
-			controller = "Teacher"
-			action = "registerForpush"
-	}
-		"/addHomeWork"{
-			controller = "Teacher"
-			action = "addHomeWork"
-	}
-	
-	"/getTest"{
-			controller = "Teacher"
-			action = "getTest"
-	}
-		
+
+
+			/*
+			Admin Apis
+			 */
+
+			"/app/admin/grades"(resources:"grade" ,  includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/admin/teachers"(resources:"teacher" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/admin/students"(resources:"student" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/admin/events"(resources:"event" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/admin/guardian"(resources:"guardian"  , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+
+
+			"/app/admin/schoolclasses"(resources: "SchoolClass" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/exam/results"(resources: "ExamResult" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+			"/app/exams"(resources:"Exam" ,includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+
+
+			//mail pendings
+			
+						"/app/conversations/sent"
+								{
+									controller = "conversation"
+									action = "getSentConversations"
+			
+								}
+			
+			
+			
+			
+						//  Teacher events
+			
+						 "/app/events/teacher/$month/$year"
+								 {
+									 controller = "Teacher"
+									 action = "getTeacherMonthEvents"
+			
+								 }
+						"/app/events/teacher/$date"
+								{
+									controller = "teacher"
+									action = "getTeacherEvents"
+			
+								}
+			
+						// student events
+						 "/app/events/student/$studentId/$month/$year"
+								 {
+			
+									 controller = "guardian"
+									 action = "getStudentMonthEvents"
+			
+								 }
+			
+						"/app/events/student/$studentId/$date"
+								{
+									controller = "guardian"
+									action = "getStudentClassEvents"
+			
+								}
+								
+								"/app/teacher/timetable/week"
+								{
+									controller = "teacher"
+									action = "getTeacherWeekTimetable"
+								}
+			
+								
+			
+
+
+
 
 	
 		}

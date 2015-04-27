@@ -43,9 +43,6 @@ environments {
          timeBetweenEvictionRunsMillis = 1800000
          numTestsPerEvictionRun = 3
          minEvictableIdleTimeMillis = 1800000
-         jdbcInterceptors = "ConnectionState"
-           defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
-         
          }
     }
   }

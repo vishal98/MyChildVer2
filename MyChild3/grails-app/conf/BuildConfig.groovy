@@ -62,6 +62,8 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
+		compile ":rest-client-builder:2.1.1"
+		
 		// plugins for the build system only
 		build ":tomcat:7.0.55"
 		compile ":gson:1.1.4"
@@ -75,7 +77,7 @@ grails.project.dependency.resolution = {
 		compile ":spring-security-rest:1.5.0.M2", {
 			 excludes ('cors','spring-security-core')
 		}
-		compile ":rest-client-builder:2.1.1"
+		//compile ":rest-client-builder:2.1.1"
 		compile ':aws:1.9.13.2'
 		
 		runtime ":cors:1.1.6"

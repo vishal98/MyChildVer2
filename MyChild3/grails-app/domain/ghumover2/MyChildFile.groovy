@@ -8,6 +8,7 @@ class MyChildFile {
 	String fileId
 	String fileName
 	String filePath
+	String fileType
 	String description
 	Timestamp accessStart
 	Timestamp archiveDatetime
@@ -18,6 +19,8 @@ class MyChildFile {
 	Timestamp creationdate
 	Timestamp lastModifiedDatetime
 	String lastModifiedBy
+	
+	static hasMany = [tags:Tag]
 	
     static constraints = {
     }

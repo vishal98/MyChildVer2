@@ -2,7 +2,7 @@ package ghumover2
 
 import grails.converters.JSON
 
-class ExamsController {
+class ExamDetailsController {
 
     def index() { }
 	
@@ -50,6 +50,4 @@ class ExamsController {
 		}
 
 	}
-
-
 }

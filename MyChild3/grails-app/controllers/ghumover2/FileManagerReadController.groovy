@@ -1,5 +1,6 @@
 package ghumover2
 
+import grails.converters.JSON
 import sun.misc.BASE64Decoder
 
 class FileManagerReadController {
@@ -7,10 +8,34 @@ class FileManagerReadController {
     def index() { }
 	
 	def readImage(){
-		def file = params.file.toString().substring((params.file.toString().indexOf(",") + 1), params.file.toString().size())
-		byte[] decodedBytes = new BASE64Decoder().decodeBuffer(file)
-		def image = new File("testimage.jpg")
-		image.setBytes(decodedBytes)
+	
+		FileManager [] fileManagerList=new FileManager()
+		FileManager fileManager=new FileManager()
+		fileManager.setFileGroupType("Album")
+		fileManager.setFileGroupName("drawing competition")
+		
+		
+	
+		MyChildFile file =new MyChildFile()
+		file.setFileId("123")
+		file.setFileName("test")
+		file.setFilePath("http://cceffect.org/wp-content/uploads/2014/09/school1.jpg")
+	    file.setDescription("schoolImage")
+		
+		
+		
+		MyChildFile file2 =new MyChildFile()
+		file2.setFileId("1243")
+		file2.setFileName("test2")
+		file2.setFilePath("http://www1.pgcps.org/uploadedImages/Region_4_Schools/Elementary/Kenilworth/01school.jpg")
+		file2.setDescription("schoolImage2")
+		
+		fileManager.addToFiles(file)
+		fileManager.addToFiles(file2)
+		
+		fileManagerList[0]=fileManager
+		
+		render  fileManagerList as JSON
 	}
 
 	

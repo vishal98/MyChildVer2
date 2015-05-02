@@ -27,13 +27,13 @@ environments {
   }
   test {
     dataSource {
-      username = "gimme"
-      password = "gimmepwd"
+      username = "gimmedev"
+      password = "gimmedev"
       pooled = true
       dbCreate = "create"
       driverClassName = "com.mysql.jdbc.Driver"
       //  url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
-        url="jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
+        url="jdbc:mysql://aaammt9ltjlzk9.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmedev"
         dialect = org.hibernate.dialect.MySQL5InnoDBDialect
         properties {
          validationQuery = "SELECT 1"
@@ -49,8 +49,9 @@ environments {
          }
     }
   }
-  production {
+  production_1 {
     dataSource {
+		
       url = "jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
       username = "gimme"
       password = "gimmepwd"

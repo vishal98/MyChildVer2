@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat
 import java.util.Date
+
 import ghumover2.*
 import grails.converters.JSON
 import groovy.sql.Sql
@@ -398,9 +399,9 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		// Add exam entries Date startTime
 
 
-		new Exam(examName: "English" , examType: "Class test").save(flush: true)
-		new Exam(examName: "Chemistry" , examType: "Class test").save(flush: true)
-		new Exam(examName: "Physics" , examType: "Model Exam").save(flush: true)
+		new Exam(examName: "Class Test 1" , examType: "Class test").save(flush: true)
+		new Exam(examName: "Class Test 2" , examType: "Class test").save(flush: true)
+		new Exam(examName: "Main Exam" , examType: "Model Exam").save(flush: true)
 		new Exam(examName: "Mathematics" , examType: "Model Exam").save(flush: true)
 		new Exam(examName: "Hindi" , examType: "ModelExam").save(flush: true)
 		new Exam(examName: "History", examType: "Mid Term Exam").save(flush: true)
@@ -411,10 +412,10 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		exam1 = Exam.get(1)
 		exam2 = Exam.get(2)
 		exam3 = Exam.get(3)
-		exam4 = Exam.get(4)
-		exam5 = Exam.get(5)
-		exam6 = Exam.get(6)
-		exam7 = Exam.get(7)
+	//	exam4 = Exam.get(4)
+	//	exam5 = Exam.get(5)
+	//	exam6 = Exam.get(6)
+	//	exam7 = Exam.get(7)
 
 
 
@@ -488,8 +489,11 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		   // Add exam entries Date startTime
 
 		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: english).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(2) , grade: "NA" , subject: english).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(3) , grade: "NA" , subject: english).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: chemistry).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: physics).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: maths).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: hindi).save()
+		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: history).save()
 
 
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
@@ -776,20 +780,36 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 		}
+		JSON.registerObjectMarshaller( Exam )
+		{
+			Exam e ->
+				return[
 
-		JSON.registerObjectMarshaller(Exam) {
-			Exam subject ->
-
-
-
-				return  ['examId':  subject.examId?subject.examId.toString():'',
-						 'examType': subject.examType,
-						 'schedule':subject.examSubjectSchedule,
+						examId : e.examId.toString() ,
+						examName : e.examName ,
+						examType : e.examType ,
+						class : e.schoolclass?.className.toString() ,
+						grade : [gradeId : e.grade?.gradeId.toString() , gradeName: e.grade?.name , section : e.grade?.section] ,
+						examSchedule : e.examSubjectSchedule.collect()    { ExamSchedule es -> [ subject:[ subjectId:  es.subject?.subjectId.toString() ,
+																										   subjectName: es.subject?.subjectName ] ,
+																								 syllabus : [ id:es.subjectSyllabus?.id.toString() , syllabus: es.subjectSyllabus.syllabus] ,
+																								 examDate : es.startTime.format('dd-MM-yyyy') ,
+																								 startTime : es.startTime.format("KK:mm a") ,
+																								 endTime: es.endTime.format("KK:mm a")]
+						} ,
+						results : e.results
 
 
 				]
 
+
+
+
 		}
+
+
+
+	
 
 
 		JSON.registerObjectMarshaller(Message) {
@@ -1267,26 +1287,32 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 				}
 
 
-
-		JSON.registerObjectMarshaller( SchoolClass  )
+				JSON.registerObjectMarshaller( SchoolClass  )
 				{
 					SchoolClass s ->
 						return [
-								school_grade_id: s.school_class_id ,
-								class_name: s.class_name ,
-								class_tags: s.class_tags ,
+								school_class_id: s.classId.toString() ,
+								class_name: s.className.toString(),
+								class_tags: s.classTags ,
 								school : s.school ,
 								grades : s.grades.collect() { Grade g ->
-									         [gradeId: g.gradeId,
-									          name : g.name ,
-								              section: g.section
-									         ]
+									[gradeId: g.gradeId,
+									 name : g.name ,
+									 section: g.section
+									]
 								}
 
 
 						]
 				}
 
+
+
+
+
+
+				
+		
 
 		JSON.registerObjectMarshaller( ExamResult  )
 				{
@@ -1335,9 +1361,18 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 				}
-
-
-
+				
+				JSON.registerObjectMarshaller( FileManager  )
+				{
+					FileManager e ->
+							return [
+								fileType:e.fileGroupType,
+								fileName:e.fileGroupName,
+								 files: e.files.collect()    { MyChildFile es ->[file: [ fileName:  es.fileName,
+									filePath: es.filePath,
+									description: es.description
+									 ] ] }				
+							]
 	}
 
 
@@ -1345,3 +1380,4 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 	}
 }
 
+}

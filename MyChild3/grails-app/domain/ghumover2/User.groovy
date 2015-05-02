@@ -16,7 +16,7 @@ class User {
 	String deviceToken
 	String platform
 	
-	static hasMany = [conversations : Conversation]
+	static hasMany = [conversations : Conversation,fileManager:FileManager]
 //	static transients = ['springSecurityService']
 
 	static constraints = {

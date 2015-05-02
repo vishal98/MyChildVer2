@@ -373,8 +373,21 @@ class UrlMappings {
 								
 			
 
-
-
+								// TIME TABLE
+								"/app/getuserAlbums"
+										{
+											controller = "FileManagerRead"
+											action = "readImage"
+					
+										}
+                           
+										
+										"/app/exams/result/$studentId"
+										{
+											controller = "ExamDetails"
+											action = "studentResult"
+						
+										}
 
 	
 		}

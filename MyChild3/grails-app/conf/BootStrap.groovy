@@ -397,105 +397,39 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 		// Add exam entries Date startTime
+			   def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" , schoolclass: SchoolClass.findByClassName(5)).save()
+			   
+			   def unitTest = new Exam(examName : "2nd Term Model Examination for Class 5" ,examType:"Unit Test" , schoolclass: SchoolClass.findByClassName(5)).save()
+			   
+			   def englishSyllabus1 = new ExamSyllabus(exam: unitTest , subject: english ,syllabus: "Chapter 1 paragraph " ).save()
+			   def chemistrySyllabus1 = new ExamSyllabus(exam: unitTest , subject: chemistry,syllabus: " Chem  1-3").save()
+			   def physicsSyllabus1 = new ExamSyllabus(exam: unitTest , subject: physics , syllabus: " gravity laws").save()
+			   def hindiSyllabus1 = new ExamSyllabus(exam: unitTest , subject: hindi , syllabus: "Chapter 1-3").save()
+	   
+			      
+					   def englishSyllabus = new ExamSyllabus(exam: modelExam , subject: english ,syllabus: "Chapter 1-7 " ).save()
+					   def chemistrySyllabus = new ExamSyllabus(exam: modelExam , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save()
+					   def physicsSyllabus = new ExamSyllabus(exam: modelExam , subject: physics , syllabus: "Chapter 1-3 newton laws").save()
+					   def hindiSyllabus = new ExamSyllabus(exam: modelExam , subject: hindi , syllabus: "Poems and  Chapter 1-3").save()
+			   
+					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: englishSyllabus,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
+					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: physicsSyllabus, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: modelExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+			   
+			      
+					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: englishSyllabus1,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
+					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: physicsSyllabus1, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: unitTest ,subjectSyllabus: hindiSyllabus1, subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: chemistrySyllabus1, subject: chemistry ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+			   
+			   
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100 ).save()
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+			   
 
-
-		new Exam(examName: "Class Test 1" , examType: "Class test").save(flush: true)
-		new Exam(examName: "Class Test 2" , examType: "Class test").save(flush: true)
-		new Exam(examName: "Main Exam" , examType: "Model Exam").save(flush: true)
-		new Exam(examName: "Mathematics" , examType: "Model Exam").save(flush: true)
-		new Exam(examName: "Hindi" , examType: "ModelExam").save(flush: true)
-		new Exam(examName: "History", examType: "Mid Term Exam").save(flush: true)
-		new Exam(examName: "Computer Science", examType: "Mid Term Exam").save(flush: true)
-
-
-		def exam1 , exam2 ,exam3 ,exam4 ,exam5,exam6,exam7
-		exam1 = Exam.get(1)
-		exam2 = Exam.get(2)
-		exam3 = Exam.get(3)
-	//	exam4 = Exam.get(4)
-	//	exam5 = Exam.get(5)
-	//	exam6 = Exam.get(6)
-	//	exam7 = Exam.get(7)
-
-
-
-		new ExamSyllabus(exam: exam1 , subject: english ,syllabus: "Chapter 1-7 " ).save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: physics , syllabus: "Chapter 1-3 newton laws").save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: maths,syllabus: "CompleteAlgebra").save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: hindi , syllabus: "Poems and  Chapter 1-3").save(flush: true)
-		new ExamSyllabus(exam: exam1 , subject: history , syllabus: "Complete Indus valley civilzation  ").save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: english ,syllabus: "Non Vowel " ).save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: chemistry,syllabus: "Liquid and its properties").save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: physics , syllabus: "Chapter 1-3 newton laws").save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: maths,syllabus: "Chapter 2-4").save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: hindi , syllabus: "Chapter 1-5").save(flush: true)
-		new ExamSyllabus(exam: exam2 , subject: history , syllabus: "Complete India Indpedence story chapters").save(flush: true)
-
-
-		def examSyllabus1 , examSyllabus2 ,examSyllabus3, examSyllabus4 , examSyllabus5 ,examSyllabus6,examSyllabus7 , examSyllabus8 ,examSyllabus9, examSyllabus10 , examSyllabus11 ,examSyllabus12
-		examSyllabus1 = ExamSyllabus.get(1)
-		examSyllabus2 = ExamSyllabus.get(2)
-		examSyllabus3 = ExamSyllabus.get(3)
-		examSyllabus4 = ExamSyllabus.get(4)
-		examSyllabus5 = ExamSyllabus.get(5)
-		examSyllabus6 = ExamSyllabus.get(6)
-		examSyllabus7 = ExamSyllabus.get(7)
-		examSyllabus8 = ExamSyllabus.get(8)
-		examSyllabus9 = ExamSyllabus.get(9)
-		examSyllabus10 = ExamSyllabus.get(10)
-		examSyllabus11 = ExamSyllabus.get(11)
-		examSyllabus12 = ExamSyllabus.get(12)
-
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm"); new Date(2014, 02, 11, 04, 30)
-
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus1,  subject: english ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save(flush: true)
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus2 , subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam1  ,subjectSyllabus: examSyllabus3, subject: physics ,teacher :cl10A,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus4, subject: maths ,teacher : sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus5 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam1 ,subjectSyllabus: examSyllabus6, subject: history ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus11 , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus12, subject: history ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam3  ,subjectSyllabus: examSyllabus1 , subject: computerScience ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus7,  subject: english ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save(flush: true)
-		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus8, subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam2  ,subjectSyllabus: examSyllabus9, subject: physics ,teacher :cl10A,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-		new ExamSchedule(exam: exam2 ,subjectSyllabus: examSyllabus10, subject: maths ,teacher : sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-	
 		
-		def examSchedule1, examSchedule2 ,examSchedule3,examSchedule4,examSchedule5,examSchedule6,examSchedule7
-
-		examSchedule1 = ExamSchedule.get(1)
-		examSchedule2 = ExamSchedule.get(2)
-		examSchedule3 = ExamSchedule.get(3)
-		examSchedule4 = ExamSchedule.get(4)
-		examSchedule5 = ExamSchedule.get(5)
-		examSchedule6 = ExamSchedule.get(6)
-		examSchedule7 = ExamSchedule.get(7)
-
-		cl5A.addToExams(exam1).save(flush: true)
-		cl5A.addToExams(exam2).save(flush: true)
-		cl5A.addToExams(exam3).save(flush: true)
-
-
-
-
-		exam1.addToExamSubjectSchedule(examSchedule1)
-				.addToExamSubjectSchedule(examSchedule2)
-				.addToExamSubjectSchedule(examSchedule3).save(flush: true)
-
-		   // Add exam entries Date startTime
-
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: english).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: chemistry).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: physics).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: maths).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: hindi).save()
-		new ExamResult(exam: Exam.get(1) , marks: 25 ,maxMarks: 50 , student: Student.get(1) , grade: "NA" , subject: history).save()
-
-
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:vanajakshi , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:sheetal , subject: science , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
@@ -1368,6 +1302,9 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 							return [
 								fileType:e.fileGroupType,
 								fileName:e.fileGroupName,
+								coverpicUrl: e.albumCoverUrl,
+								filecount: e.fileCount,
+								postedDate: e.postedDate,
 								 files: e.files.collect()    { MyChildFile es ->[file: [ fileName:  es.fileName,
 									filePath: es.filePath,
 									description: es.description

@@ -12,7 +12,10 @@ class FileManagerReadController {
 		FileManager [] fileManagerList=new FileManager()
 		FileManager fileManager=new FileManager()
 		fileManager.setFileGroupType("Album")
-		fileManager.setFileGroupName("drawing competition")
+		fileManager.setFileGroupName("Children Day Competition")
+		fileManager.setAlbumCoverUrl("http://www.comments99.com/c/childrens_day/childrens_day_050.jpg")
+		fileManager.setPostedDate(Calendar.getInstance().getTime())
+		fileManager.setFileCount("2")
 		
 		
 	

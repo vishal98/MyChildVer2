@@ -7,7 +7,8 @@ import org.grails.databinding.BindingFormat;
 @Resource(formats=['json', 'xml'])
 class ExamSchedule {
 
-	Exam exam
+	static belongsTo = [exam:Exam]
+//	Exam exam
 	ExamSyllabus subjectSyllabus
    Subject subject
    Teacher teacher

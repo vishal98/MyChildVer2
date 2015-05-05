@@ -5,7 +5,9 @@ import grails.rest.Resource
 @Resource(formats=['json', 'xml'])
 class ExamSyllabus {
 
-    Exam exam
+	
+	static belongsTo = [exam:Exam]
+   // Exam exam
     Subject subject
     String syllabus
 

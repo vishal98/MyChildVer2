@@ -8,7 +8,7 @@ class FileManagerWriteController {
 	def fg = st.acl
 	
 	public def upload(){
-	def s3file = new MyChildFile("testup	load.txt").s3upload {
+	def s3file = new MyChildFile("testupload.txt").s3upload {
     path "Test1/"
 }
 	}

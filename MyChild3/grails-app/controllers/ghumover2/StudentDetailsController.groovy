@@ -4,9 +4,9 @@ import grails.converters.JSON
 import grails.rest.RestfulController
 
 
-class StudentController extends RestfulController  {
+class StudentDetailsController extends RestfulController  {
     static responseFormats = ['json', 'xml']
-    StudentController() {
+    StudentDetailsController() {
         super(Student)
     }
 
@@ -20,9 +20,9 @@ class StudentController extends RestfulController  {
             Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade),params.section)
             JSON.use('studentDetail')
                     {
-                            output['total_no_of_students'] = grade.students.size()
-                            output['students'] = grade.students
-                            render output as JSON
+                        output['total_no_of_students'] = grade.students.size()
+                        output['students'] = grade.students
+                        render output as JSON
                     }
 
         }

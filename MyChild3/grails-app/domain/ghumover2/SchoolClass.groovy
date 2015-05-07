@@ -1,13 +1,15 @@
 package ghumover2
 
+import grails.rest.Resource
+
+@Resource(formats=['json', 'xml'])
 class SchoolClass {
 	
 	Long classId
-	String className
+	int className
 	String classTags
 	static belongsTo =
 	[school: School]
-	School school
 	static hasMany = [grades:Grade]
 	
 	static mapping = {
@@ -15,6 +17,10 @@ class SchoolClass {
 		
 	}
     static constraints = {
+		classTags(nullable: true)
+		school(nullable: true)
+
+
     }
 	
 	def afterInsert = {

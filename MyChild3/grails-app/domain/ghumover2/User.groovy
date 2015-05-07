@@ -12,6 +12,7 @@ class User {
 	boolean passwordExpired
 	String tags 
 	boolean tagRegister=false
+	boolean usersetupemialSent=false
 	boolean istagupdate =true
 	String deviceToken
 	String platform

@@ -1,7 +1,7 @@
 package ghumover2
 import grails.rest.Resource
 
-@Resource
+@Resource(formats=['json', 'xml'])
 class Subject {
 	
 	Long subjectId

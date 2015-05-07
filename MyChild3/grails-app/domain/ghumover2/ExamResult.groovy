@@ -9,12 +9,11 @@ class ExamResult {
     Student student
     Subject subject
     int marks
-    String grade
+
     int maxMarks
 
     static constraints = {
         marks(nullable:true)
-        grade(nullable:true)
         exam(nullable: true)
         maxMarks(nullable:true)
         student(nullable: true)

@@ -2,10 +2,6 @@ package ghumover2
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import grails.rest.Resource
-@Resource
-
-
 @Secured(['ROLE_TEACHER','ROLE_PARENT'])
 class TimeTableController {
 

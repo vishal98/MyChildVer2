@@ -10,77 +10,84 @@ import java.text.SimpleDateFormat
 class Grade {
 
 
-	Long gradeId
-	int name
-	String section
-	Long classTeacherId
-	SchoolClass schoolClass
-	static hasMany = [students:Student,exams:Exam , events:Event , attendance:Attendance , teachers:Teacher , timetable:TimeTable ]
-	static belongsTo = [schoolClass:SchoolClass]
+    Long gradeId
+    int name
+    String section
+    Long classTeacherId
+    SchoolClass schoolClass
+	String gradetags
+    static hasMany = [students:Student,exams:Exam , events:Event , attendance:Attendance , teachers:Teacher , timetable:TimeTable ]
+    static belongsTo = [schoolClass:SchoolClass]
 
 
 
 
-	static mapping ={
+    static mapping ={
 	id generator: 'increment',name: 'gradeId'
 
-	}
+    }
 
-	static constraints = {
+    static constraints = {
 
-		classTeacherId(nullable: true)
-		name(unique: 'section')
-		schoolClass(nullable: true)
+        classTeacherId(nullable: true)
+        name(unique: 'section')
+        schoolClass(nullable: true)
+           gradetags(nullable: true)
+    }
+    def beforeInsert(){
+		if(null == schoolClass){
+        def s = SchoolClass.findByClassName(name)
+        if(!s)
+        {
+            def sg = new SchoolClass()
+            sg.className= name
 
-	}
-	def beforeInsert(){
+
+            SchoolClass.withNewSession{
+                if(sg.save(flush: true))
+                {
+                    schoolClass = SchoolClass.findByClassName(name)
+                }
+
+            }
+
+
+        }
+        else {
+            schoolClass = s
+        }
+}
+
+    }
+	
+	def afterInsert = {
+		gradeId = this.gradeId;
 		
-		def s = SchoolClass.findByClassName(name)
-		if(!s)
-		{
-			def sg = new SchoolClass()
-			sg.className= name
-
-
-			SchoolClass.withNewSession{
-				if(sg.save(flush: true))
-				{
-					schoolClass = SchoolClass.findByClassName(name)
-				}
-
-			}
-
-		}
-		else {
-			schoolClass = s
-		}
-
-
 	}
 
 
 
 
 
-	def addSubjectAndTeacher(Subject subject , Teacher teacher)
-	  {
+    def addSubjectAndTeacher(Subject subject , Teacher teacher)
+      {
 
-		  new GradeTeacherSubject(grade: this , teacher:teacher , subject:subject).save()
+          new GradeTeacherSubject(grade: this , teacher:teacher , subject:subject).save()
 
-	  }
+      }
 
 
-	 def getAttendance(String date)
-	 {
+     def getAttendance(String date)
+     {
 
-		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		 Date att_date = formatter.parse(date);
-		 return  Attendance.findAllByDateAndGrade(att_date,this)
-	 }
+         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+         Date att_date = formatter.parse(date);
+         return  Attendance.findAllByDateAndGrade(att_date,this)
+     }
 
-	def getClassTeacher()
-	{
-		return (this.classTeacherId) ? Teacher.findById(this.classTeacherId) : null ;
-	}
+    def getClassTeacher()
+    {
+        return (this.classTeacherId) ? Teacher.findById(this.classTeacherId) : null ;
+    }
 
 }

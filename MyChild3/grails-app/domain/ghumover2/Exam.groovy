@@ -13,7 +13,7 @@ class Exam {
 
 
 
-	static hasMany = [examSubjectSchedule:ExamSchedule , results:ExamResult]
+	static hasMany = [examSubjectSchedule:ExamSchedule , results:ExamResult , examSyllabus:ExamSyllabus ]
 
 
 	static mapping = {

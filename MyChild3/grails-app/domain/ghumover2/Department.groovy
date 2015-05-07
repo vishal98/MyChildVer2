@@ -18,7 +18,7 @@ class Department {
         String tagname = "\""+(this.dept_name).replace(' ','')+"-"+dept_id+"\""
         println tagname
         dept_tags = tagname;
-        //Department.executeUpdate("Update Department set dept_tags = '"+tagname+"' where dept_id ="+dept_id)
+        Department.executeUpdate("Update Department set dept_tags = '"+tagname+"' where dept_id ="+dept_id)
     }
 
     static constraints = {

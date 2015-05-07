@@ -1,9 +1,11 @@
 package ghumover2
 
+import grails.rest.Resource
 import org.grails.databinding.BindingFormat
 
 import java.text.SimpleDateFormat
 
+@Resource(formats=['json', 'xml'])
 class Homework
 {
 	Long homeworkId

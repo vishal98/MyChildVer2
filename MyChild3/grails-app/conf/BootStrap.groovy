@@ -1226,7 +1226,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 					SchoolClass s ->
 						return [
 								school_class_id: s.classId.toString() ,
-								class_name: s.className.toString(),
+								className: s.className.toString(),
 								class_tags: s.classTags ,
 								school : s.school ,
 								grades : s.grades.collect() { Grade g ->

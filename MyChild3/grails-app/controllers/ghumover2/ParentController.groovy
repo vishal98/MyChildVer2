@@ -9,8 +9,8 @@ import org.hibernate.criterion.CriteriaSpecification;
 
 @Secured(['ROLE_PARENT'])
 class ParentController {
-	
-	
+
+	def springSecurityService
 	
 	def getParentDetails(){
 		def article=new Guardian()

@@ -388,6 +388,16 @@ class UrlMappings {
 											action = "studentResult"
 						
 										}
+										
+										"/uploadData"{
+											controller = "mydata"
+											action = "test"
+									}
+										
+										"/addSchool"{
+											controller = "School"
+											action = "addSchool"
+									}
 
 	
 		}

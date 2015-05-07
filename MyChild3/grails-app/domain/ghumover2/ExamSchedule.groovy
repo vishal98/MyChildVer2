@@ -8,7 +8,6 @@ import org.grails.databinding.BindingFormat;
 class ExamSchedule {
 
 	static belongsTo = [exam:Exam]
-//	Exam exam
 	ExamSyllabus subjectSyllabus
    Subject subject
    Teacher teacher

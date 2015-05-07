@@ -11,7 +11,6 @@ class SchoolController {
 			def school = new School()
 			school.schoole_name = params.schoole_name;
 			school.address = params.address
-			
 			school.landmark = params.landmark
 			school.landline = params.landline
 			

@@ -389,12 +389,12 @@ class UrlMappings {
 						
 										}
 										
-										"/uploadData"{
+										"/app/uploadData"{
 											controller = "mydata"
 											action = "test"
 									}
 										
-										"/addSchool"{
+										"/app/addSchool"{
 											controller = "School"
 											action = "addSchool"
 									}

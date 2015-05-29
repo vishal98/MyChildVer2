@@ -438,9 +438,9 @@ class TeacherDetailsController extends RestfulController {
             Long school_id = Long.parseLong(params.school_id)
             School school =  School.get(school_id);
             SchoolClass schoolClass = new SchoolClass()
-            schoolClass.className = params.class_name
+            schoolClass.name_class = params.class_name
             schoolClass.school = school
-            schoolClass.classTags = school.tags +",\""+schoolClass.name_class+"\""
+            schoolClass.class_tags = school.tags +",\""+schoolClass.name_class+"\""
 
             schoolClass.save(flush:true);
             ob.put("status", true)
@@ -824,6 +824,182 @@ class TeacherDetailsController extends RestfulController {
           }
 
           }
+
+
+
+       def getTeacherTimeTableList()
+          {
+
+              def output = new ArrayList()
+              def teacherTT = [:]
+              def timetables = [:]
+              Teacher teacher
+              try{
+                  def days = TimeTable.executeQuery("select distinct a.day from TimeTable a ")
+
+                  Teacher.findAll().each {
+
+                      teacher = it
+                      teacherTT['teacherId'] = it.id.toString()
+                      teacherTT['teacherName'] = it.teacherName
+
+                      days.each {
+                          timetables[it] = TimeTable.findAllByTeacherAndDay(teacher,it)
+                      }
+                      teacherTT['timetables'] = timetables
+                      output.push(teacherTT)
+                      teacherTT = [:]
+                      timetables = [:]
+                  }
+                render output as JSON
+
+
+
+              }
+              catch(Exception e)
+              {
+                  render e as JSON
+              }
+
+
+          }
+
+
+
+
+       def classSubjectTeacherList()
+       {
+           def output = [:]
+           def list = new ArrayList()
+           def subjectTeacherList
+           try{
+               def grades = GradeTeacherSubject.executeQuery("select distinct g.grade  from GradeTeacherSubject g ")
+
+               grades.each {
+
+
+                 output['gradeId'] = it.gradeId.toString()
+                 output['gradeName'] = it.name.toString()
+                 output['section'] = it.section
+
+
+                                     subjectTeacherList  = GradeTeacherSubject.findAllByGrade(it)
+                                     output['subjectTeacherList'] = subjectTeacherList.collect(){ [
+                                         subject :[subjectId: it.subject.subjectId.toString() ,
+                                                   subjectName: it.subject.subjectName ,
+                                         ],
+                                         teacher: [teacherId: it.teacher.id.toString() ,
+                                                   teacherName: it.teacher.teacherName ,
+                                                   teacherEmailId: it.teacher?.teacherEmailId ,
+                                                   teacherPhoto: it.teacher?.teacherPhoto
+
+                                         ]
+                                             ]
+
+                                     }
+
+
+
+                   list.push(output)
+                   output = [:]
+
+
+
+               }
+               render list as JSON
+           }
+           catch(Exception e)
+           {
+                  render e
+
+           }
+
+       }
+
+
+
+
+	   def getTeacherWeekTimetableVer1()
+	   {
+   
+		   try {
+   
+			   user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+			   Teacher teacher = Teacher.findByUsername(user.username)
+   
+			   def output = [:]
+			   output['teacherId'] = teacher.id.toString()
+			   output['teacherName'] = teacher.teacherName
+   
+   
+			   def teacherTT = [:]
+   
+			   def days = TimeTable.executeQuery("select distinct a.day from TimeTable a ")
+			   JSON.use('TeachergetTimeTable')
+					   {
+						   days.each {
+							   teacherTT[it] = TimeTable.findAllByTeacherAndDay(teacher,it)
+						   }
+						   output['timeTable'] = teacherTT
+						   render output as JSON
+					   }
+   
+		   }
+		   catch (Exception e)
+		   {
+			   render e
+		   }
+	   }
+   
+
+
+	   def teacherExams()
+	   {
+		   def output = [:]
+		   try {
+
+			   Long id
+			   if(params.teacherId) { id = Long.parseLong(params.teacherId) }
+			   else {
+				   User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+				   id = user.id
+			   }
+			   Teacher t = Teacher.findById(id)
+
+			   output['teacherId'] = id.toString()
+			   output['teacherName'] = t.teacherName
+			   output['teacherEmailId'] = t.teacherEmailId
+			   output['teacherPhoto'] = t.teacherPhoto
+			   output['username'] = t.username
+			   output['teacherExams']  = ExamSchedule.findAllByTeacher(t).collect() { [examId:it.exam?.examId.toString() , examName : it.exam?.examName , examType:it.exam?.examType , class:it.exam?.schoolclass?.className.toString() ,
+																					   grade:[gradeId : it.exam?.grade?.gradeId.toString() , gradeName: it.exam?.grade?.name.toString() , section:it.exam?.grade?.section  ] ,
+																					   'subjectName':  it.subject.subjectName,
+																					   'subjectSyllabus':it.subjectSyllabus.syllabus,
+																					   'teacherName':it.teacher.teacherName,
+																					   'examStartTime':it.startTime? exSchedule.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"):'date not',
+											  
+																					   'examEndTime':it.endTime? exSchedule.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"):'date not' ]
+											  
+											  
+																					    }
+			   render output as JSON
+
+
+		   }
+		   catch (NullPointerException e)
+		   {
+				   output['status'] = 'error'
+				   output['message'] = 'Teacher id '+ params.teacherId +' does not exist. Check teacher id.'
+			   render output as JSON
+
+		   }
+		   catch (Exception e)
+		   {
+			   render e
+		   }
+
+	   }
+
 
 
 }

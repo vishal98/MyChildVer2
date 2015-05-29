@@ -53,7 +53,7 @@ class ConversationController {
 	}
 
 
-
+	
 
 
 	def getSentConversations()
@@ -372,7 +372,36 @@ class ConversationController {
 
 	}
 
-
+	 def getCurUserConversationsV1()
+	 {
+		 def output = [:]
+		 user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+		 if (user) {
+			 user  =    (params.userId)? ( (params.userId.isNumber()) ? (User.findById(Long.parseLong(params.userId))) : User.findByUsername(params.userId) )   : user;
+ 
+ 
+			 JSON.use('conversationVer1'){
+				 def inbox = Conversation.findAllByToId(user.username)
+ 
+				 output ['numberOfConversations'] = inbox.size()
+				 output ['conversations'] =  inbox
+				 render output as JSON
+			 }
+ 
+ 
+		 }
+		 else
+		 {
+ 
+			 output['status'] = "error"
+			 output['message'] = "Not logged in"
+			 output['data'] = "NULL"
+			 render output as JSON
+ 
+		 }
+ 
+	 }
+ 
 
 
 

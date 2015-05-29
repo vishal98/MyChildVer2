@@ -10,7 +10,7 @@ class ExamSchedule {
 	static belongsTo = [exam:Exam]
 	ExamSyllabus subjectSyllabus
    Subject subject
-   Teacher teacher
+   Teacher teacher //teacher assigned
    @BindingFormat("dd-MM-yyyy HH:mm")
    Date startTime
    @BindingFormat("dd-MM-yyyy HH:mm")

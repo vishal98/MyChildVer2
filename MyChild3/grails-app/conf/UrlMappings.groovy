@@ -19,19 +19,32 @@ class UrlMappings {
 			// TIME TABLE
 			"/app/timetable/$gradeId/$section"
 					{
-						controller = "TimeTable"
+						controller = "TimeTableDetails"
 						action = "getWeekTimetable"
 
 					}
 
 			"/app/timetable/$gradeId/$section/$day"
 					{
-						controller = "TimeTable"
+						controller = "TimeTableDetails"
 						action =  "getDayTimeTable"
 					}
 
 
-
+					"/app/conversations/get/v1"
+					{
+						controller = "conversation"
+						action = "getCurUserConversationsV1"
+	
+					}
+	
+	
+	
+		"/app/teacher/timetable/week/v1"
+					{
+						controller = "TeacherDetails"
+						action = "getTeacherWeekTimetableVer1"
+					}
 
 
 
@@ -98,28 +111,28 @@ class UrlMappings {
 
 
 			"/Teacher/studentList/$gradeId"{
-					controller = "teacher"
+					controller = "teacherDetails"
 					action = "getStudentList"
 			}
 
 			"/Teacher/$studentList/$grade/$section"
 					  {
-						  controller = "teacher"
+						  controller = "teacherDetails"
 						  action = "getStudentListByGradeSection"
 					  }
 			"/Teacher/id/$userId"{
-				controller = "teacher"
+				controller = "teacherDetails"
 				action = "getTeacherDetails"
 			}
 			"/app/subject/$grade/$section"{
-				controller = "teacher"
+				controller = "teacherDetails"
 				action = "getSubject"
 			}
 
 
 			"/app/teacher/getAllSubjectsInAllGrades"
 					{
-						controller = "teacher"
+						controller = "teacherDetails"
 						action = "getAllSubjectsInAllGrades"
 					}
 
@@ -140,6 +153,14 @@ class UrlMappings {
 						action = "getCurUserConversations"
 
 					}
+					
+					"/app/conversations/get/v1"
+					{
+						controller = "conversation"
+						action = "getUserConversationsUpdated"
+
+					}
+					
 
 
 				 "/app/conversations/get/$userId"
@@ -223,12 +244,12 @@ class UrlMappings {
 			
 			"/app/teacher/timetable/"
 			{
-				controller = "TimeTable"
+				controller = "TimeTableDetails"
 				action = "getTeacherWeekTimetable"
 			}
 	       "/app/teacher/timetable/$day"
 			 {
-				 controller = "TimeTable"
+				 controller = "TimeTableDetails"
 				 action = "getTeacherDayTimetable"
 
 			 }
@@ -262,13 +283,13 @@ class UrlMappings {
 
 			 "/app/events/teacher/$month/$year"
 					 {
-						 controller = "Teacher"
+						 controller = "teacherDetails"
 						 action = "getTeacherMonthEvents"
 
 					 }
 			"/app/events/teacher/$date"
 					{
-						controller = "teacher"
+						controller = "teacherDetails"
 						action = "getTeacherEvents"
 
 					}
@@ -291,7 +312,7 @@ class UrlMappings {
 					
 					"/app/teacher/timetable/week"
 					{
-						controller = "teacher"
+						controller = "teacherDetails"
 						action = "getTeacherWeekTimetable"
 					}
 
@@ -337,13 +358,13 @@ class UrlMappings {
 			
 						 "/app/events/teacher/$month/$year"
 								 {
-									 controller = "Teacher"
+									 controller = "teacherDetails"
 									 action = "getTeacherMonthEvents"
 			
 								 }
 						"/app/events/teacher/$date"
 								{
-									controller = "teacher"
+									controller = "teacherDetails"
 									action = "getTeacherEvents"
 			
 								}
@@ -366,7 +387,7 @@ class UrlMappings {
 								
 								"/app/teacher/timetable/week"
 								{
-									controller = "teacher"
+									controller = "teacherDetails"
 									action = "getTeacherWeekTimetable"
 								}
 			
@@ -398,7 +419,34 @@ class UrlMappings {
 											controller = "School"
 											action = "addSchool"
 									}
+										"/app/uploadImageM"{
+											controller = "fileManagerRead"
+											action = "read"
+									}
+										
 
+										"/app/uploadImage"{
+											 controller = "parent"
+											action = "read"
+									}
+										"/app/testSMS"{
+											controller = "fileManagerRead"
+										   action = "testSMS"
+								   }
+										
+										"/app/registerForpush"{
+											controller = "mydata"
+											action = "registerForpushApp"
+									}
+										
+										"/app/exams/teacherExamsSchedule"
+										{
+											controller = "ExamDetails"
+											action = "teacherExamsSchedule"
+						
+						
+										}
+										
 	
 		}
 		}

@@ -16,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 
 class MydataController {
 
-    def index() { 
+	def index() {
 		def rest = new RestBuilder()
 		def resp = rest.post("https://api.pushbots.com/push/one"){
 			header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
@@ -76,6 +76,7 @@ class MydataController {
 				User user =null;
 				//sheet1.getLastRowNum()sheet1.getLastRowNum()
 				for(int i=1;i<sheet1.getLastRowNum();i++){
+					println 11;
 					Guardian guardain =null;
 					XSSFRow hssfRow2 = sheet1.getRow(i);
 					if(hssfRow2 != null){
@@ -105,11 +106,11 @@ class MydataController {
 							}
 							String class_grade = hssfRow2.getCell(0).getStringCellValue();
 							int lenght = class_grade.length();
-							String class_name = class_grade.substring(0,lenght-1 )
+							Integer class_name = Integer.parseInt(class_grade.substring(0,lenght-1 ))
 							String grade_name = class_grade.substring(lenght-1 )
 							if(classMap.get(class_grade) == null){
 								def sc = SchoolClass.createCriteria()
-	
+								println 13+"-----"+school_id +"--------class name"+class_name;
 								classobject =	sc.get {
 									and {
 										eq("school.school_id",school_id)
@@ -123,6 +124,8 @@ class MydataController {
 									schoolClass.classTags = school.tags +",\""+schoolClass.className+"\""
 									schoolClass.save(flush:true);
 									classobject = schoolClass
+									
+									
 									grade = new Grade();
 									grade.section = grade_name
 									grade.name = (int)classobject.classId
@@ -143,6 +146,7 @@ class MydataController {
 									//SchoolClass schoolClass =  SchoolClass.get(class_id)
 	
 									if(null == grade ){
+										println 16;
 										grade = new Grade();
 										grade.section = grade_name
 										grade.gradetags = classobject.classTags +",\""+classobject.className+"-"+grade.section+"\""
@@ -154,6 +158,7 @@ class MydataController {
 								classMap.put(class_grade, grade)
 								// for guardian
 								if(null == guardain) {
+									println 17
 									guardain =	new Guardian()
 									guardain.name = hssfRow2.getCell(2).getStringCellValue();
 									guardain.username=hssfRow2.getCell(3).getStringCellValue();
@@ -198,6 +203,7 @@ class MydataController {
 								Guardian.executeUpdate("Update Guardian set tags = '"+father_tags+"' where username ='"+father.username+"'")
 	
 							}else{
+							println 18;
 								if(null == guardain) {
 									guardain =	new Guardian()
 									guardain.name = hssfRow2.getCell(2).getStringCellValue();
@@ -240,7 +246,7 @@ class MydataController {
 								}else{
 									father_tags = father.tags+",\"s-"+student.studentId+"\""
 								}
-	
+								println 19;
 								Guardian.executeUpdate("Update Guardian set tags = '"+father_tags+"' where username ='"+father.username+"'")
 	
 							}
@@ -322,7 +328,7 @@ class MydataController {
 								if(null != cell3value){
 									String class_grade = cell3value.getStringCellValue();
 									int lenght = class_grade.length();
-									String class_name = class_grade.substring(0,lenght-1 )
+									Integer class_name = Integer.parseInt(class_grade.substring(0,lenght-1 ))
 									String grade_name = class_grade.substring(lenght-1 )
 									Grade grade1 = classMap.get(cell3value.getStringCellValue())
 									if(null != grade1){
@@ -438,6 +444,7 @@ class MydataController {
 	
 	
 			}catch(Exception e){
+			println e.getCause();
 				println e.getMessage();
 	
 	
@@ -447,6 +454,41 @@ class MydataController {
 	
 			render ob as JSON
 	
+		}
+		
+		def registerForpushApp() {
+			//will get the username from spring security but for now i am not using
+			String username = params.username
+			String device_platform = params.platform
+			String device_token = params.token;
+			User user = User.findByUsername(username)
+			String userTags = user.tags
+			User.executeUpdate("Update User set deviceToken = '"+device_token+"',tagRegister=true,platform='"+device_platform+"' where username ='"+username+"'")
+	
+			def rest = new RestBuilder()
+			def resp = rest.put("https://api.pushbots.com/deviceToken"){
+				header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
+				header 'x-pushbots-secret', 'e68461d7755b0d3733b4b36717aea77d'
+				json {
+					token ="${device_token}"
+					platform ="${device_platform}"
+					alias ="${username}"
+					tag = ["${userTags}"]
+					payload="JSON"
+	
+				}
+	
+	
+			}
+			println "------------------------------------ [${userTags}]"
+			println "------------------------------------ ${username}"
+			println resp.json as JSON
+	
+			Map ob = new HashMap();
+			ob.put("status", true)
+			ob.put("message", "success")
+	
+			render ob as JSON
 		}
 	
 	}

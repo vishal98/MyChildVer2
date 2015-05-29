@@ -14,10 +14,10 @@ class SchoolController {
 			school.landmark = params.landmark
 			school.landline = params.landline
 			
-			 school.save(flush:true);
+			 school.save(flush:true)
 				
 					ob.put("status", true)
-					ob.put("message", "School crated success fully having id "+school.school_id)
+					ob.put("message", "School created success fully having id "+school.school_id)
 		}catch(Exception e){
 		ob.put("status", false)
 		ob.put("message", "failed due to "+e.getMessage())

@@ -1,3 +1,5 @@
+import org.apache.log4j.PatternLayout;
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -113,12 +115,19 @@ grails {
 }
 
 // log4j configuration
-log4j.main = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+log4j = {
+
+    PatternLayout patternLayout = new PatternLayout("%d [%t] %-5p %c %x - %m%n")
+
+
+    debug   'grails.app.controllers',
+            'grails.app.controller',
+            'grails.app.domain',
+            'grails.app.services',
+            'grails.app.filters',
+            'com.mycompany'
+//            'org.springframework.security'
+            'org.hibernate.SQL'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -131,7 +140,20 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    appenders {
+        appender new org.apache.log4j.ConsoleAppender(name: "console",
+                threshold: org.apache.log4j.Level.DEBUG,
+                layout: patternLayout
+        )
+    }
+    root {
+        error 'stdout'
+        additivity = true
+    }
 }
+
+    
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'

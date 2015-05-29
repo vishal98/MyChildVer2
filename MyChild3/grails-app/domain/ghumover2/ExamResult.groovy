@@ -9,15 +9,14 @@ class ExamResult {
     Student student
     Subject subject
     int marks
+	String grade	
+	String status
 
     int maxMarks
 
     static constraints = {
-        marks(nullable:true)
-        exam(nullable: true)
-        maxMarks(nullable:true)
-        student(nullable: true)
-        subject(nullable: true)
+		 grade(nullable: true)
+		 status(nullable: true)
 
     }
     static mapping = {

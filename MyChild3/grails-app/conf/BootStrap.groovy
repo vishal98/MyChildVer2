@@ -106,23 +106,69 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		Subject clubAct = new Subject(subjectName: "Club Activities").save()
 		Subject pt = new Subject(subjectName: "PT").save()
 		Subject activities = new Subject(subjectName: "Activities").save()
-
+		
+			
+			def school = new School()
+			school.schoole_name = "Dav"
+			school.address = "puri,odisha"
+			school.landmark = "near odisha bekary"
+			school.landline = "0806754566"
+			 school.save(flush:true);
+			 
+			 SchoolClass cl5 = new SchoolClass()
+			 cl5.className = 5
+			 cl5.school = school
+			 cl5.classTags = school.tags +",\""+cl5.className+"\""
+			 cl5.save(flush:true);
+			 
+			 SchoolClass cl6 = new SchoolClass()
+			 cl6.className = 6
+			 cl6.school = school
+			 cl6.classTags = school.tags +",\""+cl6.className+"\""
+			 cl6.save(flush:true);
+			 
+			 SchoolClass cl7 = new SchoolClass()
+			 cl7.className = 7
+			 cl7.school = school
+			 cl7.classTags = school.tags +",\""+cl7.className+"\""
+			 cl7.save(flush:true);
+			 
+			 SchoolClass cl8 = new SchoolClass()
+			 cl8.className = 8
+			 cl8.school = school
+			 cl8.classTags = school.tags +",\""+cl8.className+"\""
+			 cl8.save(flush:true);
+			 
+			 
+			 SchoolClass cl9 = new SchoolClass()
+			 cl9.className = 9
+			 cl9.school = school
+			 cl9.classTags = school.tags +",\""+cl9.className+"\""
+			 cl9.save(flush:true);
+			 
+			 
+			 SchoolClass cl10 = new SchoolClass()
+			 cl10.className = 10
+			 cl10.school = school
+			 cl10.classTags = school.tags +",\""+cl10.className+"\""
+			 cl10.save(flush:true);
+		 
 
 
 		Grade cl5A , cl5B , cl6A , cl6B , cl7A ,cl7B , cl8A , cl8B , cl9A , cl9B , cl10A , cl10B
 
-		cl5A = new Grade(name: 5 , section: "A" , classTeacherId: 1).save()
-		cl5B = new Grade(name: 5 , section: "B" , classTeacherId: 2).save()
-		cl6A = new Grade(name: 6 , section: "A" , classTeacherId: 3).save()
-		cl6B = new Grade(name: 6 , section: "B" , classTeacherId: 4).save()
-		cl7A = new Grade(name: 7 , section: "A" , classTeacherId: 5).save()
-		cl7B = new Grade(name: 7 , section: "B" , classTeacherId: 6).save()
-		cl8A = new Grade(name: 8 , section: "A" , classTeacherId: 7).save()
-		cl8B = new Grade(name: 8 , section: "B" , classTeacherId: 8).save()
-		cl9A = new Grade(name: 9 , section: "A").save()
-		cl9B = new Grade(name: 9 , section: "B").save()
-		cl10A = new Grade(name: 10 , section: "A").save()
-		cl10B = new Grade(name: 10 , section: "B").save()
+		cl5A = new Grade(name: (int)cl5.className , section: "A" , classTeacherId: 1,schoolClass:cl5).save()
+		cl5B = new Grade(name: (int)cl5.className , section: "B" , classTeacherId: 2,schoolClass:cl5).save()
+		cl6A = new Grade(name: (int)cl6.className , section: "A" , classTeacherId: 3,schoolClass:cl6).save()
+		cl6B = new Grade(name: (int)cl6.className , section: "B" , classTeacherId: 4,schoolClass:cl6).save()
+		cl7A = new Grade(name: (int)cl7.className , section: "A" , classTeacherId: 5,schoolClass:cl7).save()
+		cl7B = new Grade(name: (int)cl7.className , section: "B" , classTeacherId: 6,schoolClass:cl7).save()
+		cl8A = new Grade(name: (int)cl8.className , section: "A" , classTeacherId: 7,schoolClass:cl8).save()
+		cl8B = new Grade(name: (int)cl8.className , section: "B" , classTeacherId: 8,schoolClass:cl8).save()
+		cl9A = new Grade(name: (int)cl9.className , section: "A",schoolClass:cl9).save()
+		cl9B = new Grade(name: (int)cl9.className , section: "B",schoolClass:cl9).save()
+		cl10A = new Grade(name: (int)cl10.className , section: "A",schoolClass:cl10).save()
+		cl10B = new Grade(name: (int)cl10.className , section: "B",schoolClass:cl10).save()
 
 
 		Teacher mathew , sibi , satheesh , raji , robin , binu , hari , shyam , anil , maya , vinod
@@ -261,11 +307,11 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
             father = Guardian.findByUsername("ravi@test.com")
             mother = Guardian.findByUsername("raani@test.com")
 
-            s2 =  new Student(grade: cl5A , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
+            s2 =  new Student(grade: cl5B , registerNumber: "ST101" ,studentName: "Renjith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save() ).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
-            s3 =  new Student(grade: cl5A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s3 =  new Student(grade: cl6A ,  registerNumber: "ST102" ,studentName: "Rohan" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father"  , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s3.setAsFather( father )
             s3.setAsMother( mother )
 
@@ -273,14 +319,14 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
             new UserRole(user:mother , role:roleParent).save(flush: true)
 
 
-            s1 =  new Student( grade:cl5A  , registerNumber: "ST106" ,studentName: "Neha" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
-            s1.setAsFather( new Guardian(name: "Nagesh" , username: "nagesh@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
+           s1 =  new Student( grade:cl5A  , registerNumber: "ST106" ,studentName: "Seeya" , gender: "Female" , dob:"12-12-2000" , studentPhoto: "https://s3-ap-southeast-1.amazonaws.com/gotomychild/app/js/images/006.JPG", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+            s1.setAsFather( new Guardian(name: "Shashi" , username: "shashi@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
             s1.setAsMother( new Guardian(name:"Nanditha" , username: "nanditha@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
-            father = Guardian.findByUsername("nagesh@test.com")
+            father = Guardian.findByUsername("shashi@test.com")
             mother = Guardian.findByUsername("nanditha@test.com")
 
-            s2 =  new Student(grade: cl5A , registerNumber: "ST107" ,studentName: "Nivas" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
+            s2 =  new Student(grade: cl7A , registerNumber: "ST107" ,studentName: "Sidhu" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "https://s3-ap-southeast-1.amazonaws.com/gotomychild/app/js/images/004.JPG", no_of_siblings: 2 , present_guardian: "Mother" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()).save()
             s2.setAsFather( father )
             s2.setAsMother( mother )
 
@@ -397,9 +443,9 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 		// Add exam entries Date startTime
-			   def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" , schoolclass: SchoolClass.findByClassName(5)).save()
+			   def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" ,grade:Grade.findByName(5), schoolclass: SchoolClass.findByClassName(5)).save()
 			   
-			   def unitTest = new Exam(examName : "2nd Term Model Examination for Class 5" ,examType:"Unit Test" , schoolclass: SchoolClass.findByClassName(5)).save()
+			   def unitTest = new Exam(examName : "2nd Term Model Examination for Class 5" ,examType:"Unit Test" , grade:Grade.findByName(5),schoolclass: SchoolClass.findByClassName(5)).save()
 			   
 			   def englishSyllabus1 = new ExamSyllabus(exam: unitTest , subject: english ,syllabus: "Chapter 1 paragraph " ).save()
 			   def chemistrySyllabus1 = new ExamSyllabus(exam: unitTest , subject: chemistry,syllabus: " Chem  1-3").save()
@@ -414,21 +460,26 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 			   
 					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: englishSyllabus,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
 					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: physicsSyllabus, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: modelExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: modelExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
 			   
 			      
 					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: englishSyllabus1,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
 					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: physicsSyllabus1, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
 					   new ExamSchedule(exam: unitTest ,subjectSyllabus: hindiSyllabus1, subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: chemistrySyllabus1, subject: chemistry ,teacher :satheesh,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: chemistrySyllabus1, subject: chemistry ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
 			   
 			   
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100 ).save()
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100,grade:"A",status:"Pass" ).save()
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100,grade:"A",status:"Pass" ).save()
+					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100,grade:"A",status:"Pass" ).save()
 			   
-
+					   cl6A.addToTimetable(new TimeTable(grade: cl6A , day: "Monday" , teacher:mathew , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+					   cl7A.addToTimetable(new TimeTable(grade: cl7A , day: "Monday" , teacher:mathew , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+					   cl8A.addToTimetable(new TimeTable(grade: cl8A , day: "Monday" , teacher:mathew , subject: science , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+					   cl9A.addToTimetable(new TimeTable(grade: cl9A , day: "Monday" , teacher:mathew , subject: IILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+					
+					   
 		
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:vanajakshi , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
@@ -440,6 +491,8 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Monday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
 
 
+		
+		
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Tuesday" , teacher:kiran , subject: IILanguage , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Tuesday" , teacher:archana , subject: maths , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Tuesday" , teacher:naresh , subject: socialScience , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
@@ -479,6 +532,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:vanajakshi , subject: clubAct , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+		
 
 
 
@@ -507,13 +561,12 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-
-		User ravi , rani , manish , malini , mahadev , nagesh
+		User ravi , rani , manish , malini , mahadev , shashi
 		ravi = User.findByUsername("ravi@test.com")
 		rani = User.findByUsername("raani@test.com")
 		malini = User.findByUsername("malini@test.com")
 		mahadev = User.findByUsername("mahadev@test.com")
-		nagesh = User.findByUsername("nagesh@test.com")
+		shashi = User.findByUsername("shashi@test.com")
 		manish = User.findByUsername("manish@test.com")
 
 
@@ -558,16 +611,16 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 		mathew.addToConversations(testconv).save()
 		manish.addToConversations(testconv).save()
 
-		testconv = new Conversation(fromId: nagesh.username , toId: mathew.username , title: "Message from Nagesh" , inTrash: false , isRead: false , toDate: new Date() , fromDate: new Date())
-				.addToMessages(new Message(fromId: "Nagesh" , toId: "Mathew" , messageText: "Hai this is Nagesh" , messageTime: new Date()))
-				.addToMessages(new Message(fromId: "Mathew" , toId: "Nagesh" , messageText: "Yes nagesh , mathew here" , messageTime:  new Date()))
-				.addToMessages(new Message(fromId: "Nagesh" , toId: "Mathew" , messageText: "How are you maathew" , messageTime: new Date()))
-				.addToMessages(new Message(fromId: "Mathew" , toId: "Nagesh" , messageText: "I am fine nagesh How are you" , messageTime: new Date()))
-				.addToMessages(new Message(fromId: "Nagesh" , toId: "Mathew" , messageText: "I am also fine mathew , Good night" , messageTime: new Date()))
-				.addToMessages(new Message(fromId: "Mathew" , toId: "Nagesh" , messageText: "Good night nagesh...", messageTime: new Date()))
+		testconv = new Conversation(fromId: shashi.username , toId: mathew.username , title: "Message from shashi" , inTrash: false , isRead: false , toDate: new Date() , fromDate: new Date())
+				.addToMessages(new Message(fromId: "shashi" , toId: "Mathew" , messageText: "Hai this is shashi" , messageTime: new Date()))
+				.addToMessages(new Message(fromId: "Mathew" , toId: "shashi" , messageText: "Yes shashi , mathew here" , messageTime:  new Date()))
+				.addToMessages(new Message(fromId: "shashi" , toId: "Mathew" , messageText: "How are you maathew" , messageTime: new Date()))
+				.addToMessages(new Message(fromId: "Mathew" , toId: "shashi" , messageText: "I am fine shashi How are you" , messageTime: new Date()))
+				.addToMessages(new Message(fromId: "shashi" , toId: "Mathew" , messageText: "I am also fine mathew , Good night" , messageTime: new Date()))
+				.addToMessages(new Message(fromId: "Mathew" , toId: "shashi" , messageText: "Good night shashi...", messageTime: new Date()))
 				.save()
 		mathew.addToConversations(testconv).save()
-		nagesh.addToConversations(testconv).save()
+		shashi.addToConversations(testconv).save()
 
 		testconv = new Conversation(fromId: malini.username , toId: mathew.username , title: "Message from Malini" , inTrash: false , isRead: false , toDate: new Date() , fromDate: new Date())
 				.addToMessages(new Message(fromId: "Malini" , toId: "Mathew" , messageText: "Hai this is Manush" , messageTime: new Date()))
@@ -714,7 +767,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 		}
-		JSON.registerObjectMarshaller( Exam )
+	/*	JSON.registerObjectMarshaller( Exam )
 		{
 			Exam e ->
 				return[
@@ -727,11 +780,13 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 						examSchedule : e.examSubjectSchedule.collect()    { ExamSchedule es -> [ subject:[ subjectId:  es.subject?.subjectId.toString() ,
 																										   subjectName: es.subject?.subjectName ] ,
 																								 syllabus : [ id:es.subjectSyllabus?.id.toString() , syllabus: es.subjectSyllabus.syllabus] ,
-																								 examDate : es.startTime.format('dd-MM-yyyy') ,
+																								 examDate : es.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
 																								 startTime : es.startTime.format("KK:mm a") ,
 																								 endTime: es.endTime.format("KK:mm a")]
 						} ,
-						results : e.results
+						results : e.results.collect() {
+							[ resultId : it.resultId.toString() , subjectId : it.subject?.subjectId.toString() , subjectName: it.subject?.subjectName , studentId: it.student?.studentId.toString() , studentName: it.student?.studentName , maxMarks: it.maxMarks.toString() , marks: it.marks.toString()]
+						}
 
 
 				]
@@ -739,7 +794,8 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-		}
+		}*/
+
 
 
 
@@ -751,28 +807,12 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 			Message m ->
 				return ['messageId' : m.messageId.toString() ,
 						'messageText' : m.messageText ,
-						'messageTime' : m.messageTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a') ,
+						'messageTime' : m.messageTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
 						'from' : m.fromId ,
 						'to' : m.toId
 
 
 				]
-		}
-
-
-
-		JSON.registerObjectMarshaller(ExamSchedule) {
-			ExamSchedule exSchedule ->
-
-				return  ['subjectName':  exSchedule.subject.subjectName,
-										 'subjectSyllabus':exSchedule.subjectSyllabus.syllabus,
-										 'teacherName':exSchedule.teacher.teacherName,
-										 'examStartTime':exSchedule.startTime? exSchedule.startTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a'):'date not',
-
-										 'examEndTime':exSchedule.endTime? exSchedule.startTime.format('EEEE, dd MMMM yyyy, hh:mm:ss a'):'date not' ]
-
-
-
 		}
 
 		JSON.createNamedConfig('exam') {
@@ -781,7 +821,37 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 				return ['exams': msg.exams
 				]
 			}
+		} 
+		
+		JSON.createNamedConfig('exams') {
+			it.registerObjectMarshaller( Exam ) { Exam subject ->
+
+				  return  ['examId':  subject.examId?subject.examId.toString():'',
+				   'examType': subject.examType,
+			   'schedule':subject.examSubjectSchedule,
+			   
+			   
+			   ]
+				
+			}
 		}
+		
+	JSON.registerObjectMarshaller(Exam) {
+			Exam subject ->
+		
+			  
+		   return  ['examId':  subject.examId?subject.examId.toString():'',
+				   'examType': subject.examType,
+			   'schedule':subject.examSubjectSchedule,
+			   
+			   
+			   ]
+			   
+	   }
+
+
+
+	
 			
 		JSON.createNamedConfig('teacherC') {
 			it.registerObjectMarshaller( Teacher ) { Teacher teach ->
@@ -791,7 +861,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 				 return  ['teacher':['teacherId': teach.id.toString(),
 				'teacherName': teach.teacherName,
 				'emailId':teach.teacherEmailId,
-				'grades' : teach.grades
+				'grades' : teach.grades.sort{it.classTeacherId}
 				]]
 			}
 		}
@@ -1057,6 +1127,12 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 							   ]}
 				}
+				
+				
+	
+				
+				
+				
 
 
 
@@ -1311,6 +1387,58 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 									 ] ] }				
 							]
 	}
+				
+				JSON.createNamedConfig('conversationVer1')
+				{
+
+
+					it.registerObjectMarshaller( Conversation  )
+							{   cnv ->
+
+
+
+								return [
+										'threadId': cnv.threadId.toString(),
+										'numberOfMessages' : cnv.messages.size().toString(),
+										//'fromDate': cnv.fromDate?.format('EEEE, dd MMMM yyyy, hh:mm:ss a'),
+										'fromId': cnv.fromId ,
+										'toId': cnv.toId,
+										'inTrash': cnv.inTrash,
+										'isRead': cnv.isRead,
+										'title': cnv.title,
+										'toDate': cnv.toDate?.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+										'messages' : cnv.messages.collect(){
+
+											[
+													'messageId' : it.messageId.toString(),
+													'fromId' : it.fromId,
+													'toId' : it.toId ,
+													'messageText' : it.messageText,
+													'messageTime' : it.messageTime?.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+
+											]
+										}
+
+
+								]
+
+							}
+							
+							JSON.registerObjectMarshaller(ExamSchedule) {
+								ExamSchedule exSchedule ->
+						  
+								  return  ['subjectName':  exSchedule.subject.subjectName,
+											   'subjectSyllabus':exSchedule.subjectSyllabus.syllabus,
+											   'teacherName':exSchedule.teacher.teacherName,
+											   'examStartTime':exSchedule.startTime? exSchedule.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") :'date not',
+						  
+											   'examEndTime':exSchedule.endTime? exSchedule.endTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") :'date not' ]
+						  
+						  
+						  
+							  }
+						  
+				}
 
 
 	def destroy = {

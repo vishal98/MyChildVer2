@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat
 
 class ExamDetailsController {
 
+	def springSecurityService
     def newExam() {
 
-
+		
+		
 
         def output = [:]
                try{
@@ -171,7 +173,7 @@ class ExamDetailsController {
              def exams = Exam.findAllByGradeOrSchoolclass(student.grade,sc)
              def res = exams.collect(){
                  [
-                         studentId: studentId ,
+                         studentId: studentId.toString() ,
                          studentName: student.studentName ,
                          examId : it.examId.toString() ,
                          examName : it.examName ,
@@ -181,12 +183,17 @@ class ExamDetailsController {
                          examSchedule : it.examSubjectSchedule.collect()    { ExamSchedule es -> [ subject:[ subjectId:  es.subject?.subjectId.toString() ,
                                                                                                             subjectName: es.subject?.subjectName ] ,
                                                                                                   syllabus : [ id:es.subjectSyllabus?.id.toString() , syllabus: es.subjectSyllabus.syllabus] ,
-                                                                                                  examDate : es.startTime.format('dd-MM-yyyy') ,
-                                                                                                  startTime : es.startTime.format("KK:mm a") ,
-                                                                                                  endTime: es.endTime.format("KK:mm a")]
+																								 examDate : es.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+																								 startTime : es.startTime.format("KK:mm a") ,
+																								 endTime: es.endTime.format("KK:mm a")]
                          } ,
-                         result : (it.results.findAll { it.student.studentId == studentId  }) ? (it.results.findAll { it.student.studentId == studentId  }).collect() { [ subjectId : it.subject?.subjectId.toString() , subjectName: it.subject?.subjectName , marks: it.marks.toString() , maxMarks: it.maxMarks.toString()] }  : "Not Available"
-                         
+                         result : (it.results.findAll { it.student.studentId == studentId  }) ? (it.results.findAll { it.student.studentId == studentId  }).collect() { [ subjectId : it.subject?.subjectId.toString() , subjectName: it.subject?.subjectName , marks: it.marks.toString() , maxMarks: it.maxMarks.toString(),grade:"A",status:"Pass"] }:[],  
+                         totalMarks:"270",
+						 totalMaxMark:"300",
+						 overallGrade:"A",
+						 overallStatus:"Pass"
+						 
+						 
                  ]
                  
                  
@@ -206,7 +213,100 @@ class ExamDetailsController {
 
     }
 
-
-
-
+	def teacherExamsSchedule()
+	{
+		
+				   def output = [:]
+				   try {
+					   def exams = [:]
+					   Long id
+					   if(params.teacherId) { id = Long.parseLong(params.teacherId) }
+					   else {
+						   User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+						   id = user.id
+					   }
+					   Teacher t = Teacher.findById(id)
+					//   output['teacherId'] = id.toString()
+					  // output['teacherName'] = t.teacherName
+					   //output['teacherEmailId'] = t.teacherEmailId
+					   //output['teacherPhoto'] = t.teacherPhoto
+					   //output['username'] = t.username
+		
+		
+					   def teacherGrades =  GradeTeacherSubject.executeQuery("select distinct g.grade from GradeTeacherSubject  as g where g.teacher = ?",t)
+					   def sc_list = teacherGrades.collect(){ it.name }.unique()
+		
+					   def schoolclasses = SchoolClass.findAll("from SchoolClass as s where s.className in (:s_list) ", [s_list:sc_list])
+					   def examList = Exam.findAll("from Exam as e where e.grade in (:list) or e.schoolclass in (:c_list)" ,[list:teacherGrades , c_list:schoolclasses])
+					   def curExam
+					   def schedule
+					   def listOfExams = new ArrayList()
+					   def subjects
+					   def gradeExams
+					   examList.each {
+						   curExam = it
+						   if(it.grade)
+							{
+								subjects = t.getSubjectsInGrade(it.grade).collect(){ it.subject }
+								gradeExams = ExamSchedule.findAll("from ExamSchedule  as e where e.exam = :exm and e.subject in (:sub)",[exm:curExam , sub:subjects])
+								if(gradeExams.size() > 0)
+								{
+		
+									exams['examId'] = curExam?.examId.toString()
+									exams['examName'] = curExam?.examName
+									exams['examType'] = curExam?.examType
+									exams['class'] =   (curExam.schoolclass) ? curExam?.schoolclass?.className.toString() : curExam.grade.name.toString()
+									exams['grade'] = [gradeId : it.grade?.gradeId.toString() , gradeName: it.grade?.name , section : it.grade?.section]
+									
+									exams['examSchedule'] = gradeExams.collect(){ [ subject:[ subjectId:  it.subject?.subjectId.toString() ,
+                                                                                                            subjectName: it.subject?.subjectName ]
+									 ,  examDate : it.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+																								 startTime : it.startTime.format("KK:mm a") ,
+																								 endTime: it.endTime.format("KK:mm a") ] }
+											listOfExams.push(exams)
+									exams = [:]
+								}
+							}
+						   else
+						   {
+		
+							   exams['examId'] = curExam?.examId.toString()
+							   exams['examName'] = curExam?.examName
+							   exams['examType'] = curExam?.examType
+							   exams['class'] =   (curExam.schoolclass) ? curExam?.schoolclass?.className.toString() : curExam.grade.name.toString()
+							   exams['section'] = (curExam.grade)? curExam.grade.section : "NA"
+							   exams['examSchedule'] = ExamSchedule.findAll("from ExamSchedule  as e where e.exam = :exm ",[exm:curExam]).collect(){ [subjectName : it.subject.subjectName ,  examDate : it.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+																								 startTime : it.startTime.format("KK:mm a") ,
+																								 endTime: it.endTime.format("KK:mm a") ] }
+							   listOfExams.push(exams)
+							   exams = [:]
+		
+		
+						   }
+		
+		
+					   }
+					   output['exam'] = listOfExams
+					  render output as JSON
+		
+		
+		
+				   }
+				   catch (NullPointerException e)
+				   {
+						   output['status'] = 'error'
+						   output['message'] = 'Teacher id '+ params.teacherId +' does not exist. Check teacher id.'
+					   render output as JSON
+		
+				   }
+				   catch (Exception e)
+				   {
+					   render e
+				   }
+		
+			   
+	}
 }
+
+
+

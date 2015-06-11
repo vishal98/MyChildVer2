@@ -448,6 +448,16 @@ class UrlMappings {
 										}
 										
 	
-		}
+		
+     	"/app/testEmailsend"{
+											controller = "mydata"
+											action = "upload2"
+									}
+		 
+		 "/app/notice"{
+			 controller = "noticeDetails"
+			 action = "getnotices"
+	 }
 		}
 
+}

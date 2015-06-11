@@ -96,9 +96,27 @@ environments {
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
-
-
 grails {
+	plugin {
+		aws {
+			credentials {
+				accessKey = "AKIAIVYKHAA3B4HF62WA"
+				secretKey = "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"
+			}
+			
+			ses {
+				from     = "jayantamca10@gmail.com"
+				
+				
+				
+			}
+		}
+	}
+}
+
+
+
+/*grails {
 	plugin {
 		aws {
 			credentials {
@@ -112,7 +130,7 @@ grails {
 			}
 		}
 	}
-}
+}*/
 
 // log4j configuration
 log4j = {

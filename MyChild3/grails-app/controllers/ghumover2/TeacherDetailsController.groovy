@@ -438,9 +438,9 @@ class TeacherDetailsController extends RestfulController {
             Long school_id = Long.parseLong(params.school_id)
             School school =  School.get(school_id);
             SchoolClass schoolClass = new SchoolClass()
-            schoolClass.name_class = params.class_name
+            schoolClass.className = params.class_name
             schoolClass.school = school
-            schoolClass.class_tags = school.tags +",\""+schoolClass.name_class+"\""
+            schoolClass.classTags = school.tags +",\""+schoolClass.className+"\""
 
             schoolClass.save(flush:true);
             ob.put("status", true)
@@ -464,11 +464,11 @@ class TeacherDetailsController extends RestfulController {
             Grade grade = new Grade();
             grade.section = params.section
 
-            grade.grade_tags = schoolClass.class_tags +",\""+schoolClass.name_class+"-"+grade.section+"\""
+            grade.gradetags = schoolClass.classTags +",\""+schoolClass.className+"-"+grade.section+"\""
             grade.schoolClass =schoolClass
             grade.save(flush:true);
             ob.put("status", true)
-            ob.put("message", "section  added to class "+schoolClass.name_class )
+            ob.put("message", "section  added to class "+schoolClass.className )
         }catch(Exception e){
             ob.put("status", false)
             ob.put("message", "failed due to "+e.getMessage())
@@ -536,12 +536,12 @@ class TeacherDetailsController extends RestfulController {
             student.setAsMother( mother )
             println "------------------------------------ "+student.studentId
             if(father_tags == null){
-                father_tags = grade.grade_tags +",\"G\",\"S-"+student.studentId+"\""
+                father_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
             }else{
                 father_tags = father.tags+",\"s-"+student.studentId+"\""
             }
             if(mother_tags == null){
-                mother_tags = grade.grade_tags +",\"G\",\"S-"+student.studentId+"\""
+                mother_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
             }else{
                 mother_tags = mother.tags+",\"s-"+student.studentId+"\""
             }
@@ -585,18 +585,18 @@ class TeacherDetailsController extends RestfulController {
 
 
             if(mathew_tags == null ){
-                mathew_tags = grade.grade_tags +",\"T-T\",\"T-"+mathew.teacherId+"\""
+                mathew_tags = grade.gradetags +",\"T-T\",\"T-"+mathew.teacherId+"\""
             }else{
                 if(-1< mathew_tags.indexOf("T_T")){
                     mathew_tags = mathew.tags+",\"T-"+mathew.teacherId+"\""
                 }else{
-                    mathew_tags = grade.grade_tags +",\"T-T\",\"T-"+mathew.teacherId+"\"" +mathew.tags
+                    mathew_tags = grade.gradetags +",\"T-T\",\"T-"+mathew.teacherId+"\"" +mathew.tags
                 }
 
             }
 
             if(sibi_tags == null){
-                sibi_tags = grade.grade_tags +",\"T-T\",\"T-"+sibi.teacherId+"\""
+                sibi_tags = grade.gradetags +",\"T-T\",\"T-"+sibi.teacherId+"\""
             }else{
                 sibi_tags = sibi.tags+",\"T-"+sibi.teacherId+"\""
             }
@@ -668,7 +668,7 @@ class TeacherDetailsController extends RestfulController {
         // for tesing i ma taking for all class parents
         SchoolClass schoolClass =  SchoolClass.get(class_id)
 
-        String tags = schoolClass.class_tags+",T"
+        String tags = schoolClass.classTags+",T"
         def rest = new RestBuilder()
         def resp = rest.post("https://api.pushbots.com/push/all"){
             header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'

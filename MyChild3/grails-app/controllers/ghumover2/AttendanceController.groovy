@@ -96,10 +96,25 @@ class AttendanceController {
 			 String date = params.date
 			 int gradeId = Integer.parseInt(params.grade)
 			 String section = params.section
+			 def attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date)
+			 if(attendance){
 			 JSON.use('absentees'){
-				 render Grade.findByNameAndSection(gradeId,section).getAttendance(date) as JSON
+				attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date) as JSON
+				
+				 render attendance
 			 }
-
+			 }else {
+			 JSON.use('notAttendance'){
+				def	 grade= Grade.findByNameAndSection(gradeId,section) as JSON
+				def list = []
+              list << grade
+				  
+			   
+				render list
+			}
+		
+			 
+			 }
 
 
 

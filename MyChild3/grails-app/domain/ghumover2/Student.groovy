@@ -17,6 +17,11 @@ class Student  {
 	Date dob
 	String studentPhoto
 	String present_guardian
+	String modeOfTransport
+	String bloodGroup
+	String medicalCondition
+	String feeType
+	//String  medicalDetails
 	static belongsTo = [grade : Grade]
 
 	static hasMany = [siblings:Sibling]
@@ -37,6 +42,10 @@ class Student  {
 		dob(nullable: true)
 		studentPhoto(nullable: true)
 		 present_guardian(nullable: true)
+		  modeOfTransport(nullable: true)
+		  bloodGroup(nullable: true)
+		 medicalCondition (nullable:true)
+		 feeType(nullable:true)
 	}
 
 	void setAsFather(Guardian father)

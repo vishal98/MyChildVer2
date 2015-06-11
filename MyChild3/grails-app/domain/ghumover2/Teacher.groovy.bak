@@ -3,21 +3,29 @@ import grails.rest.Resource
 
 import javax.persistence.Transient
 
-@Resource
+@Resource(formats=['json', 'xml'])
 class Teacher  extends User  {
 
-	 static belongsTo = Grade
-	 static hasMany = [grades:Grade,subject:Subject , timetables:TimeTable]
+	 static belongsTo = [Grade , Department]
+	 static hasMany = [grades:Grade,subject:Subject , timetables:TimeTable,departments:Department]
 
 	 Long teacherId
 	 String teacherName
 	 String teacherPhoto
 	 String teacherEmailId
 	 String phoneNo
-
+	 long school_id
 	 static mapping = {
 		  id generator: 'increment',name: 'teacherId'
 		  
+	}
+
+	static constraints = {
+		school_id(nullable: true)
+		phoneNo(nullable: true)
+		teacherEmailId(nullable: true)
+		teacherPhoto(nullable: true)
+
 	}
 
 

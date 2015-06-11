@@ -14,14 +14,14 @@ class Teacher  extends User  {
 	 String teacherPhoto
 	 String teacherEmailId
 	 String phoneNo
-	 long school_id
+	
 	 static mapping = {
 		  id generator: 'increment',name: 'teacherId'
 		  
 	}
 
 	static constraints = {
-		school_id(nullable: true)
+		
 		phoneNo(nullable: true)
 		teacherEmailId(nullable: true)
 		teacherPhoto(nullable: true)

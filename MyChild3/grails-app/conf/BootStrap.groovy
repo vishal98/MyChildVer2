@@ -442,8 +442,15 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-		// Add exam entries Date startTime
-			   def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" ,grade:Grade.findByName(5), schoolclass: SchoolClass.findByClassName(5)).save()
+		// Add exam entries Date startTi
+
+
+
+
+
+
+
+def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" ,grade:Grade.findByName(5), schoolclass: SchoolClass.findByClassName(5)).save()
 			   
 			   def unitTest = new Exam(examName : "2nd Term Model Examination for Class 5" ,examType:"Unit Test" , grade:Grade.findByName(5),schoolclass: SchoolClass.findByClassName(5)).save()
 			   
@@ -455,6 +462,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 			      
 					   def englishSyllabus = new ExamSyllabus(exam: modelExam , subject: english ,syllabus: "Chapter 1-7 " ).save()
 					   def chemistrySyllabus = new ExamSyllabus(exam: modelExam , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save()
+
 					   def physicsSyllabus = new ExamSyllabus(exam: modelExam , subject: physics , syllabus: "Chapter 1-3 newton laws").save()
 					   def hindiSyllabus = new ExamSyllabus(exam: modelExam , subject: hindi , syllabus: "Poems and  Chapter 1-3").save()
 			   
@@ -1210,14 +1218,67 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 					        'total_students' : a.grade?.students.size().toString(),
 					         'total_absent' : a.absentees.size().toString() ,
 							'absentees':a.absentees
+							 
 
 
 					]
 		}
 
-
-
 		JSON.createNamedConfig('absentees')
+		{
+		it.registerObjectMarshaller( Attendance ) { Attendance a ->
+			return [
+
+
+				             "attendanceDoneFlag":"Y",
+							'attendanceId' : a.attendanceId.toString(),
+							'date' : a.date.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+							'grade' : a.grade?.name.toString() ,
+							'section' : a.grade?.section,
+							'total_students' : a.grade?.students.size().toString(),
+							 'total_absent' : a.absentees.size().toString() ,
+							'absentees':a.absentees.collect() { Student s ->
+								 ['stdentId' : s.studentId.toString() ,
+							   'studentName':s.studentName
+								 ]},
+							 'students':a.grade?.students.collect() { Student s ->
+								 ['stdentId' : s.studentId.toString() ,
+							   'studentName':s.studentName
+								 ]
+							
+			}
+]
+		
+		}
+		}
+		
+		JSON.createNamedConfig('notAttendance')
+		{
+		it.registerObjectMarshaller( Grade ) { Grade a ->
+			return [
+
+
+							 "attendanceDoneFlag":"N",
+							'attendanceId' : "",
+							'date' : "",
+							'grade' : a?.name.toString() ,
+							'section' : a?.section,
+							'total_students' : a?.students.size().toString(),
+							 'total_absent' :"" ,
+							'absentees':"",
+							 'students':a?.students.collect() { Student s ->
+								 ['stdentId' : s.studentId.toString() ,
+							   'studentName':s.studentName
+								 ]
+							
+			}
+]
+		
+		}
+		}
+		
+
+		JSON.createNamedConfig('absent')
 				{
 					it.registerObjectMarshaller(Student) { Student s ->
 
@@ -1437,12 +1498,32 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 						  
 						  
 							  }
+							
+							JSON.registerObjectMarshaller(Notice) {
+								Notice notice ->
+						  
+								  return    ['subjectName':  notice.getDesignation(),
+									 
+											   'topic':notice.getTopic(),
+											   'message':notice.getMessage(),
+											   'senderName':notice.getSenderName(),
+											   'designation':notice.getDesignation(),
+											   'salutation':notice.getSalutation(),
+											   'day':notice.getDay(),
+											   'date':notice.getDate()? notice.getDate().format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") :'date not'
+						  
+						  
+						  
+						  
+							]
 						  
 				}
+				
+				
 
 
 	def destroy = {
 	}
 }
-
+	}
 }

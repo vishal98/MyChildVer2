@@ -1,20 +1,27 @@
 package ghumover2
 
 import grails.converters.JSON
+import grails.rest.RestfulController
 
 import java.text.SimpleDateFormat
 import java.util.List
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
+
 @Secured(['ROLE_TEACHER'])
-class TeacherController {
+class TeacherController extends RestfulController {
+	static responseFormats = ['json', 'xml']
+
+	static  scaffold = true
 	def springSecurityService
 	User user
 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 	static allowedMethods = [sendMailToParents	: "POST"]
 
-
+	TeacherController() {
+		super(Teacher)
+	}
 	def getGrade (){
 		def article=new Grade()
 		def articleList=article.list()
@@ -344,6 +351,12 @@ class TeacherController {
 				  render e
 			  }
 		  }
+
+
+
+
+
+
 
 
 

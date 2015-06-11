@@ -16,6 +16,9 @@ class User {
 	boolean istagupdate =true
 	String deviceToken
 	String platform
+	long school_id
+	String sesEmailResponse
+	String sesEmailStatus
 	
 	static hasMany = [conversations : Conversation,fileManager:FileManager]
 //	static transients = ['springSecurityService']
@@ -26,6 +29,9 @@ class User {
 		tags(nullable: true)
 		deviceToken(nullable: true)
 		platform(nullable: true)
+		school_id(nullable: true)
+		sesEmailResponse(nullable: true)
+		sesEmailStatus(nullable: true)
 	}
 	
 

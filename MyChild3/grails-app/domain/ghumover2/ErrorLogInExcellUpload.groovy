@@ -6,6 +6,7 @@ class ErrorLogInExcellUpload {
 	String sheetName;
 	String errorcause;
 	String userEmail;
+	Long schoolId;
 
     static constraints = {
     }

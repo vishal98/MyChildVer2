@@ -998,6 +998,40 @@ class TeacherDetailsController extends RestfulController {
 	   }
 
  
+	   def teacherEvaluationUpload()
+	   {
+
+		   try{
+			   def file = request.getFile('file')
+			   if(file.empty) {
+				   System.out.println("File cannot be empty")
+			   } else {
+				   def values =  JSON.parse(params.data)
+				   Integer teacherId = Integer.parseInt(values.teacherId)
+				   Teacher teacher = Teacher.get(teacherId)
+				   Integer year = Integer.parseInt(values.year)
+				   def documentInstance = PerfomanceEvaluation.findOrCreateWhere(teacher: teacher,year: year);
+				   documentInstance.filename = file.originalFilename
+				   documentInstance.filedata = file.getBytes()
+				   documentInstance.teacher = teacher
+				   documentInstance.year = year
+
+
+				   if(documentInstance.save()){
+				   render "Teacher evaluation record saved successfully"
+				   }else
+				   {
+					   render "Some error has been occured. Please try again"
+				   }
+
+			   }
+
+		   }
+		   catch(Exception e)
+		   {
+			   render e as JSON
+		   }
+	   }
 
 
 

@@ -504,6 +504,10 @@ re
 "/app/admin/FeesTypeInterval"(resources: "FeesTypeInterval", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 "/app/admin/FeeMasterSchedule"(resources: "FeeMasterSchedule", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 "/app/admin/FeePaid"(resources: "FeePaid", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/teacherEval/upload"(controller: "TeacherDetails" , action: "teacherEvaluationUpload" , parseRequest: true)
+"/app/student/ExcelUpload"(controller: "Mydata" , action: "studentExcelData" ,parseRequest: true)
+
+
 
 "/app/exams/teacher/$teacherId"
 		{
@@ -540,7 +544,7 @@ re
 											controller = "ExamDetails"
 											action = "studentResult"
 						
-										}
+										}	
 										
 										"/app/uploadData"{
 											controller = "mydata"
@@ -592,7 +596,6 @@ re
 	 }
 		
 		
-
 
 
 		

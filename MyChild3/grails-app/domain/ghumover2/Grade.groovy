@@ -24,6 +24,8 @@ class Grade {
 
     static mapping ={
 	id generator: 'increment',name: 'gradeId'
+	students cache :true
+	attendance cache :true
 
     }
 

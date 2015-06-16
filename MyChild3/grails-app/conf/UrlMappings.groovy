@@ -4,17 +4,15 @@ class UrlMappings {
 			"/$controller/$action?/$id?(.$format)?"{
 				constraints {
 					// apply constraints here
-				}
+		}
 			}
 
 			"/"(view:"/index")
 			"500"(view:'/error')
-
 "/Parent/username/$username"{
 					controller = "parent"
 					action = "getParentDetails"
 			}
-
 
 			// TIME TABLE
 			"/app/timetable/$gradeId/$section"
@@ -102,15 +100,11 @@ class UrlMappings {
 			"/app/teacher/homework/save"(controller: "Homework", action: "saveHomework" ,parseRequest: true)
 
 
-
-
-
-
-
 			//TEACHER
 
+		
 
-			"/Teacher/studentList/$gradeId"{
+	"/Teacher/studentList/$gradeId"{
 					controller = "teacherDetails"
 					action = "getStudentList"
 			}
@@ -130,18 +124,19 @@ class UrlMappings {
 			}
 
 
-			"/app/teacher/getAllSubjectsInAllGrades"
+		
+	"/app/teacher/getAllSubjectsInAllGrades"
 					{
 						controller = "teacherDetails"
 						action = "getAllSubjectsInAllGrades"
 					}
 
-			"/app/teacher/sendMail/$grade/$section"(controller: "teacher", action: "sendMailToParents" ,parseRequest: true)
+	
 
 
 
 
-
+		"/app/teacher/sendMail/$grade/$section"(controller: "teacherDetails", action: "sendMailToParents" ,parseRequest: true)
 
 
 			//apis for conversations
@@ -168,7 +163,6 @@ class UrlMappings {
 							 controller = "conversation"
 							 action = "getUserConversations"
 						 }
-
 
 
 				"/app/conversations/getFrom/$userId"
@@ -199,10 +193,6 @@ class UrlMappings {
 
 			}
 
-
-
-
-
 		   //Get user list
 
 			"/app/parent/getUsers/$studentId"
@@ -214,13 +204,24 @@ class UrlMappings {
 
 					
 					
-					//Attendance
+				
+	//Attendance
 					
-							"/app/attendance/grade/$grade/$section/$date"
+						
+
+	"/app/attendance/grade/$grade/$section/$date"
 									{
 					
 										controller = "attendance"
 										action = "getGradeAttendance"
+					
+									}
+									
+									"/app/attendance/grade/v1/$grade/$section/$date"
+									{
+					
+										controller = "attendance"
+										action = "getGradeAttendanceV1"
 					
 									}
 							"/app/teacher/attendance/save"(controller: "attendance" , action: "saveAttendance" , parseRequest: true)
@@ -242,7 +243,30 @@ class UrlMappings {
 
 			
 			
-			"/app/teacher/timetable/"
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	"/app/teacher/timetable/"
 			{
 				controller = "TimeTableDetails"
 				action = "getTeacherWeekTimetable"
@@ -266,6 +290,13 @@ class UrlMappings {
 			  }
 */
 
+			 
+			 "/app/get/students/$grade/$section"
+					 {
+						 controller = "StudentDetails"
+						 action = "getStudentsOfClass"
+	  
+		 }
 
 			//mail pendings
 
@@ -326,12 +357,16 @@ class UrlMappings {
 			"/app/admin/grades"(resources:"grade" ,  includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
 
 			"/app/admin/teachers"(resources:"teacher" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/students"(resources:"student" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/events"(resources:"event" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/guardian"(resources:"guardian"  , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+			"/app/admin/students"(resources: "student", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+			"/app/admin/addresses"(resources: "Address", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/events"(resources: "event", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/guardian"(resources: "guardian", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/departments"(resources: "department", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
 
 
 
@@ -401,7 +436,104 @@ class UrlMappings {
 											action = "readImage"
 					
 										}
-                           
+             
+		
+
+"/app/timetables"(resources: "TimeTable", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+re
+
+"/app/exams/newExam"(controller: "ExamDetails", action: "newExam", parseRequest: true)
+
+
+"/app/exams/newExamSyllabus"(controller: "ExamDetails", action: "newExamSyllabus", parseRequest: true)
+
+
+"/app/exams/newExamSchedule"(controller: "ExamDetails", action: "newExamSchedule", parseRequest: true)
+
+
+"/app/exams/newExamResult"(controller: "ExamDetails", action: "newExamResult", parseRequest: true)
+
+//new
+"/app/admin/teacherGradeSubjects"(controller: "TeacherDetails" , action: "teacherGradesSubjects" , parseRequest: true)
+
+"/app/exams/result/$studentId"
+		{
+			controller = "ExamDetails"
+			action = "studentResult"
+
+		}
+"/app/users"(resources: "User", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+"/app/admin/assignDepartment"(controller: "TeacherDetails" , action: "assignDepartment" , parseRequest: true)
+"/app/admin/getTeachers/$departmentName"
+		{
+			controller = "TeacherDetails"
+			action = "getDeptTeachers"
+
+		}
+"/app/admin/setClassTeacher"(controller: "TeacherDetails" , action: "setClassTeacher" , parseRequest: true)
+
+"/app/admin/subjects"(resources: "subject", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+"/app/admin/teacherTimetables"
+		{
+
+			controller = "TeacherDetails"
+			action = "getTeacherTimeTableList"
+		}
+"/app/admin/classTimetables"
+		{
+
+			controller = "TimeTableDetails"
+			action = "getclassTimetableList"
+		}
+
+ "/app/admin/GradeTeacherSubject"(resources: "GradeTeacherSubject", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+"/app/admin/subjectTeacherList"
+		{
+			controller = "TeacherDetails"
+			action = "classSubjectTeacherList"
+		}
+
+"/app/exams/syllabus"(resources: "ExamSyllabus", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+"/app/admin/classFees"(resources: "ClassFees", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/admin/FeesTypes"(resources: "FeesType", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/admin/FeeSchedule"(resources: "FeeSchedule", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/admin/FeesTypeInterval"(resources: "FeesTypeInterval", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/admin/FeeMasterSchedule"(resources: "FeeMasterSchedule", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/admin/FeePaid"(resources: "FeePaid", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+"/app/exams/teacher/$teacherId"
+		{
+			controller = "ExamDetails"
+			action = "teacherExams"
+
+			}
+		
+		"/app/exams/teacher"
+ 	{
+					controller = "ExamDetails"
+ 	action = "teacherExams"
+ 
+				}
+		
+		"/app/conversations/get/v1"
+		{
+			controller = "conversation"
+			action = "getCurUserConversationsV1"
+
+		}
+
+
+"/app/teacher/timetable/week/v1"
+		{
+			controller = "TeacherDetails"
+			action = "getTeacherWeekTimetableVer1"
+		}
+
+              
 										
 										"/app/exams/result/$studentId"
 										{
@@ -458,6 +590,12 @@ class UrlMappings {
 			 controller = "noticeDetails"
 			 action = "getnotices"
 	 }
-		}
+		
+		
 
+
+
+		
+		
+		}
 }

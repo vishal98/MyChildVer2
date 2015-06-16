@@ -102,7 +102,54 @@ class TimeTableDetailsController {
 
 
 
+  def getclassTimetableList()
+  {
 
+      def classTT = [:]
+      def output = new ArrayList()
+      def timetables = new ArrayList()
+      def temp=[:]
+      Grade grade
+      try{
+          def days = TimeTable.executeQuery("select distinct a.day from TimeTable a ")
+
+          Grade.findAll().each {
+
+              grade = it
+              classTT['gradeId'] = it.gradeId.toString()
+              classTT['gradeName'] = it.name.toString()
+              classTT['section'] = it.section
+
+
+              days.each {
+                  temp['day'] = it
+                  temp['hours'] = TimeTable.findAllByGradeAndDay(grade,it)
+                  timetables.push(temp)
+                  temp = [:]
+
+              }
+              classTT['timetables'] = timetables
+              output.push(classTT)
+              classTT = [:]
+              timetables = new ArrayList()
+              temp = [:]
+
+
+
+
+
+
+          }
+          render output as JSON
+
+
+
+      }
+      catch(Exception e)
+      {
+          render e as JSON
+      }
+  }
 
 
 

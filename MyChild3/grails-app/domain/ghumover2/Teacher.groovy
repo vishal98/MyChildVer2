@@ -17,8 +17,13 @@ class Teacher  extends User  {
 	
 	 static mapping = {
 		  id generator: 'increment',name: 'teacherId'
+			  cache true
+			  grades cache : true
+			  
+		  
 		  
 	}
+	 
 
 	static constraints = {
 		

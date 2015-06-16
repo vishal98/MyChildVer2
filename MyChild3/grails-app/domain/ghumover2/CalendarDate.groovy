@@ -108,4 +108,13 @@ class CalendarDate
     }
 
 
+
+    def ab()
+    {
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        int m = localCalendar.get(Calendar.MONTH) + 1;
+        render m
+
+    }
+
 }

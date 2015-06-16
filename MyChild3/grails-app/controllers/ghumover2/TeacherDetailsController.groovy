@@ -358,9 +358,6 @@ class TeacherDetailsController extends RestfulController {
 
 
 
-
-
-
     def addteacher() {
         Map ob = new HashMap();
 
@@ -916,9 +913,6 @@ class TeacherDetailsController extends RestfulController {
 
        }
 
-
-
-
 	   def getTeacherWeekTimetableVer1()
 	   {
    
@@ -951,7 +945,10 @@ class TeacherDetailsController extends RestfulController {
 		   }
 	   }
    
+	   
 
+
+	 
 
 	   def teacherExams()
 	   {
@@ -999,6 +996,10 @@ class TeacherDetailsController extends RestfulController {
 		   }
 
 	   }
+
+ 
+
+
 
 
 

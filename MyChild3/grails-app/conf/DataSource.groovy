@@ -5,7 +5,7 @@ dataSource {
 }
 hibernate {
   cache.use_second_level_cache = true
-  cache.use_query_cache = false
+  cache.use_query_cache = true
 //    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
   cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
   singleSession = true // configure OSIV singleSession mode
@@ -28,12 +28,15 @@ environments {
   test {
     dataSource {
       username = "gimmedev"
-      password = "gimmedev"
+      password = "gimmepwd"
       pooled = true
       dbCreate = "create"
       driverClassName = "com.mysql.jdbc.Driver"
       //  url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
-        url="jdbc:mysql://aaammt9ltjlzk9.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmedev"
+       //rahul dev url="jdbc:mysql://aaammt9ltjlzk9.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmedev"
+	 //ravi dev  url="jdbc:mysql://mychildmain.cbf4otxzdwmr.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmepwd"
+	  //admin my
+	  url="jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
         dialect = org.hibernate.dialect.MySQL5InnoDBDialect
         properties {
          validationQuery = "SELECT 1"
@@ -49,7 +52,7 @@ environments {
          }
     }
   }
-  production_1 {
+  production {
     dataSource {
 		
       url = "jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"

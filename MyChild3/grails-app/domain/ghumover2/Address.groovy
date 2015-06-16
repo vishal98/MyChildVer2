@@ -1,5 +1,7 @@
 package ghumover2
+import grails.rest.Resource
 
+@Resource(formats=['json', 'xml'])
 class Address {
     String address
     String place

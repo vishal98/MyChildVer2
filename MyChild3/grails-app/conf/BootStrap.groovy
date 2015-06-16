@@ -442,45 +442,75 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 
 
 
-		// Add exam entries Date startTi
+		// Add exam entries Date startTime
+
+
+		new Department(dept_name: "English").addToTeachers(mathew).save(flush: true)
+		new Department(dept_name: "Mathematics").addToTeachers(sibi).save(flush: true)
+
+
+		/*
+		Exam entries
+		 */
+        def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" , schoolclass: SchoolClass.findByClassName(5)).save()
+
+		def englishSyllabus = new ExamSyllabus(exam: modelExam , subject: english ,syllabus: "Chapter 1-7 " ).save()
+		def chemistrySyllabus = new ExamSyllabus(exam: modelExam , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save()
+		def physicsSyllabus = new ExamSyllabus(exam: modelExam , subject: physics , syllabus: "Chapter 1-3 newton laws").save()
+		def hindiSyllabus = new ExamSyllabus(exam: modelExam , subject: hindi , syllabus: "Poems and  Chapter 1-3").save()
+
+		new ExamSchedule(exam: modelExam  ,subjectSyllabus: englishSyllabus,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
+		new ExamSchedule(exam: modelExam  ,subjectSyllabus: physicsSyllabus, subject: physics ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: modelExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: modelExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+
+
+
+		new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100 ).save()
+		new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
+		new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
 
 
 
 
 
 
+		def classTest5B =  new Exam(examName : "Class test for class 5 B" ,examType:" Class Test" , grade: Grade.findByNameAndSection(5,"B")  ).save()
 
-def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,examType:"Internal Examination" ,grade:Grade.findByName(5), schoolclass: SchoolClass.findByClassName(5)).save()
-			   
-			   def unitTest = new Exam(examName : "2nd Term Model Examination for Class 5" ,examType:"Unit Test" , grade:Grade.findByName(5),schoolclass: SchoolClass.findByClassName(5)).save()
-			   
-			   def englishSyllabus1 = new ExamSyllabus(exam: unitTest , subject: english ,syllabus: "Chapter 1 paragraph " ).save()
-			   def chemistrySyllabus1 = new ExamSyllabus(exam: unitTest , subject: chemistry,syllabus: " Chem  1-3").save()
-			   def physicsSyllabus1 = new ExamSyllabus(exam: unitTest , subject: physics , syllabus: " gravity laws").save()
-			   def hindiSyllabus1 = new ExamSyllabus(exam: unitTest , subject: hindi , syllabus: "Chapter 1-3").save()
-	   
-			      
-					   def englishSyllabus = new ExamSyllabus(exam: modelExam , subject: english ,syllabus: "Chapter 1-7 " ).save()
-					   def chemistrySyllabus = new ExamSyllabus(exam: modelExam , subject: chemistry,syllabus: "Oraganic Chem Chapter 1-3").save()
+		englishSyllabus = new ExamSyllabus(exam: classTest5B , subject: english ,syllabus: "First chapter complete " ).save()
+		chemistrySyllabus = new ExamSyllabus(exam: classTest5B , subject: chemistry ,syllabus: " Upto third chapter  " ).save()
 
-					   def physicsSyllabus = new ExamSyllabus(exam: modelExam , subject: physics , syllabus: "Chapter 1-3 newton laws").save()
-					   def hindiSyllabus = new ExamSyllabus(exam: modelExam , subject: hindi , syllabus: "Poems and  Chapter 1-3").save()
-			   
-					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: englishSyllabus,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
-					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: physicsSyllabus, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: modelExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: modelExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-			   
-			      
-					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: englishSyllabus1,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
-					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: physicsSyllabus1, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: unitTest ,subjectSyllabus: hindiSyllabus1, subject: hindi ,teacher :sibi,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-					   new ExamSchedule(exam: unitTest  ,subjectSyllabus: chemistrySyllabus1, subject: chemistry ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
-			   
-			   
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100,grade:"A",status:"Pass" ).save()
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100,grade:"A",status:"Pass" ).save()
-					   new ExamResult(exam: modelExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100,grade:"A",status:"Pass" ).save()
+		new ExamSchedule(exam: classTest5B , subjectSyllabus: englishSyllabus , subject: english , teacher: mathew , startTime: "12-05-2015 11:00" , endTime:  "12-05-2015 11:30"  ).save()
+		new ExamSchedule(exam: classTest5B , subjectSyllabus: chemistrySyllabus , subject: chemistry , teacher: satheesh , startTime: "12-05-2015 13:30" , endTime:  "12-05-2015 14:30"  ).save()
+
+		new ExamResult(exam: classTest5B , student: Student.findByStudentName("Ashiq") , subject:english , marks: 50 , maxMarks: 100 ).save()
+		new ExamResult(exam: classTest5B , student: Student.findByStudentName("Nijo") , subject:english , marks: 60 , maxMarks: 100 ).save()
+		new ExamResult(exam: classTest5B , student: Student.findByStudentName("Ashiq") , subject:chemistry , marks: 50 , maxMarks: 100 ).save()
+		new ExamResult(exam: classTest5B , student: Student.findByStudentName("Nijo") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+		cl5B.addToExams(classTest5B).save(flush: true)
+
+
+
+
+
+		def publicExam = new Exam(examName: "5th Grade public exam May 2015 " , examType: "Public Exam" , schoolclass: SchoolClass.findByClassName(5) ).save()
+
+
+		new ExamSchedule(exam: publicExam  ,subjectSyllabus: englishSyllabus,  subject: english ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:00" ).save()
+		new ExamSchedule(exam: publicExam  ,subjectSyllabus: physicsSyllabus, subject: physics ,teacher :raji,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: publicExam ,subjectSyllabus: hindiSyllabus , subject: hindi ,teacher :mathew,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+		new ExamSchedule(exam: publicExam  ,subjectSyllabus: chemistrySyllabus, subject: chemistry ,teacher :mathew ,startTime: "11-02-2014 09:30",endTime: "11-02-2014 10:30").save(flush: true)
+
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Rohith") , subject:english , marks: 70 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Rohith") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Rohith") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Neha") , subject:english , marks: 70 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Neha") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Neha") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Bony") , subject:english , marks: 70 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Bony") , subject:hindi , marks: 80 , maxMarks: 100 ).save()
+		new ExamResult(exam: publicExam , student: Student.findByStudentName("Bony") , subject:chemistry , marks: 60 , maxMarks: 100 ).save()
+
 			   
 					   cl6A.addToTimetable(new TimeTable(grade: cl6A , day: "Monday" , teacher:mathew , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
 					   cl7A.addToTimetable(new TimeTable(grade: cl7A , day: "Monday" , teacher:mathew , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
@@ -540,7 +570,59 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:vanajakshi , subject: clubAct , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
 		cl5A.addToTimetable(new TimeTable(grade: cl5A , day: "Friday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
-		
+
+
+        // 5b
+
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:vanajakshi , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:sheetal , subject: science , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:kiran , subject: IILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:naresh , subject: socialScience , startTime: "11:30 AM" , endTime: "12:30 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:ptTeacher , subject: pt , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Monday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+
+
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:kiran , subject: IILanguage , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:archana , subject: maths , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:naresh , subject: socialScience , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:vanajakshi , subject: ILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:archana , subject: maths , startTime: "11:30 AM" , endTime: "12:30 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:ptTeacher , subject: pt , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Tuesday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+
+
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:archana , subject: maths , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:vanajakshi , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:sheetal , subject: science , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:kiran , subject: IILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:naresh , subject: socialScience , startTime: "11:30 AM" , endTime: "12:30 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:sheetal , subject: science , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Wednesday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+
+
+
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:archana , subject: IILanguage , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:vanajakshi , subject: maths , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:sheetal , subject: pt , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:kiran , subject: ILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:naresh , subject: maths , startTime: "11:30 AM" , endTime: "12:30 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:sheetal , subject: pt , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Thursday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
+
+
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:sheetal , subject: science , startTime: "07:30 AM" , endTime: "08:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:vanajakshi , subject: ILanguage , startTime: "08:00 AM" , endTime: "09:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:vanajakshi , subject: clubAct , startTime: "09:00 AM" , endTime: "10:00 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:kiran , subject: IILanguage , startTime: "10:30 AM" , endTime: "11:30 AM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:naresh , subject: socialScience , startTime: "11:30 AM" , endTime: "12:30 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:archana , subject: maths , startTime: "01:00 PM" , endTime: "02:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:vanajakshi , subject: clubAct , startTime: "02:00 PM" , endTime: "03:00 PM")).save()
+		cl5B.addToTimetable(new TimeTable(grade: cl5B , day: "Friday" , teacher:mathew , subject: activities , startTime: "03:00 PM" , endTime: "03:30 PM")).save()
 
 
 
@@ -675,6 +757,102 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 
 
 
+
+
+
+		def monthly = new FeesTypeInterval(feesTypeInterval: "Monthly").save();
+		def quarterly = new FeesTypeInterval(feesTypeInterval: "Quarterly").save();
+		def yearly = new FeesTypeInterval(feesTypeInterval: "Yearly").save();
+
+
+			new FeesType(feesType: "Tution Fee").save();
+		new FeesType(feesType: "School Bus Fare").save()
+		feeSchedule: new FeesSchedule(interval:FeesTypeInterval.findByFeesTypeInterval("Yearly")).save()
+		feeSchedule: new FeesSchedule(interval: FeesTypeInterval.findByFeesTypeInterval("Monthly")).save()
+		def fs1 = FeesSchedule.get(1)
+		def fs2 = FeesSchedule.get(2)
+				new ClassFees(schoolClass: SchoolClass.findByClassName(5) , type: FeesType.get(1) , totalFee: 5000 , feeSchedule: fs1, percentage: 25) .save()
+            new ClassFees(schoolClass: SchoolClass.findByClassName(5) , type: FeesType.get(2) , totalFee: 500 , feeSchedule: fs2, percentage: 100) .save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		JSON.createNamedConfig('thin') {
 			it.registerObjectMarshaller( Grade ) { Grade grade ->
 
@@ -689,6 +867,7 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 		JSON.registerObjectMarshaller( Grade ) { Grade grade ->
 			
 							[
+							gradeId: grade.gradeId.toString(),
 							gradeName : grade.name.toString(),
 							section : grade.section ,
 			                classTeacher : (grade.classTeacherId) ?  Teacher.findById(grade.classTeacherId)?.teacherName  : 'None' ,
@@ -907,7 +1086,15 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 					mobileNumber : g.mobileNumber,
 					emailId : g.emailId,
 					officeNumber : g.officeNumber,
-					children : g.getChildren()
+					children : g.getChildren().collect(){
+						               ['studentId': it.studentId?.toString(),
+										'registerNumber': it.registerNumber,
+										'studentName' : it.studentName ,
+										'grade' : it.grade?.name.toString(),
+										'section' : it.grade?.section,
+										'gender' : it.gender]
+
+					            }
 
 
 				   ]
@@ -1034,6 +1221,7 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 
 	JSON.registerObjectMarshaller( Address ) { Address a ->
 			return [
+					id : a.id.toString(),
 					address : a.address ,
 					place : a.place ,
 					landmark: a.landmark
@@ -1295,6 +1483,8 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 
 
 
+                    'id' : t.id.toString() ,
+					'gradeId' : t.grade.gradeId.toString(),
                     'grade' : t.grade.name?.toString(),
                     'section' : t.grade?.section ,
                     'subject' : t.subject?.subjectName,
@@ -1351,6 +1541,8 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 						        teacherId: t.id.toString() ,
 								teacherName: t.teacherName ,
 								teacherEmailId: t.teacherEmailId ,
+								phoneNo: t.phoneNo,
+								school_id : t.school_id.toString(),
 								teacherPhoto: t.teacherPhoto
 
 
@@ -1420,10 +1612,13 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 								examSchedule : e.examSubjectSchedule.collect()    { ExamSchedule es -> [ subject:[ subjectId:  es.subject?.subjectId.toString() ,
 																												   subjectName: es.subject?.subjectName ] ,
 																										 syllabus : [ id:es.subjectSyllabus?.id.toString() , syllabus: es.subjectSyllabus.syllabus] ,
-																										 startTime : es.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
-																										 endTime: es.endTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")]
-								                                                 } ,
-								results : e.results
+										                                                                 examDate : es.startTime.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ,
+																										 startTime : es.startTime.format("KK:mm a") ,
+																										 endTime: es.endTime.format("KK:mm a")]
+								} ,
+								results : e.results.collect() {
+									[ resultId : it.resultId.toString() , subjectId : it.subject?.subjectId.toString() , subjectName: it.subject?.subjectName , studentId: it.student?.studentId.toString() , studentName: it.student?.studentName , maxMarks: it.maxMarks.toString() , marks: it.marks.toString()]
+								}
 
 
 						]
@@ -1432,22 +1627,79 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 
 
 				}
-				
-				JSON.registerObjectMarshaller( FileManager  )
+
+
+		JSON.registerObjectMarshaller( Department )
 				{
-					FileManager e ->
-							return [
-								fileType:e.fileGroupType,
-								fileName:e.fileGroupName,
-								coverpicUrl: e.albumCoverUrl,
-								filecount: e.fileCount,
-								postedDate: e.postedDate,
-								 files: e.files.collect()    { MyChildFile es ->[file: [ fileName:  es.fileName,
-									filePath: es.filePath,
-									description: es.description
-									 ] ] }				
-							]
-	}
+					Department d ->
+						return [
+								dept_id : d.dept_id.toString() ,
+								dept_name : d.dept_name ,
+								dept_tags : d.dept_tags ,
+								school_id : d.school_id ,
+								teachers:d.teachers.collect(){
+
+									[ teacherId: it?.id ,
+									 teacherName: it?.teacherName
+									]
+								}
+
+						]
+				}
+
+
+
+		JSON.registerObjectMarshaller( Subject )
+				{
+					Subject s ->
+						return [
+						        subjectId: s.subjectId.toString() ,
+								subjectName: s.subjectName
+						]
+				}
+
+		JSON.registerObjectMarshaller( GradeTeacherSubject )
+				{
+					GradeTeacherSubject g ->
+						return [
+						                grade : [gradeId: g.grade.gradeId.toString() , gradeName: g.grade.name.toString(), section: g.grade.section],
+										 subject :[subjectId: g.subject.subjectId.toString() ,
+												   subjectName: g.subject.subjectName ,
+										          ],
+										 teacher: [teacherId: g.teacher.id.toString() ,
+										           teacherName: g.teacher.teacherName ,
+										           teacherEmailId: g.teacher?.teacherEmailId ,
+												   teacherPhoto: g.teacher?.teacherPhoto
+
+										            ]
+
+
+
+						]
+
+				}
+
+
+
+		JSON.registerObjectMarshaller( ClassFees )
+				{
+					ClassFees cf ->
+						return [
+						        id:cf.id.toString(),
+								schoolClass: [classId:cf.schoolClass.classId.toString() , className: cf.schoolClass.className] ,
+								type : [feesTypeId:cf.type.feesTypeId.toString() , feesType:cf.type.feesType],
+								totalFee : cf.totalFee.toString(),
+								feeSchedule : cf.feeSchedule
+
+
+
+						]
+
+
+				}
+
+
+		
 				
 				JSON.createNamedConfig('conversationVer1')
 				{
@@ -1519,7 +1771,22 @@ def modelExam = new Exam(examName : "First Term Model Examination for Class 5" ,
 						  
 				}
 				
-				
+		
+				JSON.registerObjectMarshaller( FileManager  )
+			{
+					FileManager e ->
+							return [
+								fileType:e.fileGroupType,
+								fileName:e.fileGroupName,
+								coverpicUrl: e.albumCoverUrl,
+								filecount: e.fileCount,
+								postedDate: e.postedDate,
+								 files: e.files.collect()    { MyChildFile es ->[file: [ fileName:  es.fileName,
+									filePath: es.filePath,
+									description: es.description
+									 ] ] }				
+							]
+	}				
 
 
 	def destroy = {

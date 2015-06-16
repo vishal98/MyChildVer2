@@ -14,6 +14,9 @@ class Guardian extends User
     String emailId
     String officeNumber
 
+	static mapping={
+		cache true
+	}
 
 
     static constraints = {

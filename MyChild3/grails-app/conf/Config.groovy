@@ -138,8 +138,8 @@ log4j = {
     PatternLayout patternLayout = new PatternLayout("%d [%t] %-5p %c %x - %m%n")
 
 
-    debug   'grails.app.controllers',
-            'grails.app.controller',
+    info   'grails.app.controllers.ghumover2',
+            'grails.app.controllers',
             'grails.app.domain',
             'grails.app.services',
             'grails.app.filters',

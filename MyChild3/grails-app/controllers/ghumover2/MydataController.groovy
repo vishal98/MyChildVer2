@@ -100,11 +100,11 @@ class MydataController {
 			File fileDest = new File(webrootDir,f.getOriginalFilename())
 			File errfileDest = new File(errorFile,f.getOriginalFilename())
 			f.transferTo(fileDest)
-			
+			/*
 			UploadedDataErrorFileLocation uploadErrorlocation = new UploadedDataErrorFileLocation();
 			uploadErrorlocation.schoolId=school_id;
 			uploadErrorlocation.errorFileLocation= errorFile+"/"+f.getOriginalFilename();
-			uploadErrorlocation.save(flush:true);
+			uploadErrorlocation.save(flush:true);*/
 			School school =  School.get(school_id);
 			fis = new FileInputStream(fileDest);
 			FileOutputStream fileOut = new FileOutputStream(errfileDest);
@@ -137,8 +137,9 @@ class MydataController {
 
 ///abhinay
 			//sheet1.getLastRowNum()
-			for(int i=1;i<650;i++){
+			for(int i=1;i<sheet1.getLastRowNum();i++){
 				Guardian guardain =null;
+				Guardian mother =null;
 				XSSFRow hssfRow = sheet1.getRow(i);
 				String errorCuse="";
 				boolean isError = false;
@@ -220,6 +221,22 @@ class MydataController {
 							isError =true;
 							errorCuse ="Mobile no should be number"
 						}
+						
+						if(hssfRow.getCell((short) 6) != null){
+							if( (hssfRow.getCell((short)6)
+							.getCellType() == 3)){
+	
+								isError =true;
+								errorCuse ="Mother email is empty"
+							}
+						
+							if( (hssfRow.getCell((short) 6)
+							.getCellType() != 1)){
+	
+								isError =true;
+								errorCuse ="Mother email should be String"
+							}
+						}
 
 					}
 
@@ -270,14 +287,36 @@ class MydataController {
 								ErrorLogInExcellUpload ob = new ErrorLogInExcellUpload();
 								ob.lineNo = i
 								ob.sheetName ="sheet1"
-								ob.errorcause = "email id already used as a teacher "
+								ob.errorcause = "Parent email id already used as a teacher "
 								ob.userEmail = gaurdainEmail
 								ob.schoolId=school_id
 								ob.save(flush:true)
 								continue ;
 							}
 						}
+						String motherEmail = hssfRow.getCell(6).getStringCellValue();
+						user = User.createCriteria().get  {
+							or{
+								eq("teacherEmailId",motherEmail)
+								eq("emailId",motherEmail)
+							}
+						}
+						if(null != user){
+							if(user  instanceof  Guardian){
+								mother = user;
+							}else{
+								ErrorLogInExcellUpload ob = new ErrorLogInExcellUpload();
+								ob.lineNo = i
+								ob.sheetName ="sheet1"
+								ob.errorcause = "mother email id already used as a teacher "
+								ob.userEmail = motherEmail
+								ob.schoolId=school_id
+								ob.save(flush:true)
+								continue ;
+							}
+						}
 						
+						 
 						//abhinay
 						String class_grade = hssfRow.getCell(0).getStringCellValue();
 						int lenght = class_grade.length();
@@ -300,7 +339,7 @@ class MydataController {
 								classobject = schoolClass
 								grade = new Grade();
 								grade.section = grade_name
-								grade.name = (int)classobject.classId
+								grade.name = (int)classobject.className
 								grade.gradetags = schoolClass.classTags +",\""+schoolClass.className+"-"+grade.section+"\""
 								grade.schoolClass =schoolClass
 								grade.save(flush:true);
@@ -310,7 +349,7 @@ class MydataController {
 
 								grade =	gradeCriteria.get {
 									and {
-										eq("name",(int)classobject.classId)
+										eq("name",(int)classobject.className)
 										eq("section",grade_name)
 									}
 								}
@@ -321,7 +360,7 @@ class MydataController {
 									grade.section = grade_name
 									grade.gradetags = classobject.classTags +",\""+classobject.className+"-"+grade.section+"\""
 									grade.schoolClass =classobject
-									grade.name = (int)classobject.classId
+									grade.name = (int)classobject.className
 									grade.save(flush:true);
 								}
 							}
@@ -342,6 +381,26 @@ class MydataController {
 								//asign role to parent
 								new UserRole(user: guardain, role: roleParent).save();
 							}
+							if(null == mother){
+							mother =	new Guardian()
+							mother.name = hssfRow.getCell(5).getStringCellValue();
+							mother.username=hssfRow.getCell(6).getStringCellValue();
+							mother.school_id = school_id
+							mother.password= "123"
+							mother.educational_qualification= ""
+							mother.designation= ""
+							mother.profession= ""
+							mother.emailId= hssfRow.getCell(6).getStringCellValue();
+							mother.officeNumber= ""
+							mother.mobileNumber= hssfRow.getCell(7).getNumericCellValue();
+
+							mother.save(flush:true);
+							new UserRole(user: mother, role: roleParent).save();
+							}
+							
+							
+							
+							
 							
 							// add student
 							Student student =  new Student();
@@ -357,18 +416,30 @@ class MydataController {
 							student.save(flush:true);
 
 							father = Guardian.findByUsername(hssfRow.getCell(3).getStringCellValue())
-							//def mother = Guardian.findByUsername("guardian2@gmail.com")
+							 mother = Guardian.findByUsername(motherEmail)
 							String father_tags  = father.tags;
-							//String mother_tags  = mother.tags;
+							String mother_tags  = mother.tags;
 							student.setAsFather( father )
-							//student.setAsMother( mother )
+							student.setAsMother( mother )
 							if(father_tags == null){
 								father_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
 							}else{
 								father_tags = father.tags+",\"s-"+student.studentId+"\""
 							}
 							Guardian.executeUpdate("Update Guardian set tags = '"+father_tags+"' where username ='"+father.username+"'")
-						}else{
+						
+							if(mother_tags == null){
+								father_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
+							}else{
+								mother_tags = mother.tags+",\"s-"+student.studentId+"\""
+							}
+							Guardian.executeUpdate("Update Guardian set tags = '"+mother_tags+"' where username ='"+mother.username+"'")
+						
+							
+							
+							
+							
+							}else{
 							println 18;
 							if(null == guardain) {
 								guardain =	new Guardian()
@@ -388,6 +459,22 @@ class MydataController {
 								new UserRole(user: guardain, role: roleParent).save();
 
 							}
+							if(null == mother){
+								mother =	new Guardian()
+								mother.name = hssfRow.getCell(5).getStringCellValue();
+								mother.username=hssfRow.getCell(6).getStringCellValue();
+								mother.school_id = school_id
+								mother.password= "123"
+								mother.educational_qualification= ""
+								mother.designation= ""
+								mother.profession= ""
+								mother.emailId= hssfRow.getCell(6).getStringCellValue();
+								mother.officeNumber= ""
+								mother.mobileNumber= hssfRow.getCell(7).getNumericCellValue();
+	
+								mother.save(flush:true);
+								new UserRole(user: mother, role: roleParent).save();
+								}
 
 							Student student =  new Student();
 							student.grade =classMap.get(class_grade)
@@ -406,29 +493,11 @@ class MydataController {
 							student.save(flush:true);
 
 							father = Guardian.findByUsername(hssfRow.getCell(3).getStringCellValue())
+							mother = Guardian.findByUsername(hssfRow.getCell(6).getStringCellValue())
 							
 							String father_tags  = father.tags;
-							//String mother_tags  = mother.tags;
-						if(hssfRow.getCell(5).getStringCellValue()){
-							Guardian mother =	new Guardian()
-							mother.name = hssfRow.getCell(5).getStringCellValue();
-							mother.username=hssfRow.getCell(6).getStringCellValue();
-							mother.school_id = school_id
-							mother.password= "123"
-							mother.educational_qualification= ""
-							mother.designation= ""
-							mother.profession= ""
-							mother.emailId= hssfRow.getCell(6).getStringCellValue();
-							mother.officeNumber= ""
-							mother.mobileNumber= hssfRow.getCell(7).getNumericCellValue();
-
-							mother.save(flush:true);
-
-							new UserRole(user: mother, role: roleParent).save();
-							student.setAsMother( mother )
-							
-						}
-                        
+							String mother_tags  = mother.tags;
+						
 							student.setAsFather( father )
 						
 							if(father_tags == null){
@@ -437,15 +506,29 @@ class MydataController {
 								father_tags = father.tags+",\"s-"+student.studentId+"\""
 							}
 							Guardian.executeUpdate("Update Guardian set tags = '"+father_tags+"' where username ='"+father.username+"'")
+							
+							if(mother_tags == null){
+								mother_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
+							}else{
+								mother_tags = mother.tags+",\"s-"+student.studentId+"\""
+							}
+							Guardian.executeUpdate("Update Guardian set tags = '"+mother_tags+"' where username ='"+mother.username+"'")
 
 						}
-						if(null == father){
+					/*	if(null == father){
 
 							father = Guardian.findByUsername(hssfRow.getCell(3).getStringCellValue())
 
 						}
 						String emailmessage = "Hi ,your user name is "+father.username+"and password is pass@123 ,after login please change your password (${new Date().format('dd/MM/yyyy HH:mm')})"
-						executer.execute(new EmailSendThread("jayantamca10@gmail.com",father.username,emailmessage));
+						//executer.execute(new EmailSendThread("jayantamca10@gmail.com",father.username,emailmessage));
+						if(null == mother){
+
+							mother = Guardian.findByUsername(hssfRow.getCell(6).getStringCellValue())
+
+						}*/
+						//String emailmessage = "Hi ,your user name is "+mother.username+"and password is pass@123 ,after login please change your password (${new Date().format('dd/MM/yyyy HH:mm')})"
+						//executer.execute(new EmailSendThread("jayantamca10@gmail.com",mother.username,emailmessage));
 
 					}
 
@@ -658,7 +741,7 @@ class MydataController {
 										classobject = schoolClass
 										grade = new Grade();
 										grade.section = grade_name
-										grade.name = (int)classobject.classId
+										grade.name = (int)classobject.className
 										grade.gradetags = schoolClass.classTags +",\""+schoolClass.className+"-"+grade.section+"\""
 										grade.schoolClass =schoolClass
 										grade.save(flush:true);
@@ -668,7 +751,7 @@ class MydataController {
 
 										grade =	gradeCriteria.get {
 											and {
-												eq("name",(int)classobject.classId)
+												eq("name",(int)classobject.className)
 												eq("section",grade_name)
 											}
 										}
@@ -679,7 +762,7 @@ class MydataController {
 
 											grade.gradetags = classobject.classTags +",\""+classobject.className+"-"+grade.section+"\""
 											grade.schoolClass =classobject
-											grade.name = (int)classobject.classId
+											grade.name = (int)classobject.className
 											grade.save(flush:true);
 										}
 									}

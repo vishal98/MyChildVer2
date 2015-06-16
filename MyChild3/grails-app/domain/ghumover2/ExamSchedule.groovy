@@ -20,5 +20,11 @@ class ExamSchedule {
    static constraints = {
 	   startTime(nullable: true)
 	   endTime(nullable: true)
+       exam(nullable: true)
+      subjectSyllabus(nullable: true)
+      subject(nullable: true)
+      teacher(nullable: true)
+      startTime(nullable: true)
+      endTime(nullable: true)
    }
 }

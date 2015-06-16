@@ -1,5 +1,8 @@
 package ghumover2
 
+import grails.rest.Resource
+
+@Resource(formats=['json', 'xml'])
 class Department {
     Long dept_id;
     String dept_name;
@@ -23,5 +26,6 @@ class Department {
 
     static constraints = {
         dept_tags(nullable: true)
+        school_id(nullable: true)
     }
 }

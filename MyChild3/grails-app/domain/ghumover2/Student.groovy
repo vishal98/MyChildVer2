@@ -28,6 +28,9 @@ class Student  {
 
 	static mapping = { id generator: 'increment',name: 'studentId'
 		dob sqlType: "DATE"
+		
+			cache true
+		
 	}
 
 

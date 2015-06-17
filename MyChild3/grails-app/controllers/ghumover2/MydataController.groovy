@@ -30,7 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 class MydataController {
 	static	ExecutorService executer= Executors.newFixedThreadPool(10);
-
+	def springSecurityService
 	def index() {
 		def rest = new RestBuilder()
 		def resp = rest.post("https://api.pushbots.com/push/one"){
@@ -927,6 +927,45 @@ class MydataController {
 
 		render new HashMap() as JSON
 	*/}
+	
+	def registerForpushApp() {
+		
+		def device_platform = params.platform
+		def device_token = params.token;
+		User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+		//	Teacher teacher = Teacher.findByUsername(user.username)
+	   
+			//will get the username from spring security but for now i am not using
+			String username = user.username
+		 user = User.findByUsername(username)
+		String userTags = user.tags
+		User.executeUpdate("Update User set deviceToken = '"+device_token+"',tagRegister=true,platform='"+device_platform+"' where username ='"+username+"'")
+
+		def rest = new RestBuilder()
+		def resp = rest.put("https://api.pushbots.com/deviceToken"){
+			header 'x-pushbots-appid', '550e9e371d0ab1de488b4569'
+			header 'x-pushbots-secret', 'e68461d7755b0d3733b4b36717aea77d'
+			json {
+				token =device_token
+				platform =device_platform
+				alias =username
+				tag = [userTags]
+				payload="JSON"
+
+			}
+
+
+		}
+		println "------------------------------------ [${device_token}]"
+		println "------------------------------------ ${device_platform}"
+		println resp.json as JSON
+
+		Map ob = new HashMap();
+		ob.put("status", true)
+		ob.put("message", "success")
+
+		render ob as JSON
+	}
 	def mailService;
 
 	class EmailSendThread implements Runnable{

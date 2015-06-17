@@ -21,6 +21,7 @@ class MyChildFile {
 	String lastModifiedBy
 	
 	static hasMany = [tags:Tag]
+	static belongsTo = [fileManager:FileManager]
 	
     static constraints = {
     }

@@ -1,6 +1,8 @@
 package ghumover2
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService;
+
 import org.joda.time.DateTime
 
 import java.text.SimpleDateFormat
@@ -85,6 +87,7 @@ class AttendanceController {
          }
 
      }
+	 SpringSecurityService springSecurityService
 
 	 def getGradeAttendanceV1(){
 		 
@@ -95,18 +98,35 @@ class AttendanceController {
 					  String date = params.date
 					  int gradeId = Integer.parseInt(params.grade)
 					  String section = params.section
-					  def attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date)
+					  
+					  User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+					  
+					  Teacher t = Teacher.findById(user.id)
+					  
+					 // def grade=GradeTeacherSubject.findByTeacher(t) 
+					 
+					  def teacherGrades =  GradeTeacherSubject.executeQuery("select distinct g.grade from GradeTeacherSubject  as g where g.teacher = ? and g.grade.classTeacherId=?",[t,t.id])
+					
+					
+					  
+					  Grade gd=teacherGrades[0]
+					  
+					  g
+					  println "------------------------------------ [${user.id}]"
+					  println "------------------------------------ ${gd}"
+				
+					  def attendance= gd.getAttendance(date)
 					  if(attendance){
 					  JSON.use('absentees'){
-						 attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date) as JSON
+					
 						 
 						  render attendance
 					  }
 					  }else {
 					  JSON.use('notAttendance'){
-						 def	 grade= Grade.findByNameAndSection(gradeId,section) as JSON
+						  gd  as JSON
 						 def list = []
-					   list << grade
+					   list << gd
 						   
 						
 						 render list

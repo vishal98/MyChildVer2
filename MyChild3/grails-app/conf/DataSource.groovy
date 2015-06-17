@@ -35,8 +35,8 @@ environments {
       //  url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
        //rahul dev url="jdbc:mysql://aaammt9ltjlzk9.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmedev"
 	 //ravi dev  url="jdbc:mysql://mychildmain.cbf4otxzdwmr.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmepwd"
-	  //admin my
-	  url="jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
+	  //admin ravi	
+        url="jdbc:mysql://adminui.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmepwd"
         dialect = org.hibernate.dialect.MySQL5InnoDBDialect
         properties {
          validationQuery = "SELECT 1"

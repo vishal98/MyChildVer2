@@ -41,6 +41,9 @@ class User {
 
 	static mapping = {
 		password column: '`password`'
+		cache:true
+		username index:'t1'
+		
 	}
 
 	Set<Role> getAuthorities() {

@@ -546,10 +546,9 @@ re
 						
 										}	
 										
-										"/app/uploadData"{
-											controller = "mydata"
-											action = "test"
-									}
+									
+										
+										"/app/uploadData"(controller: "mydata", action: "test" ,parseRequest: true)
 										
 										"/app/addSchool"{
 											controller = "School"
@@ -570,10 +569,7 @@ re
 										   action = "testSMS"
 								   }
 										
-										"/app/registerForpush"{
-											controller = "mydata"
-											action = "registerForpushApp"
-									}
+									
 										
 										"/app/exams/teacherExamsSchedule"
 										{
@@ -594,9 +590,15 @@ re
 			 controller = "noticeDetails"
 			 action = "getnotices"
 	 }
+		 
+		 "/app/registerForpush"(controller: "mydata", action: "registerForpushApp" ,parseRequest: true)
 		
 		
-
+		/* "/app/registerForpush"{
+			 controller = "mydata"
+			 action = "registerForpushApp"
+	 }
+*/
 
 		
 		

@@ -35,6 +35,8 @@ class Event {
          description(nullable: true)
          startTime(nullable: true)
          endTime(nullable: true)
+        calendar_date(nullable: true)
+        grade(nullable: true)
 
 
     }

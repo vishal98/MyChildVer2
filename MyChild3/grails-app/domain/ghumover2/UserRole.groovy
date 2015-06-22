@@ -1,5 +1,6 @@
 package ghumover2
 
+
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UserRole implements Serializable {

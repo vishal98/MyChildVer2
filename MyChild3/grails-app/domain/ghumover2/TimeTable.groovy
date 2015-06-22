@@ -11,9 +11,11 @@ class TimeTable {
 
     String startTime
     String endTime
+	int seq
     static belongsTo = [grade:Grade , teacher:Teacher ]
     static constraints = {
       startTime(nullable: true)
       endTime(nullable: true)
+	  seq(nullable: true)
     }
 }

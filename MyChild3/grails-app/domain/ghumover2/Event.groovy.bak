@@ -1,8 +1,10 @@
 package ghumover2
 
+import grails.rest.Resource
 import org.grails.databinding.BindingFormat
 
 
+@Resource(formats=['json', 'xml'])
 class Event {
 
     Long eventId

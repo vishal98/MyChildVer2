@@ -871,7 +871,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 							gradeName : grade.name.toString(),
 							section : grade.section ,
 			                classTeacher : (grade.classTeacherId) ?  Teacher.findById(grade.classTeacherId)?.teacherName  : 'None' ,
-			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[studentId: std.studentId.toString(), studentName: std.studentName] } : []]
+			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[studentId: std.studentId.toString(), studentName: std.studentName,feeType:std.feeType] } : []]
 
 						}
 
@@ -1200,6 +1200,10 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 					present_guardian : s.present_guardian ,
 					grade : s.grade?.name.toString() ,
 					section : s.grade?.section ,
+					 modeOfTransport:s.modeOfTransport,
+					 bloodGroup:s.bloodGroup,
+					 medicalCondition:s.medicalCondition,
+					 feeType:s.feeType,
 				//	father: s?.getFather() ,
 				//	mother: s?.getMother() ,
 					local_guardian: (s.getLocalGuardian()) ? s.getLocalGuardian() : "No local guardian"
@@ -1368,6 +1372,22 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 								 'phoneNo' : t.phoneNo ,
 								  'subjects':  "English , Hindi , Maths"
 						       ]
+
+
+					}
+				}
+				
+				JSON.createNamedConfig('ParentListForTeacher')
+				{
+					it.registerObjectMarshaller(Guardian) { Guardian t ->
+
+						return [ 'id' : t.id.toString() ,
+								 'username' : t.username,
+								 'rName' : t.name,
+								 'EmailId' : t.emailId ,
+								 'phoneNo' : t.mobileNumber ,
+								 
+							   ]
 
 
 					}
@@ -1786,7 +1806,25 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 									description: es.description
 									 ] ] }				
 							]
-	}				
+	}		
+			JSON.registerObjectMarshaller( TimeTable ) { TimeTable t ->
+				return [
+	 
+	 
+						'id' : t.id.toString() ,
+						 'gradeId' : t.grade.gradeId.toString(),
+						'grade' : t.grade.name?.toString(),
+						'section' : t.grade?.section ,
+						'subject' : t.subject?.subjectName,
+						 'teacher' : t.teacher?.teacherName ,
+	 
+					   'day' : t.day ,
+					   'startTime': t.startTime ,
+					   'endTime' : t.endTime
+	 
+	 
+				]
+			}
 
 
 	def destroy = {

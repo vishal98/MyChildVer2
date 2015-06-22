@@ -68,6 +68,16 @@ class Student  {
 
 
 
+	@Transient
+		List<String>  getTags() {
+          tags=[]
+		 Guardian motherTags=GuardianChildren.findByStudentAndGuardianType(this,"mother")?.guardian
+           tags<<motherTags.tags
+		   Guardian fatherTags=GuardianChildren.findByStudentAndGuardianType(this,"father")?.guardian
+		   tags<<fatherTags.tags
+		   return tags
+	}
+	
 
 	@Transient
 	Guardian getMother() {

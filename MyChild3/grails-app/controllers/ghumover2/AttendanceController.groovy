@@ -7,6 +7,8 @@ import org.joda.time.DateTime
 
 import java.text.SimpleDateFormat
 
+import javax.mail.Session;
+
 class AttendanceController {
 
 	static allowedMethods = [saveAttendance	: "POST"]
@@ -105,28 +107,37 @@ class AttendanceController {
 					  
 					 // def grade=GradeTeacherSubject.findByTeacher(t) 
 					 
-					  def teacherGrades =  GradeTeacherSubject.executeQuery("select distinct g.grade from GradeTeacherSubject  as g where g.teacher = ? and g.grade.classTeacherId=?",[t,t.id])
+					def   grd =  GradeTeacherSubject.executeQuery("select distinct g.grade.gradeId from GradeTeacherSubject  as g where g.teacher = ? and g.grade.classTeacherId=?",[t,t.id])
 					
+					   if(grd!=null && grd.size()>0){
+						   println "------------------------------------ ${ grd}"
+						   println "------------------------------------ ${ grd.get(0)}"
 					
 					  
-					  Grade gd=teacherGrades[0]
-					  
-					  g
+				//	def gd=  Grade.findOrSaveByGradeId(grd.get(0))
+						  
+					 
 					  println "------------------------------------ [${user.id}]"
-					  println "------------------------------------ ${gd}"
-				
-					  def attendance= gd.getAttendance(date)
+					//  println "------------------------------------ ${ teacherGrades[0]}"
+					   
+					
+					 
+					  
+					 
+					  Attendance attendance= Grade.findByGradeId(grd.get(0)).getAttendance(date)
+					  
 					  if(attendance){
 					  JSON.use('absentees'){
 					
+					Attendance att=new Attendance(attendance)
 						 
-						  render attendance
+						  render att
 					  }
 					  }else {
 					  JSON.use('notAttendance'){
-						  gd  as JSON
-						 def list = []
-					   list << gd
+						  def	 grade= Grade.findByGradeId(grd.get(0)) as JSON
+									 	 def list = []
+					   list << grade
 						   
 						
 						 render list
@@ -137,8 +148,14 @@ class AttendanceController {
 		 
 		 
 		 
-		 
-		 
+					   }else{
+					   
+					   def data = [:]
+					   output['status'] = "Info"
+					   output['message'] = "No Class assigned as Class Teacher"
+					   
+					   render data
+					   }
 				  }
 				  catch (Exception e)
 				  {

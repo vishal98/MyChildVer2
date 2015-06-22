@@ -98,6 +98,8 @@ class UrlMappings {
 					}
 
 			"/app/teacher/homework/save"(controller: "Homework", action: "saveHomework" ,parseRequest: true)
+			
+			
 
 
 			//TEACHER
@@ -137,7 +139,8 @@ class UrlMappings {
 
 
 		"/app/teacher/sendMail/$grade/$section"(controller: "teacherDetails", action: "sendMailToParents" ,parseRequest: true)
-
+		"/app/admin/addTeacher"(controller: "teacherDetails", action: "addTeacher" ,parseRequest: true)
+		
 
 			//apis for conversations
 
@@ -487,6 +490,9 @@ re
 			controller = "TimeTableDetails"
 			action = "getclassTimetableList"
 		}
+		
+		 "/app/admin/addGradeClass"(controller: "TeacherDetails", action: "addGradeClass" ,parseRequest: true)
+		
 
  "/app/admin/GradeTeacherSubject"(resources: "GradeTeacherSubject", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 
@@ -506,6 +512,7 @@ re
 "/app/admin/FeePaid"(resources: "FeePaid", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 "/app/teacherEval/upload"(controller: "TeacherDetails" , action: "teacherEvaluationUpload" , parseRequest: true)
 "/app/student/ExcelUpload"(controller: "Mydata" , action: "studentExcelData" ,parseRequest: true)
+"/app/student/addStudent"(controller: "Mydata" , action: "addStudent" ,parseRequest: false)
 
 
 
@@ -599,6 +606,17 @@ re
 			 action = "registerForpushApp"
 	 }
 */
+
+
+			"/app/admin/notice"(resources: "notice",  includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+			"/app/admin/saveEvent"(controller: "EventDetails" , action: "saveEvent" , parseRequest: true)
+			"/app/admin/userRole"(controller: "UserRoleDetails" , action: "addRole" , parseRequest: true)
+
+			"/app/admin/timetable/save"(controller: "TimeTableDetails" , action: "saveTimeTable" , parseRequest: true)
+
+			"/app/admin/student/save"(controller: "StudentDetails" , action: "studentSave" , parseRequest: true)
+
 
 		
 		

@@ -82,7 +82,7 @@ class HomeworkController extends RestfulController
 		  sound = "ding"
 		 platform = ["0", "1"]
 		alias= ""
-	tags= ["MAIL"]
+	tags= tagList
 	msg= msg1
 	except_active= []
 	 except_tags= []
@@ -111,7 +111,7 @@ class HomeworkController extends RestfulController
 		  sound = "ding"
 		 platform = ["0", "1"]
 		alias= ""
-	tags= ["MAIL"]
+	tags= tagList
 	msg= msg1
 	except_active= []
 	 except_tags= []
@@ -130,6 +130,7 @@ class HomeworkController extends RestfulController
 		   System.out.print("resp val : "+resp.json)
 	   }
 
+   def tagList =[]
 	def saveHomework() {
 
 		try {
@@ -144,12 +145,15 @@ class HomeworkController extends RestfulController
 			def output = [:]
 			def data = []
 			
-			 
+			
 			 if (gradeFlag == 's') {
 				params.studentList.each { studentId ->
 					tempStudent = Student.get(studentId)
 					data << new Homework(grade: grade, subject: subject, homework: params.homework, student: tempStudent, message: params.message, dueDate: date, gradeFlag: "s").save(flush: true)
-
+                    if(tempStudent!=null&&tempStudent.getFather()!=null)
+					tagList<<tempStudent.getFather().getTags()
+					tagList<<"MAIL"
+					
 				}
 				output['status'] = 'success'
 				output['message'] = 'Homework details for ' + data.size() + ' students successfully stored'
@@ -158,7 +162,9 @@ class HomeworkController extends RestfulController
 			
 				render output as JSON
 			} else if (gradeFlag == 'g') {
-
+			
+			tagList=grade.gradetags
+			tagList<<"MAIL"
 				data << new Homework(grade: grade, subject: subject, homework: params.homework, message: params.message, dueDate: date, gradeFlag: "g").save(flush: true)
 				output['status'] = 'success'
 				output['message'] = 'Homework details for class  successfully stored'

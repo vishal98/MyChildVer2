@@ -1,14 +1,18 @@
 package ghumover2
 
 import grails.converters.JSON
+import com.amazonaws.util.json.JSONObject
+
 import grails.plugins.rest.client.RestBuilder
 import grails.converters.JSON
+import groovy.json.JsonSlurper
 
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 import javassist.bytecode.stackmap.BasicBlock.Catch;
 import java.awt.Color;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -58,8 +63,10 @@ class MydataController {
 
 	def test() {
 
-		Long school_id = Long.parseLong(params.school_id)
+		//Long school_id = Long.parseLong(params.school_id)
 
+	Long	school_id=1
+		
 		if(executer.isShutdown()){
 			executer= Executors.newFixedThreadPool(10);
 		}
@@ -86,7 +93,7 @@ class MydataController {
 		FileInputStream fis = null;
 		try {
 
-			def f = request.getFile('excelFile')
+			def f = request.getFile('file')
 			def webrootDir = servletContext.getRealPath("/")+"schoolData-"+school_id //app directory
 			File file = new File(webrootDir)
 			if(!file.exists()){
@@ -996,6 +1003,240 @@ class MydataController {
 		}
 	}
 
+	def addStudent(){
+		def jsonObject = request.JSON
+		
+		def jsonSlurper = new JsonSlurper()
+def object = jsonSlurper.parseText(jsonObject.toString())
+
+assert object instanceof Map
+assert object.students.class == Student
+assert object.address.class == Address
+assert object.father.class == Guardian
+		
+		println "------------------------------------ ${jsonObject}"
+		println "------------------------------------ ${jsonObject.toString()}"
+
+		render jsonObject
+		
+		
+
+	
+	
+	
+			//Long school_id = Long.parseLong(params.school_id)
+	
+		Long	school_id=1
+			
+			if(executer.isShutdown()){
+				executer= Executors.newFixedThreadPool(10);
+			}
+	
+			Role roleTeacher;
+			Role roleParent;
+			Role roleAdmin;
+	
+			roleTeacher = Role.find { authority=="ROLE_TEACHER" }
+			if(null ==roleTeacher){
+				roleTeacher = new Role(authority: ROLE_TEACHER)
+				roleTeacher.save()
+			}
+			roleParent =Role.find { authority=="ROLE_PARENT" }
+			if(null ==roleParent){
+				roleParent = new Role(authority: ROLE_PARENT)
+				roleParent.save()
+			}
+			roleAdmin =Role.find { authority=="ROLE_ADMIN" }
+			if(null ==roleAdmin){
+				roleAdmin = new Role(authority: ROLE_ADMIN)
+				roleAdmin.save()
+			}
+			FileInputStream fis = null;
+			try {
+	
+			
+				
+				/*
+				UploadedDataErrorFileLocation uploadErrorlocation = new UploadedDataErrorFileLocation();
+				uploadErrorlocation.schoolId=school_id;
+				uploadErrorlocation.errorFileLocation= errorFile+"/"+f.getOriginalFilename();
+				uploadErrorlocation.save(flush:true);*/
+				School school =  School.get(school_id);
+				fis = new FileInputStream(fileDest);
+				FileOutputStream fileOut = new FileOutputStream(errfileDest);
+				XSSFWorkbook workbook = new XSSFWorkbook(fis);
+				XSSFSheet sheet1 = workbook.getSheetAt(0);//
+				Map<String ,Grade> classMap = new HashMap<String ,Grade>();
+				Map gradeMap = new HashMap();
+				Map teacherMap = new HashMap();
+				Map<String,Department> demptIDMap = new HashMap<String,Department>();
+				Map<String,ArrayList<Teacher>> deptMap = new HashMap<String,ArrayList<Teacher>>();
+				def classobject= null;
+				Grade grade = null;
+				User user =null;
+				def father = null;
+				int errorCount =1;
+			
+
+	
+	///abhinay
+				//sheet1.getLastRowNum()
+				//for(int i=1;i<sheet1.getLastRowNum();i++){
+					Guardian guardain =null;
+					Guardian mother =null;
+				
+					String errorCuse="";
+					boolean isError = false;
+					if(hssfRow != null){
+					
+	
+					
+						println "------"+(hssfRow.getCell((short) 2)
+							.getCellType())
+					
+						
+	
+	
+						// do validation here
+	
+	
+						String gaurdainEmail = hssfRow.getCell(3).getStringCellValue();
+						if(gaurdainEmail != null){
+							user = User.createCriteria().get  {
+								or{
+									eq("teacherEmailId",gaurdainEmail)
+									eq("emailId",gaurdainEmail)
+								}
+							}
+							if(null != user){
+								if(user  instanceof  Guardian){
+									guardain = user;
+								}
+							}
+							String motherEmail = hssfRow.getCell(6).getStringCellValue();
+							user = User.createCriteria().get  {
+								or{
+									eq("teacherEmailId",motherEmail)
+									eq("emailId",motherEmail)
+								}
+							}
+							if(null != user){
+								if(user  instanceof  Guardian){
+									mother = user;
+								}
+							}
+							
+							 
+							//abhinay
+							String class_grade = hssfRow.getCell(0).getStringCellValue();
+							int lenght = class_grade.length();
+							Integer class_name = Integer.parseInt(class_grade.substring(0,lenght-1 ))
+							String grade_name = class_grade.substring(lenght-1 )
+							if(classMap.get(class_grade) == null){
+								def sc = SchoolClass.createCriteria()
+								classobject =	sc.get {
+									and {
+										eq("school.school_id",school_id)
+										eq("className",class_name)
+									}
+								}
+								
+								
+									def gradeCriteria = Grade.createCriteria()
+	
+									grade =	gradeCriteria.get {
+										and {
+											eq("name",(int)classobject.className)
+											eq("section",grade_name)
+										}
+									}
+									//SchoolClass schoolClass =  SchoolClass.get(class_id)
+									
+								
+								classMap.put(class_grade, grade)
+								// for guardian
+								if(null == guardain) {
+									guardain =	new Guardian()
+		                             guardian						
+									guardain.save(flush:true);
+									//asign role to parent
+									new UserRole(user: guardain, role: roleParent).save();
+								}
+								if(null == mother){
+								mother =	new Guardian()
+						
+	
+								mother.save(flush:true);
+								new UserRole(user: mother, role: roleParent).save();
+								}
+								
+								
+								
+								
+								
+								// add student
+								Student student =  new Student();
+								student.grade = grade
+								student.registerNumber = ""
+								student.studentName  = hssfRow.getCell(1).getStringCellValue();
+								student.gender= ""
+								student.dob = new Date();
+								student.studentPhoto="photo.jpg"
+								student.no_of_siblings=2
+								student.present_guardian="Father"
+								//student.present_address =new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala").save()
+								student.save(flush:true);
+	
+								father = Guardian.findByUsername(hssfRow.getCell(3).getStringCellValue())
+								 mother = Guardian.findByUsername(motherEmail)
+								String father_tags  = father.tags;
+								String mother_tags  = mother.tags;
+								student.setAsFather( father )
+								student.setAsMother( mother )
+								if(father_tags == null){
+									father_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
+								}else{
+									father_tags = father.tags+",\"s-"+student.studentId+"\""
+								}
+								Guardian.executeUpdate("Update Guardian set tags = '"+father_tags+"' where username ='"+father.username+"'")
+							
+								if(mother_tags == null){
+									father_tags = grade.gradetags +",\"G\",\"S-"+student.studentId+"\""
+								}else{
+									mother_tags = mother.tags+",\"s-"+student.studentId+"\""
+								}
+								Guardian.executeUpdate("Update Guardian set tags = '"+mother_tags+"' where username ='"+mother.username+"'")
+							
+								
+								
+								
+								
+								}
+						
+						}
+	
+					}
+	
+			//	}
+	
+	
+	
+	
+			}catch(Exception e){
+				println e.getCause();
+				println e.getMessage();
+	
+	
+			}
+			Map ob = new HashMap();
+			ob.putAt("datauploaded", "success");
+	
+			render ob as JSON
+	
+		
+	render true	
+		
+	}
 }
 
 

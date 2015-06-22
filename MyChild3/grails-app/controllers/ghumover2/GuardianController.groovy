@@ -5,6 +5,7 @@ import grails.rest.RestfulController
 import grails.plugin.springsecurity.annotation.Secured
 
 import java.text.SimpleDateFormat;
+import java.util.Set;
 
 @Secured(['ROLE_PARENT'])
 class GuardianController extends RestfulController
@@ -13,6 +14,9 @@ class GuardianController extends RestfulController
 	static responseFormats = ['json', 'xml']
 	def springSecurityService
 	User user
+	private static final String ROLE_TEACHER = 'ROLE_TEACHER'
+	private static final String ROLE_PARENT = 'ROLE_PARENT'
+	private static final String ROLE_ADMIN = 'ROLE_ADMIN'
 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 	GuardianController() {
 		super(Guardian)
@@ -153,7 +157,23 @@ class GuardianController extends RestfulController
 	  }
 
 
-
+def getStudentList(){
+	user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+	def email =[]
+	Teacher t = Teacher.findByUsername(user.username)
+	def grades=t.grades
+	t.grades.each {
+	it.students.each {
+		email <<it.father
+		email<<it.mother
+		
+		
+	}
+		
+	render email	
+	}
+	
+}
 
 
 	def getTeacherList()
@@ -161,12 +181,35 @@ class GuardianController extends RestfulController
 		     try {
 
 				 user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+				 	Set<Role> roles=user.getAuthorities()
+					 String role
+					 roles.each {
+						  role=it.authority
+					 }
+					 if(role.equalsIgnoreCase(ROLE_PARENT)){
 				 Student student = Student.findByStudentId(Long.parseLong(params.studentId))
 				 JSON.use('TeacherListForParent'){
 				 render student.grade.teachers as JSON
 				 }
+					 }else {
+					 
+					 def parents =[]
+					 Teacher t = Teacher.findByUsername(user.username)
+					 def grades=t.grades
+					 t.grades.each {
+					 it.students.each {
+						 parents <<it.father
+						 parents<<it.mother
+						 
+						 
+					 }
+					 }
+					 JSON.use('ParentListForTeacher'){
+						 render parents as JSON
+						 }
 
 			 }
+		     }
 			 catch (Exception e)
 			 {
 				 render e

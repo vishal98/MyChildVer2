@@ -2,6 +2,8 @@ package ghumover2
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+
+
 @Secured(['ROLE_TEACHER','ROLE_PARENT'])
 class TimeTableDetailsController {
 
@@ -151,6 +153,53 @@ class TimeTableDetailsController {
       }
   }
 
+
+
+      def saveTimeTable()
+      {
+          try{
+
+              Teacher teacher;
+              Grade grade = Grade.get(Integer.parseInt(params.gradeId))
+              String day = params.day
+              Subject subject;
+              int subjectId;
+              int teacherId;
+
+              def timetables = params.timetables
+
+
+              Subject interval = Subject.findOrSaveWhere(subjectName: "Interval");
+             // render interval as JSON
+              timetables.each{
+
+                  subjectId = Integer.parseInt(it.subject);
+                  teacherId = Integer.parseInt(it.teacherId)
+
+                  subject = (Subject.get(subjectId)) ? Subject.get(subjectId) : interval;
+
+                  teacher = (teacherId == 0)?  null : Teacher.get(teacherId);
+                  if(teacher)
+                  {
+                      new TimeTable(day: day , grade: grade ,teacher: teacher , subject: subject , startTime:it.start , endTime: it.end).save()
+                  }
+                  else {
+                      new TimeTable(day: day , grade: grade  , subject: subject , startTime:it.start , endTime: it.end).save()
+                  }
+
+              }
+               render "OK"
+
+
+
+          }
+          catch (Exception e)
+          {
+              render e
+
+          }
+
+      }
 
 
 

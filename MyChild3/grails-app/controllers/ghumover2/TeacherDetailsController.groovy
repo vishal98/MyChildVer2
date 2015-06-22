@@ -5,6 +5,7 @@ import grails.rest.RestfulController
 
 import java.text.SimpleDateFormat
 import java.util.List
+
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
@@ -18,7 +19,8 @@ class TeacherDetailsController extends RestfulController {
     User user
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     static allowedMethods = [sendMailToParents	: "POST"]
-
+	private static final String ROLE_TEACHER = 'ROLE_TEACHER'
+	
     TeacherDetailsController() {
         super(Teacher)
     }
@@ -357,8 +359,7 @@ class TeacherDetailsController extends RestfulController {
 
 
 
-
-    def addteacher() {
+    def addTeacher() {
         Map ob = new HashMap();
 
         try{
@@ -371,16 +372,19 @@ class TeacherDetailsController extends RestfulController {
                 userId =1
             else
                 userId = userId+1
-            t.school_id = Long.parseLong(params.school_id)
-            t.teacherName = "test1"
+           // t.school_id = Long.parseLong(params.school_id)
+			t.school_id = 1
+            t.teacherName = params.teacherName
             t.teacherPhoto ="test1"
-            t.teacherEmailId ="test1"
-            t.phoneNo ="test1"
-            t.username= params.username
+            t.teacherEmailId =params.teacherEmailId
+            t.phoneNo =params.phoneNo
+            t.username= params.teacherEmailId
             t.password= "123"
             t.teacherId = userId
             t.deviceToken = "fsdjhsdf"
             t.save(flush:true);
+			def rol=Role.findByAuthority(ROLE_TEACHER)
+			new UserRole(user: t, role: rol).save()
             ob.put("status", true)
             ob.put("message", "teacher created with id  "+t.teacherId)
         }catch(Exception e){
@@ -397,6 +401,9 @@ class TeacherDetailsController extends RestfulController {
 
 
     def addTeacherToDepartment() {
+		
+		
+		
         Map ob = new HashMap();
 
         try{
@@ -452,7 +459,47 @@ class TeacherDetailsController extends RestfulController {
 
     }
 
-    def addgrade() {
+	def addGradeClass() {
+		Map ob = new HashMap();
+		try{
+		println "------------------------------------ ${params.class_name}"
+		println "------------------------------------ ${params.section}"
+			int class_name = Integer.parseInt(params.class_name)
+			
+			School school =  School.get(1)
+	
+			//SchoolClass schoolClass =  SchoolClass.get(class_id)
+		//	School school =  School.get(school_id);
+			SchoolClass schoolClass = new SchoolClass()
+			schoolClass.className = params.class_name
+			schoolClass.school = school
+			schoolClass.classTags = school.tags +",\""+schoolClass.className+"\""
+			schoolClass.save(flush:true);
+			
+			Grade grade = new Grade();
+			grade.name=class_name
+			grade.section = params.section
+			
+			if(params.classTeacherId){
+			grade.classTeacherId=Long.parseLong(params.classTeacherId)
+			}
+
+			grade.gradetags = schoolClass.classTags +",\""+schoolClass.className+"-"+grade.section+"\""
+			grade.schoolClass =schoolClass
+			grade.save(flush:true);
+			ob.put("status", true)
+			ob.put("message", "section  added to class "+schoolClass.className )
+		}catch(Exception e){
+			ob.put("status", false)
+			ob.put("message", "failed due to "+e)
+		}
+		render ob as JSON
+
+
+
+	}
+	
+    def addGrade() {
         Map ob = new HashMap();
         try{
             Long class_id = Long.parseLong(params.class_id)
@@ -463,6 +510,8 @@ class TeacherDetailsController extends RestfulController {
 
             grade.gradetags = schoolClass.classTags +",\""+schoolClass.className+"-"+grade.section+"\""
             grade.schoolClass =schoolClass
+				println "------------------------------------ [${device_token}]"
+		println "------------------------------------ ${device_platform}"
             grade.save(flush:true);
             ob.put("status", true)
             ob.put("message", "section  added to class "+schoolClass.className )

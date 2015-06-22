@@ -4,17 +4,15 @@ class UrlMappings {
 			"/$controller/$action?/$id?(.$format)?"{
 				constraints {
 					// apply constraints here
-				}
+		}
 			}
 
 			"/"(view:"/index")
 			"500"(view:'/error')
-
 "/Parent/username/$username"{
 					controller = "parent"
 					action = "getParentDetails"
 			}
-
 
 			// TIME TABLE
 			"/app/timetable/$gradeId/$section"
@@ -100,17 +98,15 @@ class UrlMappings {
 					}
 
 			"/app/teacher/homework/save"(controller: "Homework", action: "saveHomework" ,parseRequest: true)
-
-
-
-
-
+			
+			
 
 
 			//TEACHER
 
+		
 
-			"/Teacher/studentList/$gradeId"{
+	"/Teacher/studentList/$gradeId"{
 					controller = "teacherDetails"
 					action = "getStudentList"
 			}
@@ -130,19 +126,21 @@ class UrlMappings {
 			}
 
 
-			"/app/teacher/getAllSubjectsInAllGrades"
+		
+	"/app/teacher/getAllSubjectsInAllGrades"
 					{
 						controller = "teacherDetails"
 						action = "getAllSubjectsInAllGrades"
 					}
 
-			"/app/teacher/sendMail/$grade/$section"(controller: "teacher", action: "sendMailToParents" ,parseRequest: true)
+	
 
 
 
 
-
-
+		"/app/teacher/sendMail/$grade/$section"(controller: "teacherDetails", action: "sendMailToParents" ,parseRequest: true)
+		"/app/admin/addTeacher"(controller: "teacherDetails", action: "addTeacher" ,parseRequest: true)
+		
 
 			//apis for conversations
 
@@ -168,7 +166,6 @@ class UrlMappings {
 							 controller = "conversation"
 							 action = "getUserConversations"
 						 }
-
 
 
 				"/app/conversations/getFrom/$userId"
@@ -199,10 +196,6 @@ class UrlMappings {
 
 			}
 
-
-
-
-
 		   //Get user list
 
 			"/app/parent/getUsers/$studentId"
@@ -214,9 +207,12 @@ class UrlMappings {
 
 					
 					
-					//Attendance
+				
+	//Attendance
 					
-							"/app/attendance/grade/$grade/$section/$date"
+						
+
+	"/app/attendance/grade/$grade/$section/$date"
 									{
 					
 										controller = "attendance"
@@ -250,7 +246,30 @@ class UrlMappings {
 
 			
 			
-			"/app/teacher/timetable/"
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	"/app/teacher/timetable/"
 			{
 				controller = "TimeTableDetails"
 				action = "getTeacherWeekTimetable"
@@ -274,6 +293,13 @@ class UrlMappings {
 			  }
 */
 
+			 
+			 "/app/get/students/$grade/$section"
+					 {
+						 controller = "StudentDetails"
+						 action = "getStudentsOfClass"
+	  
+		 }
 
 			//mail pendings
 
@@ -334,12 +360,16 @@ class UrlMappings {
 			"/app/admin/grades"(resources:"grade" ,  includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
 
 			"/app/admin/teachers"(resources:"teacher" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/students"(resources:"student" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/events"(resources:"event" , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
-
-			"/app/admin/guardian"(resources:"guardian"  , includes:['index', 'show' , 'save' , 'update' , 'delete','create','patch'])
+			"/app/admin/students"(resources: "student", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+			"/app/admin/addresses"(resources: "Address", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/events"(resources: "event", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/guardian"(resources: "guardian", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
+				   "/app/admin/departments"(resources: "department", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+			
 
 
 
@@ -409,69 +439,11 @@ class UrlMappings {
 											action = "readImage"
 					
 										}
-                           
-										
-										"/app/exams/result/$studentId"
-										{
-											controller = "ExamDetails"
-											action = "studentResult"
-						
-										}
-										
-										"/app/uploadData"{
-											controller = "mydata"
-											action = "test"
-									}
-										
-										"/app/addSchool"{
-											controller = "School"
-											action = "addSchool"
-									}
-										"/app/uploadImageM"{
-											controller = "fileManagerRead"
-											action = "read"
-									}
-										
-
-										"/app/uploadImage"{
-											 controller = "parent"
-											action = "read"
-									}
-										"/app/testSMS"{
-											controller = "fileManagerRead"
-										   action = "testSMS"
-								   }
-										
-										"/app/registerForpush"{
-											controller = "mydata"
-											action = "registerForpushApp"
-									}
-										
-										"/app/exams/teacherExamsSchedule"
-										{
-											controller = "ExamDetails"
-											action = "teacherExamsSchedule"
-						
-						
-										}
-										
-	
-		
-     	"/app/testEmailsend"{
-											controller = "mydata"
-											action = "upload2"
-									}
-		 
-		 "/app/notice"{
-			 controller = "noticeDetails"
-			 action = "getnotices"
-	 }
-		
-		
+             
 		
 
 "/app/timetables"(resources: "TimeTable", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
-
+re
 
 "/app/exams/newExam"(controller: "ExamDetails", action: "newExam", parseRequest: true)
 
@@ -518,6 +490,9 @@ class UrlMappings {
 			controller = "TimeTableDetails"
 			action = "getclassTimetableList"
 		}
+		
+		 "/app/admin/addGradeClass"(controller: "TeacherDetails", action: "addGradeClass" ,parseRequest: true)
+		
 
  "/app/admin/GradeTeacherSubject"(resources: "GradeTeacherSubject", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 
@@ -535,6 +510,11 @@ class UrlMappings {
 "/app/admin/FeesTypeInterval"(resources: "FeesTypeInterval", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 "/app/admin/FeeMasterSchedule"(resources: "FeeMasterSchedule", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 "/app/admin/FeePaid"(resources: "FeePaid", includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+"/app/teacherEval/upload"(controller: "TeacherDetails" , action: "teacherEvaluationUpload" , parseRequest: true)
+"/app/student/ExcelUpload"(controller: "Mydata" , action: "studentExcelData" ,parseRequest: true)
+"/app/student/addStudent"(controller: "Mydata" , action: "addStudent" ,parseRequest: false)
+
+
 
 "/app/exams/teacher/$teacherId"
 		{
@@ -542,6 +522,13 @@ class UrlMappings {
 			action = "teacherExams"
 
 			}
+		
+		"/app/exams/teacher"
+ 	{
+					controller = "ExamDetails"
+ 	action = "teacherExams"
+ 
+				}
 		
 		"/app/conversations/get/v1"
 		{
@@ -551,15 +538,82 @@ class UrlMappings {
 		}
 
 
-
 "/app/teacher/timetable/week/v1"
 		{
 			controller = "TeacherDetails"
 			action = "getTeacherWeekTimetableVer1"
 		}
 
+              
+										
+										"/app/exams/result/$studentId"
+										{
+											controller = "ExamDetails"
+											action = "studentResult"
+						
+										}	
+										
+									
+										
+										"/app/uploadData"(controller: "mydata", action: "test" ,parseRequest: true)
+										
+										"/app/addSchool"{
+											controller = "School"
+											action = "addSchool"
+									}
+										"/app/uploadImageM"{
+											controller = "fileManagerRead"
+											action = "read"
+									}
+										
+
+										"/app/uploadImage"{
+											 controller = "parent"
+											action = "read"
+									}
+										"/app/testSMS"{
+											controller = "fileManagerRead"
+										   action = "testSMS"
+								   }
+										
+									
+										
+										"/app/exams/teacherExamsSchedule"
+										{
+											controller = "ExamDetails"
+											action = "teacherExamsSchedule"
+						
+						
+										}
+										
+	
+		
+     	"/app/testEmailsend"{
+											controller = "mydata"
+											action = "upload2"
+									}
+		 
+		 "/app/notice"{
+			 controller = "noticeDetails"
+			 action = "getnotices"
+	 }
+		 
+		 "/app/registerForpush"(controller: "mydata", action: "registerForpushApp" ,parseRequest: true)
+		
+		
+		/* "/app/registerForpush"{
+			 controller = "mydata"
+			 action = "registerForpushApp"
+	 }
+*/
 
 
+			"/app/admin/notice"(resources: "notice",  includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
+
+			"/app/admin/saveEvent"(controller: "EventDetails" , action: "saveEvent" , parseRequest: true)
+			"/app/admin/userRole"(controller: "UserRoleDetails" , action: "addRole" , parseRequest: true)
+
+			"/app/admin/timetable/save"(controller: "TimeTableDetails" , action: "saveTimeTable" , parseRequest: true)
 
 
 		

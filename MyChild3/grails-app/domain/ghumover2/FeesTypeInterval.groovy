@@ -5,9 +5,11 @@ import grails.rest.Resource
 @Resource(formats=['json', 'xml'])
 class FeesTypeInterval {
 
-    Integer feesTypeInterval_Id
+    Integer feesTypeIntervalId
     String feesTypeInterval
-    static mapping = { id generator: 'increment',name: 'feesTypeInterval_Id'}
+	Date scheduledDate
+	Long school_id;
+    static mapping = { id generator: 'increment',name: 'feesTypeIntervalId'}
     static constraints = {
     }
 }

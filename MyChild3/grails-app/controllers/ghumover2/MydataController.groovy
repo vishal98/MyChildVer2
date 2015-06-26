@@ -59,6 +59,8 @@ class MydataController {
 		//render (view:'/')
 	}
 
+	
+	
 
 
 	def test() {
@@ -419,7 +421,7 @@ class MydataController {
 							student.studentPhoto="photo.jpg"
 							student.no_of_siblings=2
 							student.present_guardian="Father"
-							student.present_address =new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala").save()
+							//student.present_address =new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala").save()
 							student.save(flush:true);
 
 							father = Guardian.findByUsername(hssfRow.getCell(3).getStringCellValue())
@@ -492,7 +494,7 @@ class MydataController {
 							student.studentPhoto="photo.jpg"
 							student.no_of_siblings=2
 							student.present_guardian="Father"
-							student.present_address =new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala").save()
+							//student.present_address =new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala").save()
 							student.modeOfTransport=hssfRow.getCell(8).getStringCellValue();
 							student.bloodGroup=hssfRow.getCell(10).getStringCellValue();
 							student.feeType=hssfRow.getCell(9).getStringCellValue();

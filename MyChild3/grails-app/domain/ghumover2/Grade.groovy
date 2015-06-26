@@ -77,6 +77,14 @@ class Grade {
           new GradeTeacherSubject(grade: this , teacher:teacher , subject:subject).save()
 
       }
+	  
+	  def getSubjectAndTeacher(Subject subject , Teacher teacher)
+	  {
+
+		  return GradeTeacherSubject.findAllByGrade(this)
+
+	  }
+
 
 
      def getAttendance(String date)

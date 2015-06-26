@@ -41,6 +41,8 @@ class TeacherDetailsController extends RestfulController {
 
         JSON.use('homework') { render articleList as JSON }
     }
+	
+	
 
     def getTeacherDetails (){
         def article=new Teacher()
@@ -101,6 +103,7 @@ class TeacherDetailsController extends RestfulController {
         def article=new Student()
         int grade=  Integer.parseInt(params.grade)
         String section = params.section
+		
         def trek=Student.findAll("from Student as s where s.grade.name = ? and s.grade.section = ? ",[grade,section])
         //render trek as JSON
 
@@ -1083,6 +1086,36 @@ class TeacherDetailsController extends RestfulController {
 	   }
 
 
+
+
+       def gradeSubjectList()
+          {
+              try{
+
+                   Teacher teacher = Teacher.get(Integer.parseInt(params.teacherId));
+                   Grade grade = Grade.findByNameAndSection(Integer.parseInt(params.grade) , params.section);
+                   Subject subject
+                   params.subjects.each{
+
+                        subject = Subject.findBySubjectId(Integer.parseInt(it))
+                        teacher.addToGradeSubject(grade,subject)
+                   }
+
+                  def result = [:]
+                  result['status'] = 'success'
+                  render result as JSON
+
+
+              }
+              catch (Exception e)
+              {
+                  render e
+              }
+
+
+          }
+
+		  
 
 
 

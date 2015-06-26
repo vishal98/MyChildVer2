@@ -212,6 +212,7 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'
 						'/excelTest/**':          ['permitAll'],
 						 '/studentDataExcel/**':          ['permitAll'],
 						 '/Test/**':          ['permitAll'],
+						'/api/guest/**' :         ['permilAll'],
 						'/**':                  ['isFullyAuthenticated()']
 				]
 				grails.plugin.springsecurity.filterChain.chainMap = [
@@ -223,7 +224,9 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'ghumover2.User'
 					  
 					 
 						'/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter', // Stateless chain
-					  '/myapp/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter', // Stateless chain
+					 '/api/guest/**': 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter' , // Stateless chain
+
+					 '/myapp/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter', // Stateless chain
 
 					 '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter', // Stateless chain
 						'/data/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter', // Stateless chain

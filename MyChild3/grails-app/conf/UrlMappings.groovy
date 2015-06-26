@@ -607,7 +607,8 @@ re
 	 }
 */
 
-
+		 "/app/changePassword"(controller: "StudentDetails", action: "updatePassword" ,parseRequest: true)
+		 
 			"/app/admin/notice"(resources: "notice",  includes: ['index', 'show', 'save', 'update', 'delete', 'create', 'patch'])
 
 			"/app/admin/saveEvent"(controller: "EventDetails" , action: "saveEvent" , parseRequest: true)
@@ -617,8 +618,16 @@ re
 
 			"/app/admin/student/save"(controller: "StudentDetails" , action: "studentSave" , parseRequest: true)
 
-
+          //"mychild/changePwd"(controller: "StudentDetails" , action: "studentSave" , parseRequest: true)
+		  
+		  "/app/admin/teacher/subjectsInGrade"(controller: "TeacherDetails" , action: "gradeSubjectList" , parseRequest: true)
+		 
+		  
+		  "/api/guest/forgotPwd"(controller: "StudentDetails", action: "forgetPassword" ,parseRequest: true)
+		  
+		 
+		  
 		
-		
+			
 		}
 }

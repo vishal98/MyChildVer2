@@ -23,14 +23,25 @@ environments {
 		url = "jdbc:mysql://localhost/mychild"
         	username = "root"
 			password = "admin"
+			properties {
+				validationQuery = "SELECT 1"
+				testOnBorrow = true
+				testOnReturn = true
+				testWhileIdle = true
+				timeBetweenEvictionRunsMillis = 1800000
+				numTestsPerEvictionRun = 3
+				minEvictableIdleTimeMillis = 1800000
+				jdbcInterceptors = "ConnectionState"
+				  defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_UNCOMMITTED
+				
   }
-  }
+  }}
   test {
     dataSource {
       username = "gimmedev"
       password = "gimmepwd"
       pooled = true
-      dbCreate = "create"
+      dbCreate = "create-drop"
       driverClassName = "com.mysql.jdbc.Driver"
       //  url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
        //rahul dev url="jdbc:mysql://aaammt9ltjlzk9.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimmedev&password=gimmedev"
@@ -48,7 +59,7 @@ environments {
          numTestsPerEvictionRun = 3
          minEvictableIdleTimeMillis = 1800000
          jdbcInterceptors = "ConnectionState"
-           defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
+           defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_UNCOMMITTED
          
          }
     }

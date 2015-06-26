@@ -300,7 +300,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
  
             def father , mother , local_guardian , s1 , s2 , s3
            // FIRST STUDENT DETAILS
-            s1 =  new Student(grade:cl5A  , registerNumber: "ST100" ,studentName: "Rohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Sample Address" , landmark: "Cochin" , place: "Kerala" ).save()  ).save()
+            s1 =  new Student(grade:cl5A  , registerNumber: "ST100" ,studentName: "Rohith" , gender: "Male" , dob:"12-12-2000" , studentPhoto: "photo.jpg", no_of_siblings: 2 , present_guardian: "Father" , present_address: new Address(address: "Test Address" , landmark: "Karnatka" , place: "Kerala" ).save()  ).save()
             s1.setAsFather( new Guardian(name: "Ravi" , username: "ravi@test.com" , password: "123" , educational_qualification: "MBA" , designation: "Manager" , profession: "Private Employee" , emailId: "father@user.com" , officeNumber: "04868699000" , mobileNumber: "98470000" ).save() )
             s1.setAsMother( new Guardian(name:"Raani" , username: "raani@test.com" , password: "123" , educational_qualification: "Bcom" , designation: "College Professor" , profession: "Lecturer" , emailId: "mother@user.com" ,officeNumber: "0489898989" , mobileNumber: "94466797979"  ).save() )
 
@@ -871,7 +871,23 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 							gradeName : grade.name.toString(),
 							section : grade.section ,
 			                classTeacher : (grade.classTeacherId) ?  Teacher.findById(grade.classTeacherId)?.teacherName  : 'None' ,
-			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[studentId: std.studentId.toString(), studentName: std.studentName,feeType:std.feeType] } : []]
+			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[
+								studentId: std.studentId.toString(), 
+								registerNumber : std.registerNumber,
+								studentName : std.studentName ,
+								gender : std.gender ,
+								present_address : std.present_address ,
+								no_of_siblings : std.no_of_siblings.toString() ,
+								dob : std.dob ,
+								studentPhoto : std.studentPhoto ,
+								present_guardian : std.present_guardian ,
+								grade : std.grade?.name.toString() ,
+								section : std.grade?.section ,
+								 modeOfTransport:std.modeOfTransport,
+								 bloodGroup:std.bloodGroup,
+								 medicalCondition:std.medicalCondition,
+								 feeType:std.feeType,
+								] } : []]
 
 						}
 

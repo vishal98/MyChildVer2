@@ -8,14 +8,76 @@ import groovy.json.JsonSlurper
 
 class StudentDetailsController extends RestfulController  {
     static responseFormats = ['json', 'xml']
+	def springSecurityService
     StudentDetailsController() {
         super(Student)
     }
 
-	
+	static allowedMethods = [forgetPassword: "POST"]
 	private static final String ROLE_TEACHER = 'ROLE_TEACHER'
 	private static final String ROLE_PARENT = 'ROLE_PARENT'
 	private static final String ROLE_ADMIN = 'ROLE_ADMIN'
+	
+	def forgetPassowrd(){
+		String emailId = params.emailId
+	//	String newPassword = params.password_new
+		def message
+		User user=User.findByUsername(emailId)
+		if(user){
+			user.password="1234"
+			user.save()
+			//sendMail
+			message="password sent to registered mail id"
+		}else{
+		
+		message="email id is not valid"
+		}
+		
+		render message
+	}
+	
+	
+	def updatePassword() {
+		def result = [:]
+		
+		def message ="error"
+		
+		println "test this {{params.password}}"
+		
+		String password = params.password
+		String newPassword = params.password_new
+		String newPassword2 = params.password_new2
+		
+		if (!password || !newPassword || !newPassword2 || newPassword != newPassword2) {
+			message = 'Please enter your current password and a valid new password'
+		
+			result['status'] = 'error'
+			result['message']=message
+		   render result
+		   
+		}
+		
+	
+	User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
+	//	if (!springSecurityService.passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
+		//   message = 'Current password is incorrect'
+		   
+		  // render message
+		//}
+	 
+		//if (passwordEncoder.isPasswordValid(user.password, newPassword, null /*salt*/)) {
+		  // message = 'Please choose a different password from your current one'
+		  // render message
+	//	}
+	 
+		user.password = newPassword
+		user.passwordExpired = false
+		user.save() // if you have password constraints check them here
+	     message="password changed successfully"
+		result['status'] = 'error'
+			result['message']=message
+		   render result
+	 }
 
     def getStudentsOfClass()
     {

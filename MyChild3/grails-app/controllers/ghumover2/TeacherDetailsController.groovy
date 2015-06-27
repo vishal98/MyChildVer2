@@ -24,6 +24,26 @@ class TeacherDetailsController extends RestfulController {
     TeacherDetailsController() {
         super(Teacher)
     }
+	
+	def forgetPassowrd(){
+		String emailId = params.emailId
+	//	String newPassword = params.password_new
+		println "test this {{emailId}}"
+		def message
+		User user=User.findByUsername(emailId)
+		if(user){
+			user.password="1234"
+			user.save()
+			//sendMail
+			message="password sent to registered mail id"
+		}else{
+		
+		message="email id is not valid"
+		}
+		
+		render message 
+	}
+	
     def getGrade (){
         def article=new Grade()
         def articleList=article.list()

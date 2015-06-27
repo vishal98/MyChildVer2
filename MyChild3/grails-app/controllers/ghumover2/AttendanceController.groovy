@@ -121,20 +121,15 @@ class AttendanceController {
 					//  println "------------------------------------ ${ teacherGrades[0]}"
 					   
 					
-					 
+			
 					  
 					 
-					 
-						Attendance   attendance =Grade.findByGradeId(grd.get(0))
-						attendance.discard()
-						attendance.save(flush:true)
-					  
-					  
+					def   attendance= Grade.findByGradeId(grd.get(0)).getAttendance(date)
 					  if(attendance){
 					  JSON.use('absentees'){
 					
-					
-						  render attendance
+						 def attendanceM =[]
+						  render attendanceM<<attendance
 					  }
 					  }else {
 					  JSON.use('notAttendance'){
@@ -176,15 +171,10 @@ class AttendanceController {
 			 String date = params.date
 			 int gradeId = Integer.parseInt(params.grade)
 			 String section = params.section
-			 def grd= Grade.findOrSaveBySection(gradeId,section)
-			// def attendance=grd.getAttendance(date)
-			 
-			 Attendance attendance = new Attendance(grade: grd , date:date)
-			 attendance.save(flush:true)
-			 
+			 def attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date)
 			 if(attendance){
 			 JSON.use('absentees'){
-			//	attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date) as JSON
+				attendance= Grade.findByNameAndSection(gradeId,section).getAttendance(date) as JSON
 				
 				 render attendance
 			 }

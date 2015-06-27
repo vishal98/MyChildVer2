@@ -622,8 +622,10 @@ re
 		  
 		  "/app/admin/teacher/subjectsInGrade"(controller: "TeacherDetails" , action: "gradeSubjectList" , parseRequest: true)
 		 
+		  "/api/guest/forgotPwd"(controller: "TeacherDetails", action: "forgetPassword" ,parseRequest: true)
 		  
-		  "/api/guest/forgotPwd"(controller: "StudentDetails", action: "forgetPassword" ,parseRequest: true)
+		  
+		  "/api/guest/fPwd"(controller: "StudentDetails", action: "forgetPassword" ,parseRequest: true)
 		  
 		 
 		  

@@ -13,7 +13,7 @@ class StudentDetailsController extends RestfulController  {
         super(Student)
     }
 
-	static allowedMethods = [forgetPassword: "POST"]
+	//static allowedMethods = [forgetPassword: "POST"]
 	private static final String ROLE_TEACHER = 'ROLE_TEACHER'
 	private static final String ROLE_PARENT = 'ROLE_PARENT'
 	private static final String ROLE_ADMIN = 'ROLE_ADMIN'
@@ -21,6 +21,7 @@ class StudentDetailsController extends RestfulController  {
 	def forgetPassowrd(){
 		String emailId = params.emailId
 	//	String newPassword = params.password_new
+		println "test this {{emailId}}"
 		def message
 		User user=User.findByUsername(emailId)
 		if(user){
@@ -33,7 +34,7 @@ class StudentDetailsController extends RestfulController  {
 		message="email id is not valid"
 		}
 		
-		render message
+		render message as JSON
 	}
 	
 	
@@ -53,20 +54,20 @@ class StudentDetailsController extends RestfulController  {
 		
 			result['status'] = 'error'
 			result['message']=message
-		   render result
+		    render result as JSON
 		   
 		}
 		
 	
 	User user = springSecurityService.isLoggedIn() ? springSecurityService.loadCurrentUser() : null
-	//	if (!springSecurityService.passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
+		//if (!springSecurityService.passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
 		//   message = 'Current password is incorrect'
 		   
-		  // render message
-		//}
+		//   render message
+	//	}
 	 
-		//if (passwordEncoder.isPasswordValid(user.password, newPassword, null /*salt*/)) {
-		  // message = 'Please choose a different password from your current one'
+	//	if (passwordEncoder.isPasswordValid(user.password, newPassword, null /*salt*/)) {
+		//   message = 'Please choose a different password from your current one'
 		  // render message
 	//	}
 	 
@@ -74,9 +75,9 @@ class StudentDetailsController extends RestfulController  {
 		user.passwordExpired = false
 		user.save() // if you have password constraints check them here
 	     message="password changed successfully"
-		result['status'] = 'error'
+		result['status'] = 'success'
 			result['message']=message
-		   render result
+		   render result as JSON
 	 }
 
     def getStudentsOfClass()

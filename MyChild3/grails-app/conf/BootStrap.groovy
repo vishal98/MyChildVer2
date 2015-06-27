@@ -871,6 +871,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 							gradeName : grade.name.toString(),
 							section : grade.section ,
 			                classTeacher : (grade.classTeacherId) ?  Teacher.findById(grade.classTeacherId)?.teacherName  : 'None' ,
+							classTeacherId: (grade.classTeacherId)? (grade.classTeacherId).toString() : null ,
 			                student : (grade.students) ?  grade.students?.collect{ Student std -> 	[
 								studentId: std.studentId.toString(), 
 								registerNumber : std.registerNumber,
@@ -1787,6 +1788,8 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 						  
 							  }
 							
+							
+							
 							JSON.registerObjectMarshaller(Notice) {
 								Notice notice ->
 						  
@@ -1806,6 +1809,7 @@ CalendarDate.executeUpdate("update CalendarDate c set c.isHoliday = true , c.hol
 							]
 						  
 				}
+							
 				
 		
 				JSON.registerObjectMarshaller( FileManager  )
